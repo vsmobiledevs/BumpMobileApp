@@ -1,7 +1,7 @@
 {
   "plugins": [
     [
-      "module-resolver",
+      "babel-plugin-module-resolver",
       {
         "cwd": "babelrc",
         "root": ["./src"],
