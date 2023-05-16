@@ -1,85 +1,95 @@
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import React, {useRef} from 'react';
 import {
-  Image,
-  ScrollView,
   StyleSheet,
   Text,
   View,
+  Image,
+  ImageBackground,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
-import React, {useRef} from 'react';
 import {
   appImages,
   WP,
   HP,
-  loginFormFields,
-  LoginVS,
+  SignupVS,
+  signupFormFields,
   size,
-  colors,
   appIcons,
+  colors,
 } from '../../shared/exporter';
-import {useNavigation} from '@react-navigation/native';
 import {AppButton, AppInput} from '../../components';
 import {Formik} from 'formik';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {useNavigation} from '@react-navigation/native';
 
-const Login = () => {
+const Signup = () => {
   const formikRef = useRef();
   const navigation = useNavigation();
 
-  const handleLogin = values => {};
+  const handleSignup = values => {};
+
   return (
     <ScrollView style={styles.main}>
-      <Image source={appImages.bump} style={styles.imageStyle} />
-      <Image source={appImages.splash} style={styles.logo} />
+      <ImageBackground
+        source={appImages.backgroundSignup}
+        style={styles.imageStyle}>
+        <Image source={appImages.splash} style={styles.logo} />
+      </ImageBackground>
       <Formik
         innerRef={formikRef}
-        initialValues={loginFormFields}
+        initialValues={signupFormFields}
         onSubmit={values => {
-          handleLogin(values);
+          handleSignup(values);
         }}
-        validationSchema={LoginVS}>
+        validationSchema={SignupVS}>
         {({values, errors, touched, handleSubmit, handleChange}) => (
           <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
             <AppInput
+              title={'Name'}
+              value={values.name}
+              onChangeText={handleChange('name')}
+              placeholder={'Enter Name'}
+              errorMessage={errors.name}
+              touched={touched.name}
+            />
+            <AppInput
+              title={'Email'}
               value={values.email}
               onChangeText={handleChange('email')}
               placeholder={'Enter email'}
               keyboardType="email-address"
-              leftIcon={appIcons.email}
               errorMessage={errors.email}
               touched={touched.email}
             />
             <AppInput
+              title={'Password'}
               value={values.password}
               onChangeText={handleChange('password')}
               placeholder={'Enter Password'}
-              leftIcon={appIcons.password}
+              secureTextEntry
               errorMessage={errors.password}
               touched={touched.password}
-              secureTextEntry
             />
-            <TouchableOpacity
-              style={styles.forgotPasswordContainer}
-              onPress={() => navigation.navigate('ForgotPassword')}>
-              <Text>Forgot Password ?</Text>
-            </TouchableOpacity>
-            <AppButton title={'Sign in'} onPress={() => handleSubmit()} />
+            <AppButton title={'Sign Up'} onPress={() => handleSubmit()} />
             <Text style={styles.descTxtStyle}>
               By continuing you accept our{' '}
-              <Text
-              // onPress={() => navigation.navigate('TermsConditions')}
-              >
+              <Text onPress={() => navigation.navigate('TermsConditions')}>
                 Privacy Policy
               </Text>
               and{' '}
-              <Text
-              // onPress={() => navigation.navigate('PrivacyPolicy')}
-              >
+              <Text onPress={() => navigation.navigate('PrivacyPolicy')}>
                 Term of Use{' '}
               </Text>
             </Text>
+            <View style={styles.orView}>
+              <View style={styles.barView}></View>
+              <Text style={styles.orTxt}>OR</Text>
+              <View style={styles.barView}></View>
+            </View>
 
-            <Text style={styles.txtSigninWith}>Sign In with</Text>
+            <Text style={styles.txtSigninWith}>Sign Up with</Text>
+
             <View style={styles.otherSigninView}>
               <TouchableOpacity>
                 <Image
@@ -111,10 +121,10 @@ const Login = () => {
               </TouchableOpacity>
             </View>
             <View style={styles.createAccountView}>
-              <Text style={styles.txtAccount}>Don’t have an account ? </Text>
-              <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+              <Text style={styles.txtAccount}>Already have an account? </Text>
+              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
                 <Text style={[styles.txtAccount, {color: colors.P3}]}>
-                  Create Account
+                  Login
                 </Text>
               </TouchableOpacity>
             </View>
@@ -125,7 +135,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
 
 const styles = StyleSheet.create({
   main: {
@@ -134,7 +144,7 @@ const styles = StyleSheet.create({
   },
   imageStyle: {
     width: WP(100),
-    height: HP(30),
+    height: HP(25),
   },
   logo: {
     width: WP('42'),
@@ -142,6 +152,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     margin: WP(5),
+    marginTop: WP(28),
   },
   descTxtStyle: {
     alignItems: 'center',
@@ -149,12 +160,11 @@ const styles = StyleSheet.create({
     marginHorizontal: WP(10),
     alignSelf: 'center',
   },
-
   txtSigninWith: {
     fontSize: size.normal,
     fontWeight: '300',
     alignSelf: 'center',
-    marginTop: WP(15),
+    marginTop: WP(10),
   },
   otherSigninView: {
     width: WP(45),
@@ -162,6 +172,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginVertical: WP(3),
     flexDirection: 'row',
+    marginTop: WP(5),
   },
   iconStyle: {
     width: WP(10),
@@ -169,14 +180,28 @@ const styles = StyleSheet.create({
   },
   txtAccount: {
     fontSize: size.xxsmall,
+    color: colors.g20,
   },
   createAccountView: {
     flexDirection: 'row',
     alignSelf: 'center',
     marginVertical: WP(5),
   },
-  forgotPasswordContainer: {
-    marginHorizontal: WP(10),
-    alignSelf: 'flex-end',
+  orView: {
+    marginHorizontal: WP(6),
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: WP(8),
+  },
+  barView: {
+    width: WP(35),
+    height: 1,
+    backgroundColor: colors.g19,
+    marginHorizontal: WP(3),
+  },
+  orTxt: {
+    color: colors.g19,
+    fontSize: size.xxlarge,
   },
 });
