@@ -78,7 +78,7 @@ const Login = () => {
             <AppButton
               title={'Sign in'}
               touchableOpacity={{
-                onPress: () => handleSubmit(),
+                onPress: () => navigation.navigate('BottomTabScreen'),
                 disabled: false,
               }}
             />
