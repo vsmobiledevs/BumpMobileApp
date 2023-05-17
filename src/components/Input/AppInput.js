@@ -3,18 +3,7 @@ import React from 'react';
 import {WP, colors, size} from '../../shared/exporter';
 import LinearGradient from 'react-native-linear-gradient';
 
-const AppInput = ({
-  value,
-  placeholder,
-  onChangeText,
-  keyboardType,
-  inputStyle,
-  leftIcon,
-  secureTextEntry,
-  title,
-  errorMessage,
-  touched,
-}) => {
+const AppInput = ({leftIcon, title, errorMessage, touched, textInPutProps}) => {
   return (
     <View>
       {title && <Text style={styles.titleStyle}>{title}</Text>}
@@ -27,12 +16,8 @@ const AppInput = ({
           />
         )}
         <TextInput
-          value={value}
-          placeholder={placeholder}
-          style={[styles.inputStyle, {...inputStyle}]}
-          onChangeText={onChangeText}
-          keyboardType={keyboardType}
-          secureTextEntry={secureTextEntry}
+          {...textInPutProps}
+          style={[styles.inputStyle, {...textInPutProps.style}]}
           errorMessage={touched && errorMessage}
         />
       </View>

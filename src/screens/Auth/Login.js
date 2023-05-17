@@ -42,22 +42,30 @@ const Login = () => {
         {({values, errors, touched, handleSubmit, handleChange}) => (
           <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
             <AppInput
-              value={values.email}
-              onChangeText={handleChange('email')}
-              placeholder={'Enter email'}
-              keyboardType="email-address"
+              textInPutProps={{
+                value: values.email,
+                onChangeText: handleChange('email'),
+                placeholder: 'Enter email',
+                keyboardType: 'email-address',
+                placeholderTextColor: colors.b4,
+                style: {color: colors.b1},
+              }}
               leftIcon={appIcons.email}
               errorMessage={errors.email}
               touched={touched.email}
             />
             <AppInput
-              value={values.password}
-              onChangeText={handleChange('password')}
-              placeholder={'Enter Password'}
+              textInPutProps={{
+                value: values.password,
+                onChangeText: handleChange('password'),
+                placeholder: 'Enter Password',
+                placeholderTextColor: colors.b4,
+                style: {color: colors.b1},
+                secureTextEntry: true,
+              }}
               leftIcon={appIcons.password}
               errorMessage={errors.password}
               touched={touched.password}
-              secureTextEntry
             />
             <TouchableOpacity
               style={styles.forgotPasswordContainer}
