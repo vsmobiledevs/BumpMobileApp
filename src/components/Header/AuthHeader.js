@@ -2,13 +2,14 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {appIcons, colors, family, size, WP} from '../../shared/exporter';
 
-const AuthHeader = ({onArrowPress, heading, detail}) => {
+const AuthHeader = ({onArrowPress, heading, detail, image}) => {
   return (
     <View>
       <TouchableOpacity
         onPress={onArrowPress}
         style={styles.backArrowContainer}>
         <Image
+          {...image}
           source={appIcons.backArrow}
           style={styles.iconStyle}
           resizeMode="contain"

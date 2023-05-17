@@ -17,6 +17,7 @@ import {
   size,
   colors,
   appIcons,
+  family,
 } from '../../shared/exporter';
 import {useNavigation} from '@react-navigation/native';
 import {AppButton, AppInput} from '../../components';
@@ -61,9 +62,18 @@ const Login = () => {
             <TouchableOpacity
               style={styles.forgotPasswordContainer}
               onPress={() => navigation.navigate('ForgotPassword')}>
-              <Text>Forgot Password ?</Text>
+              <Text style={{fontFamily: family.Roboto_Bold}}>
+                Forgot Password ?
+              </Text>
             </TouchableOpacity>
-            <AppButton title={'Sign in'} onPress={() => handleSubmit()} />
+            <AppButton
+              title={'Sign in'}
+              touchableOpacity={{
+                onPress: () => handleSubmit(),
+                disabled: false,
+                style: {backgroundColor: 'red'},
+              }}
+            />
             <Text style={styles.descTxtStyle}>
               By continuing you accept our{' '}
               <Text

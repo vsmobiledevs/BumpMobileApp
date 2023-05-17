@@ -6,18 +6,21 @@ import {colors, family, size, WP} from '../../shared/exporter';
 const AppButton = ({
   title,
   buttonStyle,
-  onPress,
   txtStyle,
   buttonContainer,
+  touchableOpacity,
+  text,
 }) => {
   return (
     <TouchableOpacity
-      style={[styles.buttonContainer, {...buttonContainer}]}
-      onPress={onPress}>
+      {...touchableOpacity}
+      style={[styles.buttonContainer, {...buttonContainer}]}>
       <LinearGradient
         colors={[colors.P1, colors.P2]}
         style={[styles.buttonStyle, {...buttonStyle}]}>
-        <Text style={[styles.txtStyle, {...txtStyle}]}>{title}</Text>
+        <Text style={[styles.txtStyle, {...txtStyle}]} {...text}>
+          {title}
+        </Text>
       </LinearGradient>
     </TouchableOpacity>
   );
