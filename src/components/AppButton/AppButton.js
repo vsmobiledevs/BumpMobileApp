@@ -44,5 +44,6 @@ const styles = StyleSheet.create({
   txtStyle: {
     color: colors.white,
     fontSize: size.small,
+    fontFamily: family.Roboto_Regular,
   },
 });

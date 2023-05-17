@@ -22,11 +22,14 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {AppButton, AppInput} from '../../components';
 import {Formik} from 'formik';
+import {icons} from '../../assets/icons';
+import Email from '../../assets/icons/email.svg';
 
 const Login = () => {
   const formikRef = useRef();
   const navigation = useNavigation();
 
+  console.log(<Email />);
   const handleLogin = values => {};
   return (
     <ScrollView style={styles.main}>
@@ -50,7 +53,7 @@ const Login = () => {
                 placeholderTextColor: colors.b4,
                 style: {color: colors.b1},
               }}
-              leftIcon={appIcons.email}
+              // leftIcon={<Email />}
               errorMessage={errors.email}
               touched={touched.email}
             />
@@ -63,35 +66,34 @@ const Login = () => {
                 style: {color: colors.b1},
                 secureTextEntry: true,
               }}
-              leftIcon={appIcons.password}
+              // leftIcon={icons.pass}
               errorMessage={errors.password}
               touched={touched.password}
             />
             <TouchableOpacity
               style={styles.forgotPasswordContainer}
               onPress={() => navigation.navigate('ForgotPassword')}>
-              <Text style={{fontFamily: family.Roboto_Bold}}>
-                Forgot Password ?
-              </Text>
+              <Text style={styles.forgotTxt}>Forgot Password ?</Text>
             </TouchableOpacity>
             <AppButton
               title={'Sign in'}
               touchableOpacity={{
                 onPress: () => handleSubmit(),
                 disabled: false,
-                style: {backgroundColor: 'red'},
               }}
             />
             <Text style={styles.descTxtStyle}>
               By continuing you accept our{' '}
               <Text
-              // onPress={() => navigation.navigate('TermsConditions')}
+                style={styles.descTxtBoldStyle}
+                // onPress={() => navigation.navigate('TermsConditions')}
               >
                 Privacy Policy
-              </Text>
+              </Text>{' '}
               and{' '}
               <Text
-              // onPress={() => navigation.navigate('PrivacyPolicy')}
+                style={styles.descTxtBoldStyle}
+                // onPress={() => navigation.navigate('PrivacyPolicy')}
               >
                 Term of Use{' '}
               </Text>
@@ -100,32 +102,37 @@ const Login = () => {
             <Text style={styles.txtSigninWith}>Sign In with</Text>
             <View style={styles.otherSigninView}>
               <TouchableOpacity>
-                <Image
-                  source={appIcons.apple}
+                {/* <Image
+                  source={icons.apple}
                   style={styles.iconStyle}
                   resizeMode="contain"
                 />
+                 */}
+                {/* {icons.apple} */}
               </TouchableOpacity>
               <TouchableOpacity>
-                <Image
-                  source={appIcons.google}
+                {/* <Image
+                  source={icons.google}
                   style={styles.iconStyle}
                   resizeMode="contain"
-                />
+                /> */}
+                {/* {icons.google} */}
               </TouchableOpacity>
               <TouchableOpacity>
-                <Image
-                  source={appIcons.amazon}
+                {/* <Image
+                  source={icons.amazon}
                   style={styles.iconStyle}
                   resizeMode="contain"
-                />
+                {/* /> */}
+                {/* {icons.amazon}  */}
               </TouchableOpacity>
               <TouchableOpacity>
-                <Image
-                  source={appIcons.facebook}
+                {/* <Image
+                  source={icons.facebook}
                   style={styles.iconStyle}
                   resizeMode="contain"
-                />
+                /> */}
+                {/* {icons.facebook} */}
               </TouchableOpacity>
             </View>
             <View style={styles.createAccountView}>
@@ -166,19 +173,26 @@ const styles = StyleSheet.create({
     fontSize: size.xxtiny,
     marginHorizontal: WP(10),
     alignSelf: 'center',
+    fontFamily: family.Roboto_Light,
+    color: colors.g23,
+  },
+  descTxtBoldStyle: {
+    fontFamily: family.Roboto_Regular,
+    color: colors.g19,
+    textDecorationLine: 'underline',
   },
 
   txtSigninWith: {
     fontSize: size.normal,
-    fontWeight: '300',
     alignSelf: 'center',
     marginTop: WP(15),
+    color: colors.g19,
+    fontFamily: family.Roboto_Light,
   },
   otherSigninView: {
     width: WP(45),
     alignSelf: 'center',
     justifyContent: 'space-between',
-    marginVertical: WP(3),
     flexDirection: 'row',
   },
   iconStyle: {
@@ -187,6 +201,8 @@ const styles = StyleSheet.create({
   },
   txtAccount: {
     fontSize: size.xxsmall,
+    fontFamily: family.Roboto_Regular,
+    color: colors.g19,
   },
   createAccountView: {
     flexDirection: 'row',
@@ -196,5 +212,9 @@ const styles = StyleSheet.create({
   forgotPasswordContainer: {
     marginHorizontal: WP(10),
     alignSelf: 'flex-end',
+  },
+  forgotTxt: {
+    fontFamily: family.Roboto_Regular,
+    color: colors.g19,
   },
 });

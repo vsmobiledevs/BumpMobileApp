@@ -39,9 +39,11 @@ const ForgotPassword = () => {
               touched={touched.email}
             />
             <AppButton
+              touchableOpacity={{
+                onPress: () => navigation.navigate('OtpVerification'),
+              }}
               title={'Send Code'}
               buttonContainer={{marginTop: WP(35)}}
-              onPress={() => navigation.navigate('OtpVerification')}
             />
           </KeyboardAwareScrollView>
         )}

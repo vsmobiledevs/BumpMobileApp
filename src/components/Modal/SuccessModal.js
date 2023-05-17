@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View, Modal, Image} from 'react-native';
 import React from 'react';
-import {WP, appIcons, colors, size} from '../../shared/exporter';
+import {WP, appIcons, colors, family, size} from '../../shared/exporter';
 import {AppButton} from '../AppButton/AppButton';
 
 const SuccessModal = ({show, onLoginBackPress, onTouchCancel}) => {
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     color: colors.blue,
     marginTop: WP(5),
     alignSelf: 'center',
+    fontFamily: family.Roboto_Bold,
   },
   successTxtDetail: {
     fontSize: size.small,
@@ -54,6 +55,7 @@ const styles = StyleSheet.create({
     width: WP(60),
     textAlign: 'center',
     alignSelf: 'center',
+    fontFamily: family.Roboto_Regular,
   },
   buttonStyle: {
     marginTop: WP(15),

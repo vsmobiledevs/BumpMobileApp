@@ -47,6 +47,7 @@ export const colors = {
   g20: '#868686',
   g21: '#E8ECF4',
   g22: '#F7F8F9',
+  g23: '#ADA4A5',
 
   //White colors
   white: '#ffffff',

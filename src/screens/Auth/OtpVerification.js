@@ -96,6 +96,6 @@ const styles = StyleSheet.create({
     color: colors.g19,
     textAlign: 'center',
     fontSize: size.large,
-    //fontFamily: family.SFProText_Regular,
+    fontWeight: '700',
   },
 });

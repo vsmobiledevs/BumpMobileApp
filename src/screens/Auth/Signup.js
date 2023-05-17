@@ -17,6 +17,7 @@ import {
   size,
   appIcons,
   colors,
+  family,
 } from '../../shared/exporter';
 import {AppButton, AppInput} from '../../components';
 import {Formik} from 'formik';
@@ -74,11 +75,17 @@ const Signup = () => {
             <AppButton title={'Sign Up'} onPress={() => handleSubmit()} />
             <Text style={styles.descTxtStyle}>
               By continuing you accept our{' '}
-              <Text onPress={() => navigation.navigate('TermsConditions')}>
+              <Text
+                style={styles.descTxtBoldStyle}
+                //onPress={() => navigation.navigate('TermsConditions')}
+              >
                 Privacy Policy
-              </Text>
+              </Text>{' '}
               and{' '}
-              <Text onPress={() => navigation.navigate('PrivacyPolicy')}>
+              <Text
+                style={styles.descTxtBoldStyle}
+                //onPress={() => navigation.navigate('PrivacyPolicy')}
+              >
                 Term of Use{' '}
               </Text>
             </Text>
@@ -159,18 +166,25 @@ const styles = StyleSheet.create({
     fontSize: size.xxtiny,
     marginHorizontal: WP(10),
     alignSelf: 'center',
+    fontFamily: family.Roboto_Light,
+    color: colors.g23,
+  },
+  descTxtBoldStyle: {
+    fontFamily: family.Roboto_Regular,
+    color: colors.g19,
+    textDecorationLine: 'underline',
   },
   txtSigninWith: {
     fontSize: size.normal,
-    fontWeight: '300',
     alignSelf: 'center',
-    marginTop: WP(10),
+    marginVertical: WP(5),
+    color: colors.g19,
+    fontFamily: family.Roboto_Light,
   },
   otherSigninView: {
     width: WP(45),
     alignSelf: 'center',
     justifyContent: 'space-between',
-    marginVertical: WP(3),
     flexDirection: 'row',
     marginTop: WP(5),
   },
@@ -180,6 +194,7 @@ const styles = StyleSheet.create({
   },
   txtAccount: {
     fontSize: size.xxsmall,
+    fontFamily: family.Roboto_Regular,
     color: colors.g20,
   },
   createAccountView: {
@@ -203,5 +218,6 @@ const styles = StyleSheet.create({
   orTxt: {
     color: colors.g19,
     fontSize: size.xxlarge,
+    fontFamily: family.Roboto_Medium,
   },
 });

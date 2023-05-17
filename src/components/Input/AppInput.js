@@ -1,20 +1,13 @@
 import {StyleSheet, Text, View, TextInput, Image} from 'react-native';
 import React from 'react';
 import {WP, colors, size} from '../../shared/exporter';
-import LinearGradient from 'react-native-linear-gradient';
 
 const AppInput = ({leftIcon, title, errorMessage, touched, textInPutProps}) => {
   return (
     <View>
       {title && <Text style={styles.titleStyle}>{title}</Text>}
       <View style={styles.inputContainer}>
-        {leftIcon && (
-          <Image
-            source={leftIcon}
-            style={styles.iconStyle}
-            resizeMode="contain"
-          />
-        )}
+        {leftIcon}
         <TextInput
           {...textInPutProps}
           style={[styles.inputStyle, {...textInPutProps.style}]}
