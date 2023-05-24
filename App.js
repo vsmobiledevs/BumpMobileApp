@@ -1,9 +1,9 @@
-import React from 'react';
-import {Provider} from 'react-redux';
-import {StatusBar} from 'react-native';
-import MainNavigation from './src/navigations';
-import store, {persistor} from './src/redux/store';
 import {PersistGate} from 'redux-persist/lib/integration/react';
+import {persistor, store} from './src/redux/store';
+import MainNavigation from './src/navigations';
+import {StatusBar} from 'react-native';
+import {Provider} from 'react-redux';
+import React from 'react';
 
 const App = () => {
   return (

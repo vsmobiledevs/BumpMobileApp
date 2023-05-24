@@ -20,3 +20,7 @@ export {
   resetPassFormFields,
   ResetPassVS,
 } from './utilities/validations';
+
+export {ENDPOINTS, BASE_URL} from './utilities/endpoints';
+
+export {HTTP_CLIENT} from './utilities/config';

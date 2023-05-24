@@ -58,5 +58,6 @@ export const ResetPassVS = yup.object().shape({
   confirmPassword: yup
     .string()
     .min(6, 'Password must be at least 6 characters')
-    .required('Password Required'),
+    .required('Confirm Password Required')
+    .oneOf([yup.ref('password'), null], 'Passwords must match'),
 });

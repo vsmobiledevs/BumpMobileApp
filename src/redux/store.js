@@ -1,31 +1,38 @@
-import {legacy_createStore as createStore, applyMiddleware} from 'redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {applyMiddleware, configureStore} from '@reduxjs/toolkit';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {persistStore, persistReducer} from 'redux-persist';
+import {initialConfig} from '../shared/utilities/config';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from './reducers';
 import {rootSaga} from './saga';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+
+// Persist configuration
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
   whitelist: ['auth'],
-  // blackList: [],
-  stateReconciler: autoMergeLevel2,
 };
-const pReducer = persistReducer(persistConfig, rootReducer);
 
-// create the saga middleware
+// Create the Redux Saga middleware
 const sagaMiddleware = createSagaMiddleware();
 
-// create a redux store with our reducer above and middleware
-let store = createStore(
-  pReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware)),
-);
-export const persistor = persistStore(store);
+// Create the persisted reducer
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// run the saga
+// Configure the Redux store
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: [sagaMiddleware],
+  enhancers: [composeWithDevTools(applyMiddleware(sagaMiddleware))],
+});
+
+// Run the Redux Saga middleware
 sagaMiddleware.run(rootSaga);
 
-export default store;
+initialConfig();
+
+// Create the persisted store
+const persistor = persistStore(store);
+
+export {store, persistor};

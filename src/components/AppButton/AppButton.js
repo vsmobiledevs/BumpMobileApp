@@ -13,6 +13,7 @@ const AppButton = ({
 }) => {
   return (
     <TouchableOpacity
+      activeOpacity={0.8}
       {...touchableOpacity}
       style={[styles.buttonContainer, {...buttonContainer}]}>
       <LinearGradient

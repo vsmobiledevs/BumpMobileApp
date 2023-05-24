@@ -55,6 +55,9 @@ export const colors = {
   w2: '#E3E3E350',
   blue: '#6DAFDC',
 
+  //red colors
+  red: '#FF0000',
+
   //Yellow colors
   y1: '#E58200',
 
