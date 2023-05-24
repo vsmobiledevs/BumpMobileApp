@@ -1,33 +1,61 @@
 import React, {useRef} from 'react';
 import {
+  TouchableOpacity,
+  ImageBackground,
+  ScrollView,
   StyleSheet,
   Text,
   View,
   Image,
-  ImageBackground,
-  TouchableOpacity,
-  ScrollView,
 } from 'react-native';
 import {
-  appImages,
-  WP,
-  HP,
-  SignupVS,
   signupFormFields,
-  size,
+  appImages,
+  SignupVS,
   appIcons,
   colors,
+  family,
+  size,
+  WP,
+  HP,
 } from '../../shared/exporter';
-import {AppButton, AppInput} from '../../components';
-import {Formik} from 'formik';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useNavigation} from '@react-navigation/native';
+import {AppButton, AppInput} from '../../components';
+import {Formik} from 'formik';
+
+const socialIcons = [
+  {id: 0, icon: appIcons.apple},
+  {id: 1, icon: appIcons.google},
+  {id: 2, icon: appIcons.amazon},
+  {id: 3, icon: appIcons.facebook},
+];
 
 const Signup = () => {
   const formikRef = useRef();
   const navigation = useNavigation();
 
-  const handleSignup = values => {};
+  const handleSignup = values => {
+    console.log('values--', values);
+  };
+
+  const onPressIcon = id => {
+    switch (id) {
+      case 0:
+        console.log('Apple');
+        break;
+      case 1:
+        console.log('Google');
+        break;
+      default:
+      case 2:
+        console.log('AWS');
+        break;
+      case 3:
+        console.log('Facebook');
+        break;
+    }
+  };
 
   return (
     <ScrollView style={styles.main}>
@@ -39,49 +67,68 @@ const Signup = () => {
       <Formik
         innerRef={formikRef}
         initialValues={signupFormFields}
-        onSubmit={values => {
+        onSubmit={(values, {resetForm}) => {
           handleSignup(values);
+          resetForm(signupFormFields);
         }}
         validationSchema={SignupVS}>
         {({values, errors, touched, handleSubmit, handleChange}) => (
           <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
             <AppInput
-              title={'Name'}
-              value={values.name}
-              onChangeText={handleChange('name')}
-              placeholder={'Enter Name'}
+              textInPutProps={{
+                style: {color: colors.b1},
+                value: values.name,
+                placeholder: 'Enter Name',
+                placeholderTextColor: colors.b4,
+                onChangeText: handleChange('name'),
+              }}
               errorMessage={errors.name}
               touched={touched.name}
             />
             <AppInput
-              title={'Email'}
-              value={values.email}
-              onChangeText={handleChange('email')}
-              placeholder={'Enter email'}
-              keyboardType="email-address"
+              textInPutProps={{
+                style: {color: colors.b1},
+                value: values.email,
+                placeholder: 'Enter email',
+                keyboardType: 'email-address',
+                placeholderTextColor: colors.b4,
+                onChangeText: handleChange('email'),
+              }}
               errorMessage={errors.email}
               touched={touched.email}
             />
             <AppInput
-              title={'Password'}
-              value={values.password}
-              onChangeText={handleChange('password')}
-              placeholder={'Enter Password'}
-              secureTextEntry
+              textInPutProps={{
+                style: {color: colors.b1},
+                value: values.password,
+                placeholder: 'Enter Password',
+                keyboardType: 'email-address',
+                placeholderTextColor: colors.b4,
+                onChangeText: handleChange('password'),
+                secureTextEntry: true,
+              }}
               errorMessage={errors.password}
               touched={touched.password}
             />
-            <AppButton title={'Sign Up'} onPress={() => handleSubmit()} />
+            <AppButton
+              title={'Sign Up'}
+              touchableOpacity={{
+                onPress: () => handleSubmit(),
+              }}
+            />
+
+            {/* privacy policy */}
             <Text style={styles.descTxtStyle}>
-              By continuing you accept our{' '}
-              <Text onPress={() => navigation.navigate('TermsConditions')}>
-                Privacy Policy
-              </Text>
-              and{' '}
-              <Text onPress={() => navigation.navigate('PrivacyPolicy')}>
-                Term of Use{' '}
-              </Text>
+              {'By continuing you accept our '}
+              <TouchableOpacity activeOpacity={0.8}>
+                <Text style={styles.descTxtBoldStyle}>{'Privacy Policy '}</Text>
+              </TouchableOpacity>
+              {'and '}
+              <TouchableOpacity activeOpacity={0.8}>
+                <Text style={styles.descTxtBoldStyle}>{'Term of Use'}</Text>
+              </TouchableOpacity>
             </Text>
+
             <View style={styles.orView}>
               <View style={styles.barView}></View>
               <Text style={styles.orTxt}>OR</Text>
@@ -90,39 +137,25 @@ const Signup = () => {
 
             <Text style={styles.txtSigninWith}>Sign Up with</Text>
 
-            <View style={styles.otherSigninView}>
-              <TouchableOpacity>
-                <Image
-                  source={appIcons.apple}
-                  style={styles.iconStyle}
-                  resizeMode="contain"
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Image
-                  source={appIcons.google}
-                  style={styles.iconStyle}
-                  resizeMode="contain"
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Image
-                  source={appIcons.amazon}
-                  style={styles.iconStyle}
-                  resizeMode="contain"
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Image
-                  source={appIcons.facebook}
-                  style={styles.iconStyle}
-                  resizeMode="contain"
-                />
-              </TouchableOpacity>
+            {/* social icons */}
+            <View style={styles.otherSignInView}>
+              {socialIcons?.map(item => {
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => onPressIcon(item?.id)}
+                    key={item?.id}>
+                    <Image source={item?.icon} style={styles.socialIcon} />
+                  </TouchableOpacity>
+                );
+              })}
             </View>
+
             <View style={styles.createAccountView}>
               <Text style={styles.txtAccount}>Already have an account? </Text>
-              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => navigation.navigate('Login')}>
                 <Text style={[styles.txtAccount, {color: colors.P3}]}>
                   Login
                 </Text>
@@ -155,24 +188,26 @@ const styles = StyleSheet.create({
     marginTop: WP(28),
   },
   descTxtStyle: {
-    alignItems: 'center',
-    fontSize: size.xxtiny,
-    marginHorizontal: WP(10),
+    fontFamily: family.Roboto_Light,
+    fontSize: size.xtiny,
+    color: colors.g23,
     alignSelf: 'center',
+    textAlign: 'center',
+    lineHeight: HP(2),
+    width: WP(75),
+  },
+  descTxtBoldStyle: {
+    color: colors.g19,
+    fontSize: size.xtiny,
+    fontFamily: family.Roboto_Regular,
+    textDecorationLine: 'underline',
   },
   txtSigninWith: {
     fontSize: size.normal,
-    fontWeight: '300',
     alignSelf: 'center',
-    marginTop: WP(10),
-  },
-  otherSigninView: {
-    width: WP(45),
-    alignSelf: 'center',
-    justifyContent: 'space-between',
-    marginVertical: WP(3),
-    flexDirection: 'row',
-    marginTop: WP(5),
+    marginVertical: WP(5),
+    color: colors.g19,
+    fontFamily: family.Roboto_Light,
   },
   iconStyle: {
     width: WP(10),
@@ -180,6 +215,7 @@ const styles = StyleSheet.create({
   },
   txtAccount: {
     fontSize: size.xxsmall,
+    fontFamily: family.Roboto_Regular,
     color: colors.g20,
   },
   createAccountView: {
@@ -203,5 +239,18 @@ const styles = StyleSheet.create({
   orTxt: {
     color: colors.g19,
     fontSize: size.xxlarge,
+    fontFamily: family.Roboto_Medium,
+  },
+  otherSignInView: {
+    width: WP(45),
+    marginTop: HP(2),
+    alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  socialIcon: {
+    width: WP(8),
+    height: WP(8),
+    alignSelf: 'center',
   },
 });

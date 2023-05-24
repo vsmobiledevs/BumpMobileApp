@@ -13,6 +13,7 @@ const AppButton = ({
 }) => {
   return (
     <TouchableOpacity
+      activeOpacity={0.8}
       {...touchableOpacity}
       style={[styles.buttonContainer, {...buttonContainer}]}>
       <LinearGradient
@@ -44,5 +45,6 @@ const styles = StyleSheet.create({
   txtStyle: {
     color: colors.white,
     fontSize: size.small,
+    fontFamily: family.Roboto_Regular,
   },
 });

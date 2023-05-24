@@ -1,19 +1,24 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
-import React, {useRef} from 'react';
-import {AppButton, AppInput, AuthHeader} from '../../components';
-import {Formik} from 'formik';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {AppButton, AppInput, AuthHeader} from '../../components';
+import {StyleSheet, View} from 'react-native';
+import React, {useRef} from 'react';
+import {Formik} from 'formik';
 import {
-  ForgotPassVS,
-  WP,
-  colors,
   forgotPassFormFields,
+  ForgotPassVS,
+  colors,
+  WP,
 } from '../../shared/exporter';
 import {useNavigation} from '@react-navigation/native';
 
 const ForgotPassword = () => {
   const navigation = useNavigation();
   const formikRef = useRef();
+
+  const handleForgotPass = values => {
+    navigation.navigate('OtpVerification');
+  };
+
   return (
     <View style={styles.main}>
       <AuthHeader
@@ -31,17 +36,23 @@ const ForgotPassword = () => {
         {({values, errors, touched, handleSubmit, handleChange}) => (
           <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
             <AppInput
-              value={values.email}
-              onChangeText={handleChange('email')}
-              placeholder={'Enter Your email'}
-              keyboardType="email-address"
+              textInPutProps={{
+                style: {color: colors.b1},
+                value: values.email,
+                placeholder: 'Enter Your email',
+                keyboardType: 'email-address',
+                placeholderTextColor: colors.b4,
+                onChangeText: handleChange('email'),
+              }}
               errorMessage={errors.email}
               touched={touched.email}
             />
             <AppButton
               title={'Send Code'}
               buttonContainer={{marginTop: WP(35)}}
-              onPress={() => navigation.navigate('OtpVerification')}
+              touchableOpacity={{
+                onPress: () => handleSubmit(),
+              }}
             />
           </KeyboardAwareScrollView>
         )}

@@ -1,33 +1,63 @@
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {
-  Image,
-  ScrollView,
+  TouchableOpacity,
   StyleSheet,
+  ScrollView,
+  Image,
   Text,
   View,
-  TouchableOpacity,
 } from 'react-native';
 import React, {useRef} from 'react';
 import {
+  loginFormFields,
   appImages,
+  appIcons,
+  LoginVS,
+  colors,
+  family,
+  size,
   WP,
   HP,
-  loginFormFields,
-  LoginVS,
-  size,
-  colors,
-  appIcons,
-  family,
 } from '../../shared/exporter';
-import {useNavigation} from '@react-navigation/native';
-import {AppButton, AppInput} from '../../components';
 import {Formik} from 'formik';
+import {authIcons} from '../../assets/icons';
+import {AppButton, AppInput} from '../../components';
+import {useNavigation} from '@react-navigation/native';
+
+const socialIcons = [
+  {id: 0, icon: appIcons.apple},
+  {id: 1, icon: appIcons.google},
+  {id: 2, icon: appIcons.amazon},
+  {id: 3, icon: appIcons.facebook},
+];
 
 const Login = () => {
   const formikRef = useRef();
   const navigation = useNavigation();
 
-  const handleLogin = values => {};
+  const onPressIcon = id => {
+    switch (id) {
+      case 0:
+        console.log('Apple');
+        break;
+      case 1:
+        console.log('Google');
+        break;
+      default:
+      case 2:
+        console.log('AWS');
+        break;
+      case 3:
+        console.log('Facebook');
+        break;
+    }
+  };
+
+  // submit form for login user into app
+  const handleLogin = async values => {
+    navigation.navigate('BottomTabScreen');
+  };
+
   return (
     <ScrollView style={styles.main}>
       <Image source={appImages.bump} style={styles.imageStyle} />
@@ -35,22 +65,23 @@ const Login = () => {
       <Formik
         innerRef={formikRef}
         initialValues={loginFormFields}
-        onSubmit={values => {
+        onSubmit={(values, {resetForm}) => {
           handleLogin(values);
+          // resetForm(loginFormFields);
         }}
         validationSchema={LoginVS}>
         {({values, errors, touched, handleSubmit, handleChange}) => (
           <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
             <AppInput
               textInPutProps={{
+                style: {color: colors.b1},
                 value: values.email,
-                onChangeText: handleChange('email'),
                 placeholder: 'Enter email',
                 keyboardType: 'email-address',
                 placeholderTextColor: colors.b4,
-                style: {color: colors.b1},
+                onChangeText: handleChange('email'),
               }}
-              leftIcon={appIcons.email}
+              leftIcon={authIcons.email}
               errorMessage={errors.email}
               touched={touched.email}
             />
@@ -63,76 +94,60 @@ const Login = () => {
                 style: {color: colors.b1},
                 secureTextEntry: true,
               }}
-              leftIcon={appIcons.password}
+              leftIcon={authIcons.password}
               errorMessage={errors.password}
               touched={touched.password}
             />
             <TouchableOpacity
+              activeOpacity={0.8}
               style={styles.forgotPasswordContainer}
               onPress={() => navigation.navigate('ForgotPassword')}>
-              <Text style={{fontFamily: family.Roboto_Bold}}>
-                Forgot Password ?
-              </Text>
+              <Text style={styles.forgotTxt}>Forgot Password ?</Text>
             </TouchableOpacity>
             <AppButton
               title="Sign in"
               touchableOpacity={{
                 onPress: () => handleSubmit(),
-                disabled: false,
-                style: {backgroundColor: 'red'},
               }}
             />
+
+            {/* privacy policy */}
             <Text style={styles.descTxtStyle}>
-              By continuing you accept our{' '}
-              <Text
-              // onPress={() => navigation.navigate('TermsConditions')}
-              >
-                Privacy Policy
-              </Text>
-              and{' '}
-              <Text
-              // onPress={() => navigation.navigate('PrivacyPolicy')}
-              >
-                Term of Use{' '}
-              </Text>
+              {'By continuing you accept our '}
+              <TouchableOpacity activeOpacity={0.8}>
+                <Text style={styles.descTxtBoldStyle}>{'Privacy Policy '}</Text>
+              </TouchableOpacity>
+              {'and '}
+              <TouchableOpacity activeOpacity={0.8}>
+                <Text style={styles.descTxtBoldStyle}>{'Term of Use'}</Text>
+              </TouchableOpacity>
             </Text>
 
-            <Text style={styles.txtSigninWith}>Sign In with</Text>
-            <View style={styles.otherSigninView}>
-              <TouchableOpacity>
-                <Image
-                  source={appIcons.apple}
-                  style={styles.iconStyle}
-                  resizeMode="contain"
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Image
-                  source={appIcons.google}
-                  style={styles.iconStyle}
-                  resizeMode="contain"
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Image
-                  source={appIcons.amazon}
-                  style={styles.iconStyle}
-                  resizeMode="contain"
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Image
-                  source={appIcons.facebook}
-                  style={styles.iconStyle}
-                  resizeMode="contain"
-                />
-              </TouchableOpacity>
+            <Text style={styles.txtSignInWith}>{'Sign In with'}</Text>
+
+            {/* social icons */}
+            <View style={styles.otherSignInView}>
+              {socialIcons?.map(item => {
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => onPressIcon(item?.id)}
+                    key={item?.id}>
+                    <Image source={item?.icon} style={styles.socialIcon} />
+                  </TouchableOpacity>
+                );
+              })}
             </View>
+
             <View style={styles.createAccountView}>
-              <Text style={styles.txtAccount}>Don’t have an account ? </Text>
-              <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+              <Text style={styles.txtAccount}>
+                {'Don’t have an account ? '}
+              </Text>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => navigation.navigate('Signup')}>
                 <Text style={[styles.txtAccount, {color: colors.P3}]}>
-                  Create Account
+                  {'Create Account'}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -155,31 +170,41 @@ const styles = StyleSheet.create({
     height: HP(30),
   },
   logo: {
-    width: WP('42'),
-    height: WP('14'),
+    width: WP(42),
+    height: WP(14),
+    margin: WP(5),
     alignSelf: 'center',
     justifyContent: 'center',
-    margin: WP(5),
   },
   descTxtStyle: {
-    alignItems: 'center',
-    fontSize: size.xxtiny,
-    marginHorizontal: WP(10),
+    fontFamily: family.Roboto_Light,
+    fontSize: size.xtiny,
+    color: colors.g23,
     alignSelf: 'center',
+    textAlign: 'center',
+    lineHeight: HP(2),
+    width: WP(75),
+  },
+  descTxtBoldStyle: {
+    color: colors.g19,
+    fontSize: size.xtiny,
+    fontFamily: family.Roboto_Regular,
+    textDecorationLine: 'underline',
   },
 
-  txtSigninWith: {
+  txtSignInWith: {
     fontSize: size.normal,
-    fontWeight: '300',
     alignSelf: 'center',
     marginTop: WP(15),
+    color: colors.g19,
+    fontFamily: family.Roboto_Light,
   },
-  otherSigninView: {
+  otherSignInView: {
     width: WP(45),
+    marginTop: HP(2),
     alignSelf: 'center',
-    justifyContent: 'space-between',
-    marginVertical: WP(3),
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   iconStyle: {
     width: WP(10),
@@ -187,6 +212,8 @@ const styles = StyleSheet.create({
   },
   txtAccount: {
     fontSize: size.xxsmall,
+    fontFamily: family.Roboto_Regular,
+    color: colors.g19,
   },
   createAccountView: {
     flexDirection: 'row',
@@ -196,5 +223,14 @@ const styles = StyleSheet.create({
   forgotPasswordContainer: {
     marginHorizontal: WP(10),
     alignSelf: 'flex-end',
+  },
+  forgotTxt: {
+    fontFamily: family.Roboto_Regular,
+    color: colors.g19,
+  },
+  socialIcon: {
+    width: WP(8),
+    height: WP(8),
+    alignSelf: 'center',
   },
 });

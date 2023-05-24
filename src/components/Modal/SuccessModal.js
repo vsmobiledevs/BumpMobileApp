@@ -1,22 +1,29 @@
-import {StyleSheet, Text, View, Modal, Image} from 'react-native';
-import React from 'react';
-import {WP, appIcons, colors, size} from '../../shared/exporter';
+import {HP, WP, appIcons, colors, family, size} from '../../shared/exporter';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import {AppButton} from '../AppButton/AppButton';
+import Modal from 'react-native-modal';
+import React from 'react';
 
 const SuccessModal = ({show, onLoginBackPress, onTouchCancel}) => {
   return (
-    <Modal isVisible={show} onTouchCancel={onTouchCancel}>
+    <Modal
+      isVisible={show}
+      onBackdropPress={onTouchCancel}
+      animationIn="fadeIn"
+      animationOut="fadeOut">
       <View style={styles.modalContainer}>
         <View style={styles.modalViewStyle}>
           <Image source={appIcons.done} style={styles.iconStyle} />
-          <Text style={styles.successTxt}>Password Changed!</Text>
+          <Text style={styles.successTxt}>{'Password Changed!'}</Text>
           <Text style={styles.successTxtDetail}>
-            Your password has been changed successfully.
+            {'Your password has been changed successfully.'}
           </Text>
           <AppButton
             title={'Back to Login'}
             buttonStyle={styles.buttonStyle}
-            onPress={onLoginBackPress}
+            touchableOpacity={{
+              onPress: () => onLoginBackPress(),
+            }}
           />
         </View>
       </View>
@@ -28,10 +35,11 @@ export default SuccessModal;
 
 const styles = StyleSheet.create({
   modalContainer: {
-    flex: 1,
+    padding: HP(5),
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: `${colors.white}`,
+    borderRadius: 10,
   },
   modalViewStyle: {
     width: WP(100),
@@ -46,6 +54,7 @@ const styles = StyleSheet.create({
     color: colors.blue,
     marginTop: WP(5),
     alignSelf: 'center',
+    fontFamily: family.Roboto_Bold,
   },
   successTxtDetail: {
     fontSize: size.small,
@@ -54,8 +63,11 @@ const styles = StyleSheet.create({
     width: WP(60),
     textAlign: 'center',
     alignSelf: 'center',
+    fontFamily: family.Roboto_Regular,
   },
   buttonStyle: {
+    alignSelf: 'center',
     marginTop: WP(15),
+    width: WP(50),
   },
 });

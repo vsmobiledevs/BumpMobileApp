@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {AuthHeader} from '../../components';
 import {HP, colors, size, WP} from '../../shared/exporter';
 import {useNavigation} from '@react-navigation/native';
@@ -12,6 +12,15 @@ const OtpVerification = () => {
   const ref = useRef();
   const navigation = useNavigation();
   const [value, setValue] = useState('');
+
+  // navigate when user enter OTP
+  useEffect(() => {
+    if (value?.length === 4) {
+      navigation.navigate('ResetPassword');
+      setValue('');
+    }
+  }, [value]);
+
   const [codeFieldProps, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
@@ -25,6 +34,8 @@ const OtpVerification = () => {
         }
         onArrowPress={() => navigation.goBack()}
       />
+
+      {/* OTP fields */}
       <View style={{marginHorizontal: WP(6)}}>
         <CodeField
           ref={ref}
@@ -44,10 +55,14 @@ const OtpVerification = () => {
           )}
         />
       </View>
+
+      {/* resend OTP */}
       <View style={styles.createAccountView}>
-        <Text style={styles.txtAccount}>Didn't receive code? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
-          <Text style={[styles.txtAccount, {fontWeight: 'bold'}]}>Resend</Text>
+        <Text style={styles.txtAccount}>{`Didn't receive code? `}</Text>
+        <TouchableOpacity>
+          <Text style={[styles.txtAccount, {fontWeight: 'bold'}]}>
+            {'Resend'}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -72,30 +87,30 @@ const styles = StyleSheet.create({
   },
   cellStyle: {
     borderRadius: 5,
-    width: WP('18'),
-    height: WP('15'),
+    width: WP(18),
+    height: WP(15),
+    borderWidth: 1,
     alignItems: 'center',
-    marginVertical: HP('2'),
+    marginVertical: HP(2),
+    borderColor: colors.g21,
     justifyContent: 'center',
     backgroundColor: colors.g22,
-    borderWidth: 1,
-    borderColor: colors.g21,
   },
   cellFillStyle: {
+    borderWidth: 1,
+    width: WP(18),
     borderRadius: 5,
-    width: WP('18'),
-    height: WP('15'),
+    height: WP(15),
     alignItems: 'center',
-    marginVertical: HP('2'),
+    marginVertical: HP(2),
+    borderColor: colors.P3,
     justifyContent: 'center',
     backgroundColor: colors.white,
-    borderWidth: 1,
-    borderColor: colors.P3,
   },
   txtStyle: {
-    color: colors.g19,
-    textAlign: 'center',
     fontSize: size.large,
-    //fontFamily: family.SFProText_Regular,
+    textAlign: 'center',
+    color: colors.g19,
+    fontWeight: '700',
   },
 });
