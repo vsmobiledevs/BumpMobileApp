@@ -1,6 +1,14 @@
 {
     "java.compile.nullAnalysis.mode": "automatic",
     "cSpell.words": [
-        "navigations"
+        "codegen",
+        "Formik",
+        "middlewares",
+        "navigations",
+        "reduxjs",
+        "Roboto",
+        "svgs",
+        "xxsmall",
+        "xxtiny"
     ]
 }

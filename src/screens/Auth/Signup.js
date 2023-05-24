@@ -1,28 +1,28 @@
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-  Image,
-  Text,
-  View,
-} from 'react-native';
 import React, {useRef} from 'react';
 import {
-  loginFormFields,
+  TouchableOpacity,
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+} from 'react-native';
+import {
+  signupFormFields,
   appImages,
+  SignupVS,
   appIcons,
-  LoginVS,
   colors,
   family,
   size,
   WP,
   HP,
 } from '../../shared/exporter';
-import {Formik} from 'formik';
-import {authIcons} from '../../assets/icons';
-import {AppButton, AppInput} from '../../components';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useNavigation} from '@react-navigation/native';
+import {AppButton, AppInput} from '../../components';
+import {Formik} from 'formik';
 
 const socialIcons = [
   {id: 0, icon: appIcons.apple},
@@ -31,9 +31,13 @@ const socialIcons = [
   {id: 3, icon: appIcons.facebook},
 ];
 
-const Login = () => {
+const Signup = () => {
   const formikRef = useRef();
   const navigation = useNavigation();
+
+  const handleSignup = values => {
+    console.log('values--', values);
+  };
 
   const onPressIcon = id => {
     switch (id) {
@@ -53,25 +57,34 @@ const Login = () => {
     }
   };
 
-  // submit form for login user into app
-  const handleLogin = async values => {
-    navigation.navigate('BottomTabScreen');
-  };
-
   return (
     <ScrollView style={styles.main}>
-      <Image source={appImages.bump} style={styles.imageStyle} />
-      <Image source={appImages.splash} style={styles.logo} />
+      <ImageBackground
+        source={appImages.backgroundSignup}
+        style={styles.imageStyle}>
+        <Image source={appImages.splash} style={styles.logo} />
+      </ImageBackground>
       <Formik
         innerRef={formikRef}
-        initialValues={loginFormFields}
+        initialValues={signupFormFields}
         onSubmit={(values, {resetForm}) => {
-          handleLogin(values);
-          // resetForm(loginFormFields);
+          handleSignup(values);
+          resetForm(signupFormFields);
         }}
-        validationSchema={LoginVS}>
+        validationSchema={SignupVS}>
         {({values, errors, touched, handleSubmit, handleChange}) => (
           <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+            <AppInput
+              textInPutProps={{
+                style: {color: colors.b1},
+                value: values.name,
+                placeholder: 'Enter Name',
+                placeholderTextColor: colors.b4,
+                onChangeText: handleChange('name'),
+              }}
+              errorMessage={errors.name}
+              touched={touched.name}
+            />
             <AppInput
               textInPutProps={{
                 style: {color: colors.b1},
@@ -81,31 +94,24 @@ const Login = () => {
                 placeholderTextColor: colors.b4,
                 onChangeText: handleChange('email'),
               }}
-              leftIcon={authIcons.email}
               errorMessage={errors.email}
               touched={touched.email}
             />
             <AppInput
               textInPutProps={{
-                value: values.password,
-                onChangeText: handleChange('password'),
-                placeholder: 'Enter Password',
-                placeholderTextColor: colors.b4,
                 style: {color: colors.b1},
+                value: values.password,
+                placeholder: 'Enter Password',
+                keyboardType: 'email-address',
+                placeholderTextColor: colors.b4,
+                onChangeText: handleChange('password'),
                 secureTextEntry: true,
               }}
-              leftIcon={authIcons.password}
               errorMessage={errors.password}
               touched={touched.password}
             />
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={styles.forgotPasswordContainer}
-              onPress={() => navigation.navigate('ForgotPassword')}>
-              <Text style={styles.forgotTxt}>Forgot Password ?</Text>
-            </TouchableOpacity>
             <AppButton
-              title={'Sign in'}
+              title={'Sign Up'}
               touchableOpacity={{
                 onPress: () => handleSubmit(),
               }}
@@ -123,7 +129,13 @@ const Login = () => {
               </TouchableOpacity>
             </Text>
 
-            <Text style={styles.txtSignInWith}>{'Sign In with'}</Text>
+            <View style={styles.orView}>
+              <View style={styles.barView}></View>
+              <Text style={styles.orTxt}>OR</Text>
+              <View style={styles.barView}></View>
+            </View>
+
+            <Text style={styles.txtSigninWith}>Sign Up with</Text>
 
             {/* social icons */}
             <View style={styles.otherSignInView}>
@@ -140,14 +152,12 @@ const Login = () => {
             </View>
 
             <View style={styles.createAccountView}>
-              <Text style={styles.txtAccount}>
-                {'Don’t have an account ? '}
-              </Text>
+              <Text style={styles.txtAccount}>Already have an account? </Text>
               <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => navigation.navigate('Signup')}>
+                onPress={() => navigation.navigate('Login')}>
                 <Text style={[styles.txtAccount, {color: colors.P3}]}>
-                  {'Create Account'}
+                  Login
                 </Text>
               </TouchableOpacity>
             </View>
@@ -158,7 +168,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
 
 const styles = StyleSheet.create({
   main: {
@@ -167,14 +177,15 @@ const styles = StyleSheet.create({
   },
   imageStyle: {
     width: WP(100),
-    height: HP(30),
+    height: HP(25),
   },
   logo: {
-    width: WP(42),
-    height: WP(14),
-    margin: WP(5),
+    width: WP('42'),
+    height: WP('14'),
     alignSelf: 'center',
     justifyContent: 'center',
+    margin: WP(5),
+    marginTop: WP(28),
   },
   descTxtStyle: {
     fontFamily: family.Roboto_Light,
@@ -191,20 +202,12 @@ const styles = StyleSheet.create({
     fontFamily: family.Roboto_Regular,
     textDecorationLine: 'underline',
   },
-
-  txtSignInWith: {
+  txtSigninWith: {
     fontSize: size.normal,
     alignSelf: 'center',
-    marginTop: WP(15),
+    marginVertical: WP(5),
     color: colors.g19,
     fontFamily: family.Roboto_Light,
-  },
-  otherSignInView: {
-    width: WP(45),
-    marginTop: HP(2),
-    alignSelf: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   iconStyle: {
     width: WP(10),
@@ -213,20 +216,37 @@ const styles = StyleSheet.create({
   txtAccount: {
     fontSize: size.xxsmall,
     fontFamily: family.Roboto_Regular,
-    color: colors.g19,
+    color: colors.g20,
   },
   createAccountView: {
     flexDirection: 'row',
     alignSelf: 'center',
     marginVertical: WP(5),
   },
-  forgotPasswordContainer: {
-    marginHorizontal: WP(10),
-    alignSelf: 'flex-end',
+  orView: {
+    marginHorizontal: WP(6),
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: WP(8),
   },
-  forgotTxt: {
-    fontFamily: family.Roboto_Regular,
+  barView: {
+    width: WP(35),
+    height: 1,
+    backgroundColor: colors.g19,
+    marginHorizontal: WP(3),
+  },
+  orTxt: {
     color: colors.g19,
+    fontSize: size.xxlarge,
+    fontFamily: family.Roboto_Medium,
+  },
+  otherSignInView: {
+    width: WP(45),
+    marginTop: HP(2),
+    alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   socialIcon: {
     width: WP(8),
