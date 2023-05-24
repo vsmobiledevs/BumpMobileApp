@@ -1,4 +1,3 @@
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {AppButton, AppInput, AuthHeader} from '../../components';
 import {StyleSheet, View} from 'react-native';
 import React, {useRef} from 'react';
@@ -8,8 +7,12 @@ import {
   ForgotPassVS,
   colors,
   WP,
+  HP,
 } from '../../shared/exporter';
+import {Icons} from '../../assets/icons';
+
 import {useNavigation} from '@react-navigation/native';
+import {AuthHeading} from '../../components/authHeading';
 
 const ForgotPassword = () => {
   const navigation = useNavigation();
@@ -22,9 +25,12 @@ const ForgotPassword = () => {
   return (
     <View style={styles.main}>
       <AuthHeader
-        heading={'Forgot Password?'}
-        detail={'Please enter the email address linked with your account.'}
-        onArrowPress={() => navigation.goBack()}
+        left={Icons.backIcon}
+        onPressLeft={() => navigation.goBack()}
+      />
+      <AuthHeading
+        mainHeading="Forgot Password?"
+        subHeading="Please enter the email address linked with your account."
       />
       <Formik
         innerRef={formikRef}
@@ -34,27 +40,31 @@ const ForgotPassword = () => {
         }}
         validationSchema={ForgotPassVS}>
         {({values, errors, touched, handleSubmit, handleChange}) => (
-          <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-            <AppInput
-              textInPutProps={{
-                style: {color: colors.b1},
-                value: values.email,
-                placeholder: 'Enter Your email',
-                keyboardType: 'email-address',
-                placeholderTextColor: colors.b4,
-                onChangeText: handleChange('email'),
-              }}
-              errorMessage={errors.email}
-              touched={touched.email}
-            />
-            <AppButton
-              title={'Send Code'}
-              buttonContainer={{marginTop: WP(35)}}
-              touchableOpacity={{
-                onPress: () => handleSubmit(),
-              }}
-            />
-          </KeyboardAwareScrollView>
+          <>
+            <View style={styles.inputStyle}>
+              <AppInput
+                textInPutProps={{
+                  style: {color: colors.b1},
+                  value: values.email,
+                  placeholder: 'Enter Your email',
+                  keyboardType: 'email-address',
+                  placeholderTextColor: colors.b4,
+                  onChangeText: handleChange('email'),
+                }}
+                errorMessage={errors.email}
+                touched={touched.email}
+              />
+            </View>
+            <View>
+              <AppButton
+                title={'Send Code'}
+                buttonContainer={{marginTop: WP(35)}}
+                touchableOpacity={{
+                  onPress: () => handleSubmit(),
+                }}
+              />
+            </View>
+          </>
         )}
       </Formik>
     </View>
@@ -67,5 +77,8 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: colors.white,
+  },
+  inputStyle: {
+    marginTop: HP(10),
   },
 });
