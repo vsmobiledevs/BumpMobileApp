@@ -59,19 +59,20 @@ const Login = () => {
 
   // submit form for login user into app
   const handleLogin = async values => {
-    let body = new FormData();
-    body.append('email', values?.email);
-    body.append('password', values?.password);
-    dispatch(loginRequest(body, onLoginSuccess, onLoginFailure));
-  };
-  // login success response from server
-  const onLoginSuccess = async success => {
-    console.log('success response:--', success);
-  };
-  // login failure response from server
-  const onLoginFailure = failure => {
-    console.log('failure response:--', failure);
-    Toast.showWithGravity(failure, Toast.SHORT, Toast.BOTTOM);
+    navigation.navigate('BottomTabScreen');
+    //   let body = new FormData();
+    //   body.append('email', values?.email);
+    //   body.append('password', values?.password);
+    //   dispatch(loginRequest(body, onLoginSuccess, onLoginFailure));
+    // };
+    // // login success response from server
+    // const onLoginSuccess = async success => {
+    //   console.log('success response:--', success);
+    // };
+    // // login failure response from server
+    // const onLoginFailure = failure => {
+    //   console.log('failure response:--', failure);
+    //   Toast.showWithGravity(failure, Toast.SHORT, Toast.BOTTOM);
   };
 
   return (
