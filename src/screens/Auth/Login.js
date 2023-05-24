@@ -75,7 +75,7 @@ const Login = () => {
               </Text>
             </TouchableOpacity>
             <AppButton
-              title={'Sign in'}
+              title="Sign in"
               touchableOpacity={{
                 onPress: () => handleSubmit(),
                 disabled: false,
