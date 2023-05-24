@@ -8,7 +8,7 @@ const AppInput = ({leftIcon, title, errorMessage, touched, textInPutProps}) => {
       {title && <Text style={styles.titleStyle}>{title}</Text>}
       <View style={styles.inputContainer}>
         {leftIcon}
-        <TextInput 
+        <TextInput
           {...textInPutProps}
           style={[styles.inputStyle, {...textInPutProps.style}]}
         />
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     borderRadius: WP(7),
     flexDirection: 'row',
     alignItems: 'center',
-    borderColor: colors.s3,
+    borderColor: colors.P3,
     marginHorizontal: WP(6),
     paddingHorizontal: WP(5),
     backgroundColor: colors.t1,

@@ -4,13 +4,16 @@ import {useNavigation} from '@react-navigation/native';
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useRef, useState} from 'react';
 import {Formik} from 'formik';
+import {Icons} from '../../assets/icons';
 import {
+  HP,
   ResetPassVS,
   WP,
   colors,
   resetPassFormFields,
 } from '../../shared/exporter';
 import SuccessModal from '../../components/Modal/SuccessModal';
+import {AuthHeading} from '../../components/authHeading';
 
 const ResetPassword = () => {
   const formikRef = useRef();
@@ -24,9 +27,12 @@ const ResetPassword = () => {
   return (
     <View style={styles.main}>
       <AuthHeader
-        heading="Create new password"
-        detail={'Your new password must be unique from those previously used.'}
-        onArrowPress={() => navigation.goBack()}
+        left={Icons.backIcon}
+        onPressLeft={() => navigation.goBack()}
+      />
+      <AuthHeading
+        mainHeading="Create new password"
+        subHeading="Your new password must be unique from those previously used."
       />
       <Formik
         innerRef={formikRef}
@@ -36,7 +42,7 @@ const ResetPassword = () => {
         }}
         validationSchema={ResetPassVS}>
         {({values, errors, touched, handleSubmit, handleChange}) => (
-          <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.miniContainer}>
             <AppInput
               textInPutProps={{
                 style: {color: colors.b1},
@@ -66,7 +72,7 @@ const ResetPassword = () => {
                 onPress: () => handleSubmit(),
               }}
             />
-          </KeyboardAwareScrollView>
+          </View>
         )}
       </Formik>
 
@@ -86,5 +92,8 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: colors.white,
+  },
+  miniContainer: {
+    marginVertical: HP(8),
   },
 });

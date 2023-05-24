@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, Image} from 'react-native';
 import {AppButton} from '../AppButton/AppButton';
 import Modal from 'react-native-modal';
 import React from 'react';
+import {Icons} from '../../assets/icons';
 
 const SuccessModal = ({show, onLoginBackPress, onTouchCancel}) => {
   return (
@@ -13,7 +14,7 @@ const SuccessModal = ({show, onLoginBackPress, onTouchCancel}) => {
       animationOut="fadeOut">
       <View style={styles.modalContainer}>
         <View style={styles.modalViewStyle}>
-          <Image source={appIcons.done} style={styles.iconStyle} />
+          {Icons.done}
           <Text style={styles.successTxt}>{'Password Changed!'}</Text>
           <Text style={styles.successTxtDetail}>
             {'Your password has been changed successfully.'}
@@ -68,6 +69,6 @@ const styles = StyleSheet.create({
   buttonStyle: {
     alignSelf: 'center',
     marginTop: WP(15),
-    width: WP(50),
+    width: WP(80),
   },
 });

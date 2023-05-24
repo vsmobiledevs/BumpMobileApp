@@ -7,6 +7,8 @@ import {
   CodeField,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
+import {Icons} from '../../assets/icons';
+import {AuthHeading} from '../../components/authHeading';
 
 const OtpVerification = () => {
   const ref = useRef();
@@ -15,7 +17,7 @@ const OtpVerification = () => {
 
   // navigate when user enter OTP
   useEffect(() => {
-    if (value?.length === 4) {
+    if (value?.length == 4) {
       navigation.navigate('ResetPassword');
       setValue('');
     }
@@ -28,15 +30,15 @@ const OtpVerification = () => {
   return (
     <View style={styles.main}>
       <AuthHeader
-        heading={'OTP Verification'}
-        detail={
-          'Enter the verification code we just sent on your email address.'
-        }
-        onArrowPress={() => navigation.goBack()}
+        left={Icons.backIcon}
+        onPressLeft={() => navigation.goBack()}
+      />
+      <AuthHeading
+        mainHeading="OTP Verification"
+        subHeading="Enter the verification code we just sent on your email address."
       />
 
-      {/* OTP fields */}
-      <View style={{marginHorizontal: WP(6)}}>
+      <View style={{marginHorizontal: WP(6), marginVertical: HP(4)}}>
         <CodeField
           ref={ref}
           value={value}
@@ -55,14 +57,17 @@ const OtpVerification = () => {
           )}
         />
       </View>
-
-      {/* resend OTP */}
-      <View style={styles.createAccountView}>
-        <Text style={styles.txtAccount}>{`Didn't receive code? `}</Text>
-        <TouchableOpacity>
-          <Text style={[styles.txtAccount, {fontWeight: 'bold'}]}>
-            {'Resend'}
-          </Text>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'flex-end',
+          flexDirection: 'row',
+          marginBottom: HP(5),
+        }}>
+        <Text style={styles.footer}>Didn't receive code?</Text>
+        <TouchableOpacity onPress={() => null}>
+          <Text style={[styles.footer]}> Resend</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -83,7 +88,7 @@ const styles = StyleSheet.create({
   createAccountView: {
     flexDirection: 'row',
     alignSelf: 'center',
-    marginTop: HP(40),
+    color: colors.g19,
   },
   cellStyle: {
     borderRadius: 5,
@@ -107,6 +112,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: colors.white,
   },
+  footer: {
+    fontStyle: 'normal',
+    fontWeight: 500,
+    fontSize: WP(4),
+    textAlign: 'center',
+    color: colors.g19,
+  },
+
   txtStyle: {
     fontSize: size.large,
     textAlign: 'center',

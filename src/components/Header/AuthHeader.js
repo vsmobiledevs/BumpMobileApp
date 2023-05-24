@@ -1,21 +1,33 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {appIcons, colors, family, size, WP} from '../../shared/exporter';
+import {colors, family, size, WP, HP} from '../../shared/exporter';
+import {Icons} from '../../assets/icons';
 
-const AuthHeader = ({onArrowPress, heading, detail}) => {
+const AuthHeader = ({
+  left,
+  center,
+  right,
+  leftText,
+  onPressLeft,
+  onPressRight,
+}) => {
   return (
-    <View>
-      <TouchableOpacity
-        onPress={onArrowPress}
-        style={styles.backArrowContainer}>
-        <Image
-          source={appIcons.backArrow}
-          style={styles.iconStyle}
-          resizeMode="contain"
-        />
-      </TouchableOpacity>
-      <Text style={styles.headingTxt}>{heading}</Text>
-      <Text style={styles.detailsTxt}>{detail}</Text>
+    <View style={styles.mainStyle}>
+      {left && (
+        <TouchableOpacity
+          onPress={onPressLeft}
+          style={styles.backArrowContainer}>
+          {left}
+        </TouchableOpacity>
+      )}
+      {center && <Text style={styles.textStyle}>{center}</Text>}
+      {right && (
+        <TouchableOpacity
+          onPress={onPressRight}
+          style={styles.backArrowContainer}>
+          {right}
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -23,29 +35,21 @@ const AuthHeader = ({onArrowPress, heading, detail}) => {
 export {AuthHeader};
 
 const styles = StyleSheet.create({
+  mainStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: WP(8),
+    marginHorizontal: WP(4),
+  },
   backArrowContainer: {
-    marginTop: WP(20),
-    marginHorizontal: WP(6),
-    width: WP(5),
+    width: WP(10),
+    height: HP(5),
+    justifyContent: 'center',
   },
-  iconStyle: {
-    width: WP(4),
-    height: WP(4),
-  },
-  headingTxt: {
+  textStyle: {
+    fontWeight: 500,
+    fontStyle: 'normal',
+    fontSize: WP(5),
     color: colors.g19,
-    fontSize: size.h1,
-    marginHorizontal: WP(6),
-    marginTop: WP(10),
-    fontFamily: family.Roboto_Bold,
-  },
-  detailsTxt: {
-    color: colors.g19,
-    fontSize: size.normal,
-    marginHorizontal: WP(6),
-    marginRight: WP(10),
-    marginTop: WP(4),
-    marginBottom: WP(10),
-    fontFamily: family.Roboto_Medium,
   },
 });
