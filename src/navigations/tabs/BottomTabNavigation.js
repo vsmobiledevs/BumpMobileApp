@@ -12,6 +12,7 @@ import {WP, HP, appIcons, family, colors, size} from '../../shared/exporter';
 const BottomTabScreen = () => {
   const customTabBarStyle = {
     headerShown: false,
+    tabBarShowLabel: false,
     tabBarStyle: {
       position: 'absolute',
       height: HP(15),
@@ -37,21 +38,27 @@ const BottomTabScreen = () => {
         options={{
           tabBarIcon: ({focused}) => {
             return (
-              <Image
-                source={!focused ? appIcons.dataUnselected : appIcons.data}
-                style={styles.iconStyle}
-                resizeMode="contain"
-              />
+              <>
+                <Image
+                  source={!focused ? appIcons.dataUnselected : appIcons.data}
+                  style={styles.iconStyle}
+                  resizeMode="contain"
+                />
+                <Text
+                  style={[
+                    styles.txtStyle,
+                    !focused ? {color: colors.g24} : {color: colors.P4},
+                  ]}>
+                  Data
+                </Text>
+              </>
             );
           },
-          tabBarLabel: 'Data',
           tabBarLabelStyle: {
             fontFamily: family.Roboto_Regular,
             marginTop: WP(2),
             fontSize: size.xsmall,
           },
-          tabBarActiveTintColor: colors.P4,
-          tabBarInactiveTintColor: colors.g24,
           tabBarItemStyle: {
             borderRadius: 15,
             alignSelf: 'center',
@@ -65,21 +72,27 @@ const BottomTabScreen = () => {
         options={{
           tabBarIcon: ({focused}) => {
             return (
-              <Image
-                source={!focused ? appIcons.mic : appIcons.micSelected}
-                style={styles.iconStyle}
-                resizeMode="contain"
-              />
+              <>
+                <Image
+                  source={!focused ? appIcons.mic : appIcons.micSelected}
+                  style={styles.iconStyle}
+                  resizeMode="contain"
+                />
+                <Text
+                  style={[
+                    styles.txtStyle,
+                    !focused ? {color: colors.g24} : {color: colors.P4},
+                  ]}>
+                  Mic
+                </Text>
+              </>
             );
           },
-          tabBarLabel: 'Mic',
           tabBarLabelStyle: {
             fontFamily: family.Roboto_Regular,
             marginTop: WP(2),
             fontSize: size.xsmall,
           },
-          tabBarActiveTintColor: colors.P4,
-          tabBarInactiveTintColor: colors.g24,
           tabBarItemStyle: {
             borderRadius: 15,
             alignSelf: 'center',
@@ -91,16 +104,12 @@ const BottomTabScreen = () => {
         name="Home"
         component={Home}
         options={{
-          tabBarShowLabel: false,
           tabBarIcon: ({focused}) => {
             return (
               <Image
                 source={!focused ? appIcons.search : appIcons.searchSelected}
                 resizeMode="contain"
-                style={[
-                  styles.iconStyle,
-                  {width: WP(15), height: WP(15), marginTop: WP(-2)},
-                ]}
+                style={[styles.iconStyle, {width: WP(15), height: WP(15)}]}
               />
             );
           },
@@ -113,21 +122,27 @@ const BottomTabScreen = () => {
         options={{
           tabBarIcon: ({focused}) => {
             return (
-              <Image
-                source={!focused ? appIcons.learn : appIcons.learnSelected}
-                style={styles.iconStyle}
-                resizeMode="contain"
-              />
+              <>
+                <Image
+                  source={!focused ? appIcons.learn : appIcons.learnSelected}
+                  style={styles.iconStyle}
+                  resizeMode="contain"
+                />
+                <Text
+                  style={[
+                    styles.txtStyle,
+                    !focused ? {color: colors.g24} : {color: colors.P4},
+                  ]}>
+                  Learn
+                </Text>
+              </>
             );
           },
-          tabBarLabel: 'Learn',
           tabBarLabelStyle: {
             fontFamily: family.Roboto_Regular,
             marginTop: WP(2),
             fontSize: size.xsmall,
           },
-          tabBarActiveTintColor: colors.P4,
-          tabBarInactiveTintColor: colors.g24,
           tabBarItemStyle: {
             borderRadius: 15,
             alignSelf: 'center',
@@ -141,21 +156,29 @@ const BottomTabScreen = () => {
         options={{
           tabBarIcon: ({focused}) => {
             return (
-              <Image
-                source={!focused ? appIcons.account : appIcons.accountSelected}
-                style={styles.iconStyle}
-                resizeMode="contain"
-              />
+              <>
+                <Image
+                  source={
+                    !focused ? appIcons.account : appIcons.accountSelected
+                  }
+                  style={styles.iconStyle}
+                  resizeMode="contain"
+                />
+                <Text
+                  style={[
+                    styles.txtStyle,
+                    !focused ? {color: colors.g24} : {color: colors.P4},
+                  ]}>
+                  Mic
+                </Text>
+              </>
             );
           },
-          tabBarLabel: 'Account',
           tabBarLabelStyle: {
             fontFamily: family.Roboto_Regular,
             marginTop: WP(2),
             fontSize: size.xsmall,
           },
-          tabBarActiveTintColor: colors.P4,
-          tabBarInactiveTintColor: colors.g24,
           tabBarItemStyle: {
             borderRadius: 15,
             alignSelf: 'center',
@@ -169,13 +192,17 @@ const BottomTabScreen = () => {
 
 const styles = StyleSheet.create({
   iconStyle: {
-    width: WP(8),
-    height: WP(8),
+    width: WP(6),
+    height: WP(6),
+    marginBottom: WP(2),
+    alignSelf: 'center',
+    justifyContent: 'center',
   },
   txtStyle: {
     alignSelf: 'center',
     justifyContent: 'center',
     fontFamily: family.Roboto_Regular,
+    fontSize: size.xsmall,
   },
   searchContainerStyle: {
     position: 'relative',
