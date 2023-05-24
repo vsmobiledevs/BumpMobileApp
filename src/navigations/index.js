@@ -15,7 +15,7 @@ const MainAppNav = () => {
         screenOptions={{headerShown: false}}>
         <AppStack.Screen name={'Splash'} component={Splash} />
         <AppStack.Screen name={'auth'} component={AuthStack} />
-        <AppStack.Screen name={'BottomTabScreen'} component={BottomTabScreen} />
+        {/* <AppStack.Screen name={'BottomTabScreen'} component={BottomTabScreen} /> */}
       </AppStack.Navigator>
     </NavigationContainer>
   );

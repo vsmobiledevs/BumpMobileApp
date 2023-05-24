@@ -20,10 +20,7 @@ import {
   HP,
 } from '../../shared/exporter';
 import {Formik} from 'formik';
-import {useDispatch} from 'react-redux';
 import {authIcons} from '../../assets/icons';
-import Toast from 'react-native-simple-toast';
-import {loginRequest} from '../../redux/actions';
 import {AppButton, AppInput} from '../../components';
 import {useNavigation} from '@react-navigation/native';
 
@@ -35,7 +32,6 @@ const socialIcons = [
 ];
 
 const Login = () => {
-  const dispatch = useDispatch(null);
   const formikRef = useRef();
   const navigation = useNavigation();
 
@@ -60,19 +56,6 @@ const Login = () => {
   // submit form for login user into app
   const handleLogin = async values => {
     navigation.navigate('BottomTabScreen');
-    //   let body = new FormData();
-    //   body.append('email', values?.email);
-    //   body.append('password', values?.password);
-    //   dispatch(loginRequest(body, onLoginSuccess, onLoginFailure));
-    // };
-    // // login success response from server
-    // const onLoginSuccess = async success => {
-    //   console.log('success response:--', success);
-    // };
-    // // login failure response from server
-    // const onLoginFailure = failure => {
-    //   console.log('failure response:--', failure);
-    //   Toast.showWithGravity(failure, Toast.SHORT, Toast.BOTTOM);
   };
 
   return (
