@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {KeyboardAvoidingView, Platform} from 'react-native';
 import MainNavigation from './src/navigations';
 import {Provider} from 'react-redux';
