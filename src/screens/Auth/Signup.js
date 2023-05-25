@@ -22,14 +22,8 @@ import {
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useNavigation} from '@react-navigation/native';
 import {AppButton, AppInput} from '../../components';
+import {socialIcons} from '../../shared/utilities/dummyData';
 import {Formik} from 'formik';
-
-const socialIcons = [
-  {id: 0, icon: appIcons.apple},
-  {id: 1, icon: appIcons.google},
-  {id: 2, icon: appIcons.amazon},
-  {id: 3, icon: appIcons.facebook},
-];
 
 const Signup = () => {
   const formikRef = useRef();
@@ -157,7 +151,7 @@ const Signup = () => {
                     activeOpacity={0.8}
                     onPress={() => onPressIcon(item?.id)}
                     key={item?.id}>
-                    <Image source={item?.icon} style={styles.socialIcon} />
+                    {item?.icon}
                   </TouchableOpacity>
                 );
               })}

@@ -1,14 +1,19 @@
 import React from 'react';
+import {KeyboardAvoidingView, Platform} from 'react-native';
 import MainNavigation from './src/navigations';
 import {Provider} from 'react-redux';
 import {persistor, store} from './src/redux/store';
-import { PersistGate } from 'redux-persist/integration/react';
+import {PersistGate} from 'redux-persist/integration/react';
 
 const App = () => {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <MainNavigation />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{flex: 1}}>
+          <MainNavigation />
+        </KeyboardAvoidingView>
       </PersistGate>
     </Provider>
   );

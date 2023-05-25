@@ -6,16 +6,18 @@ import AuthStack from './stacks/AuthStack';
 import BottomTabScreen from './tabs/BottomTabNavigation';
 import PrivacyTerms from './stacks/PrivacyTerms';
 import BottomTabs from './tabs';
+import AuthStack from './stacks/Auth';
+import RNBootSplash from 'react-native-bootsplash';
 
 const AppStack = createStackNavigator();
 
 const MainAppNav = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer onReady={() => RNBootSplash.hide()}>
       <AppStack.Navigator
-        initialRouteName="Splash"
+        initialRouteName="auth"
         screenOptions={{headerShown: false}}>
-        <AppStack.Screen name={'Splash'} component={Splash} />
+        {/* <AppStack.Screen name={'Splash'} component={Splash} /> */}
         <AppStack.Screen name={'auth'} component={AuthStack} />
         <AppStack.Screen name={'privacyTerms'} component={PrivacyTerms} />
         {/* <AppStack.Screen name={'BottomTabScreen'} component={BottomTabs} /> */}

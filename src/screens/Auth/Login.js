@@ -20,16 +20,10 @@ import {
   HP,
 } from '../../shared/exporter';
 import {Formik} from 'formik';
-import {authIcons} from '../../assets/icons';
+import {Icons} from '../../assets/icons';
+import {socialIcons} from '../../shared/utilities/dummyData';
 import {AppButton, AppInput} from '../../components';
 import {useNavigation} from '@react-navigation/native';
-
-const socialIcons = [
-  {id: 0, icon: appIcons.apple},
-  {id: 1, icon: appIcons.google},
-  {id: 2, icon: appIcons.amazon},
-  {id: 3, icon: appIcons.facebook},
-];
 
 const Login = () => {
   const formikRef = useRef();
@@ -55,7 +49,7 @@ const Login = () => {
 
   // submit form for login user into app
   const handleLogin = async values => {
-    navigation.navigate('BottomTabScreen');
+    return null;
   };
 
   return (
@@ -80,7 +74,7 @@ const Login = () => {
                 placeholderTextColor: colors.b4,
                 onChangeText: handleChange('email'),
               }}
-              leftIcon={authIcons.email}
+              leftIcon={Icons.email}
               errorMessage={errors.email}
               touched={touched.email}
             />
@@ -93,7 +87,7 @@ const Login = () => {
                 style: {color: colors.b1},
                 secureTextEntry: true,
               }}
-              leftIcon={authIcons.password}
+              leftIcon={Icons.password}
               errorMessage={errors.password}
               touched={touched.password}
             />
@@ -104,7 +98,7 @@ const Login = () => {
               <Text style={styles.forgotTxt}>Forgot Password ?</Text>
             </TouchableOpacity>
             <AppButton
-              title={'Sign in'}
+              title="Sign in"
               touchableOpacity={{
                 onPress: () => handleSubmit(),
               }}
@@ -144,7 +138,7 @@ const Login = () => {
                     activeOpacity={0.8}
                     onPress={() => onPressIcon(item?.id)}
                     key={item?.id}>
-                    <Image source={item?.icon} style={styles.socialIcon} />
+                    {item?.icon}
                   </TouchableOpacity>
                 );
               })}
