@@ -10,5 +10,6 @@
         "svgs",
         "xxsmall",
         "xxtiny"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
