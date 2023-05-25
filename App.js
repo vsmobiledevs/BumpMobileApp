@@ -1,14 +1,21 @@
 import React, {useEffect} from 'react';
-import {KeyboardAvoidingView, Platform, Text, Linking} from 'react-native';
+import {KeyboardAvoidingView, Platform} from 'react-native';
 import MainNavigation from './src/navigations';
+import {Provider} from 'react-redux';
+import {persistor, store} from './src/redux/store';
+import {PersistGate} from 'redux-persist/integration/react';
 
 const App = () => {
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{flex: 1}}>
-      <MainNavigation />
-    </KeyboardAvoidingView>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{flex: 1}}>
+          <MainNavigation />
+        </KeyboardAvoidingView>
+      </PersistGate>
+    </Provider>
   );
 };
 

@@ -1,8 +1,8 @@
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {
   TouchableOpacity,
-  StyleSheet,
   ScrollView,
+  StyleSheet,
   Image,
   Text,
   View,
@@ -61,7 +61,6 @@ const Login = () => {
         initialValues={loginFormFields}
         onSubmit={(values, {resetForm}) => {
           handleLogin(values);
-          // resetForm(loginFormFields);
         }}
         validationSchema={LoginVS}>
         {({values, errors, touched, handleSubmit, handleChange}) => (
@@ -108,11 +107,23 @@ const Login = () => {
             {/* privacy policy */}
             <Text style={styles.descTxtStyle}>
               {'By continuing you accept our '}
-              <TouchableOpacity activeOpacity={0.8}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('privacyTerms', {
+                    screen: 'privacy',
+                  })
+                }
+                activeOpacity={0.8}>
                 <Text style={styles.descTxtBoldStyle}>{'Privacy Policy '}</Text>
               </TouchableOpacity>
               {'and '}
-              <TouchableOpacity activeOpacity={0.8}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('privacyTerms', {
+                    screen: 'terms',
+                  })
+                }
+                activeOpacity={0.8}>
                 <Text style={styles.descTxtBoldStyle}>{'Term of Use'}</Text>
               </TouchableOpacity>
             </Text>
