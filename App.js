@@ -1,5 +1,5 @@
-import React from 'react';
-import {KeyboardAvoidingView, Platform, StyleSheet} from 'react-native';
+import React, {useEffect} from 'react';
+import {KeyboardAvoidingView, Platform, Text, Linking} from 'react-native';
 import MainNavigation from './src/navigations';
 
 const App = () => {

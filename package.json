@@ -7,9 +7,11 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "rn-nodeify --install 'crypto,process,stream,events' --hack"
   },
   "dependencies": {
+    "@metamask/sdk": "^0.2.4",
     "@react-native-async-storage/async-storage": "^1.18.1",
     "@react-native/babel-plugin-codegen": "^0.73.0",
     "@react-navigation/bottom-tabs": "^6.5.7",
@@ -17,22 +19,36 @@
     "@react-navigation/native-stack": "^6.9.12",
     "@react-navigation/stack": "^6.3.16",
     "@reduxjs/toolkit": "^1.9.5",
+    "@toruslabs/react-native-web-browser": "^1.1.0",
+    "@web3auth/react-native-sdk": "^3.5.0",
     "axios": "^1.4.0",
+    "buffer": "^6.0.3",
+    "crypto": "^1.0.1",
+    "ethers": "^6.4.0",
+    "events": "^3.3.0",
     "formik": "^2.2.9",
     "metro-config": "^0.76.4",
+    "process": "^0.11.10",
     "react": "18.2.0",
     "react-native": "0.71.8",
+    "react-native-background-timer": "^2.4.1",
     "react-native-bootsplash": "^4.7.1",
     "react-native-confirmation-code-field": "^7.3.1",
+    "react-native-crypto": "^2.2.0",
     "react-native-gesture-handler": "^2.10.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-modal": "^13.0.1",
+    "react-native-randombytes": "^3.6.1",
     "react-native-safe-area-context": "^4.5.2",
     "react-native-screens": "^3.20.0",
     "react-native-simple-toast": "^1.1.4",
     "react-native-svg": "^13.9.0",
     "react-native-svg-transformer": "^1.0.0",
+    "readable-stream": "^1.0.33",
+    "rn-nodeify": "^10.3.0",
+    "stream": "^0.0.2",
+    "stream-browserify": "^1.0.0",
     "yup": "^1.1.1"
   },
   "devDependencies": {
@@ -55,5 +71,23 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "react-native": {
+    "crypto": "react-native-crypto",
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify"
+  },
+  "browser": {
+    "crypto": "react-native-crypto",
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify"
   }
 }
