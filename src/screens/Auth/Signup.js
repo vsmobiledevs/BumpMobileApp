@@ -120,11 +120,23 @@ const Signup = () => {
             {/* privacy policy */}
             <Text style={styles.descTxtStyle}>
               {'By continuing you accept our '}
-              <TouchableOpacity activeOpacity={0.8}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('privacyTerms', {
+                    screen: 'privacy',
+                  })
+                }
+                activeOpacity={0.8}>
                 <Text style={styles.descTxtBoldStyle}>{'Privacy Policy '}</Text>
               </TouchableOpacity>
               {'and '}
-              <TouchableOpacity activeOpacity={0.8}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('privacyTerms', {
+                    screen: 'terms',
+                  })
+                }
+                activeOpacity={0.8}>
                 <Text style={styles.descTxtBoldStyle}>{'Term of Use'}</Text>
               </TouchableOpacity>
             </Text>

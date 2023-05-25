@@ -1,14 +1,14 @@
-import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
 
-const Data = () => {
+const Terms = () => {
   return (
     <View>
-      <Text>Data</Text>
+      <Text>Terms</Text>
     </View>
   );
 };
 
-export default Data;
+export default Terms;
 
 const styles = StyleSheet.create({});
