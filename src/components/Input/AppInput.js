@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     color: colors.g19,
     fontSize: size.normal,
     marginHorizontal: WP(8),
+    marginVertical: HP(1),
   },
   error: {
     color: colors.red,

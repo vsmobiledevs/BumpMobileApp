@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
   mainStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: WP(8),
+    alignItems: 'center',
+    marginVertical: WP(4),
     marginHorizontal: WP(4),
   },
   backArrowContainer: {
