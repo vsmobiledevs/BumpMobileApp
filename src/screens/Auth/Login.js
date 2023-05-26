@@ -49,7 +49,7 @@ const Login = () => {
 
   // submit form for login user into app
   const handleLogin = async values => {
-    navigation.navigate('BottomTabScreen');
+    navigation.navigate('BottomTabs');
   };
 
   return (
