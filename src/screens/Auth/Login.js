@@ -50,6 +50,7 @@ const Login = () => {
   // submit form for login user into app
   const handleLogin = async values => {
     navigation.navigate('BottomTabs');
+    // navigation.navigate('Account', {screen: 'AccountScreen'});
   };
 
   return (
@@ -64,7 +65,7 @@ const Login = () => {
         }}
         validationSchema={LoginVS}>
         {({values, errors, touched, handleSubmit, handleChange}) => (
-          <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+          <>
             <AppInput
               textInPutProps={{
                 style: {color: colors.b1},
@@ -156,7 +157,7 @@ const Login = () => {
                 </Text>
               </TouchableOpacity>
             </View>
-          </KeyboardAwareScrollView>
+          </>
         )}
       </Formik>
     </ScrollView>
