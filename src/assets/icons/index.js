@@ -11,6 +11,19 @@ import Mic from './mic.svg';
 import Search from './search.svg';
 import Learn from './learn.svg';
 import Account from './account.svg';
+import Lock from './lock.svg';
+import Faq from './faq.svg';
+import Earning from './earning.svg';
+import Edit from './edit.svg';
+import Contact from './contact.svg';
+import Delete from './delete.svg';
+import Tax from './tax.svg';
+import Terms from './terms.svg';
+import Wallet from './wallet.svg';
+import RightArrow from './rightArrow.svg';
+import Privacy from './privacy.svg';
+import EditPen from './editPen.svg';
+import Camera from './camera.svg';
 
 const Icons = {
   email: <Email alignSelf="center" />,
@@ -25,6 +38,19 @@ const Icons = {
   search: <Search alignSelf="center" />,
   learn: <Learn alignSelf="center" />,
   account: <Account alignSelf="center" />,
+  earn: <Earning alignSelf="center" />,
+  edit: <Edit alignSelf="center" />,
+  wallet: <Wallet alignSelf="center" />,
+  delete: <Delete alignSelf="center" />,
+  tax: <Tax alignSelf="center" />,
+  terms: <Terms alignSelf="center" />,
+  faq: <Faq alignSelf="center" />,
+  contact: <Contact alignSelf="center" />,
+  lock: <Lock alignSelf="center" />,
+  rightArrow: <RightArrow alignSelf="center" />,
+  privacy: <Privacy alignSelf="center" />,
+  editPen: <EditPen alignSelf="center" />,
+  camera: <Camera alignSelf="center" />,
 };
 
 export {Icons};

@@ -1,12 +1,12 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Account from '../../screens/App/AccountTab/Account';
+import AccountScreen from '../../screens/App/AccountTab/accountScreen';
 
 const Stack = createNativeStackNavigator();
 
 function AccountStack(props) {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="AccountScreen" component={Account} />
+      <Stack.Screen name="AccountScreen" component={AccountScreen} />
     </Stack.Navigator>
   );
 }
