@@ -79,13 +79,9 @@ function BottomTab({props: {state, descriptors, navigation}}: TabBarProps) {
                 ) : (
                   <View style={styles.textIconContainer}>
                     {index == 0
-                      ? isFocused
-                        ? Icons.dataFill
-                        : Icons.data
+                      ? Icons.data
                       : index == 1
-                      ? isFocused
-                        ? Icons.micFill
-                        : Icons.mic
+                      ? Icons.mic
                       : index == 3
                       ? Icons.learn
                       : index == 4
@@ -136,12 +132,12 @@ const styles = StyleSheet.create({
   },
   label: {
     color: colors.P1,
-    marginTop: HP(0.5),
+    marginTop: HP(0.6),
     fontSize: size.xxsmall,
   },
   inactiveLabel: {
     color: colors.g24,
-    marginTop: HP(0.5),
+    marginTop: HP(0.6),
     fontSize: size.xxsmall,
   },
   textIconContainer: {
