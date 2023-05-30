@@ -24,6 +24,16 @@ import RightArrow from './rightArrow.svg';
 import Privacy from './privacy.svg';
 import EditPen from './editPen.svg';
 import Camera from './camera.svg';
+import FillData from './fillData.svg';
+import FillLearn from './fillLearn.svg';
+import FillMic from './fillMic.svg';
+import FillAccount from './fillAccount.svg';
+import AppLogo from './appLogo.svg';
+import MetaMask from './metaMask.svg';
+import LeftArrow from './leftArrow.svg';
+import DownArrow from './downArrow.svg';
+import UpArrow from './upArrow.svg';
+import Condition from './condition.svg';
 
 const Icons = {
   email: <Email alignSelf="center" />,
@@ -35,7 +45,7 @@ const Icons = {
   backIcon: <BackIcon alignSelf="center" />,
   data: <Data alignSelf="center" />,
   mic: <Mic alignSelf="center" />,
-  search: <Search alignSelf="center" />,
+  search: <Search alignSelf="center" width={50} />,
   learn: <Learn alignSelf="center" />,
   account: <Account alignSelf="center" />,
   earn: <Earning alignSelf="center" />,
@@ -51,6 +61,17 @@ const Icons = {
   privacy: <Privacy alignSelf="center" />,
   editPen: <EditPen alignSelf="center" />,
   camera: <Camera alignSelf="center" />,
+  fillData: <FillData alignSelf="center" />,
+  fillLearn: <FillLearn alignSelf="center" />,
+  fillAccount: <FillAccount alignSelf="center" />,
+  fillMic: <FillMic alignSelf="center" />,
+  appLogo: <AppLogo alignSelf="center" />,
+  metaMask: <MetaMask alignSelf="center" />,
+  done: <Done alignSelf="center" />,
+  leftArrow: <LeftArrow alignSelf="center" />,
+  downArrow: <DownArrow alignSelf="center" />,
+  upArrow: <UpArrow alignSelf="center" />,
+  condition: <Condition alignSelf="center" />,
 };
 
 export {Icons};

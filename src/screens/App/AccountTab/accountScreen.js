@@ -95,10 +95,12 @@ const styles = StyleSheet.create({
   miniConatiner: {
     marginHorizontal: WP(2),
     marginTop: HP(1),
-    borderRadius: WP(1.5),
-    shadowOffset: 1,
-    shadowColor: colors.P1,
-    elevation: 0.1,
-    shadowOpacity: 0.2,
+    backgroundColor: 'white',
+    borderRadius: 8,
+    shadowColor: 'black',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.4,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });

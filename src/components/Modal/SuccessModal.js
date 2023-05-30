@@ -5,7 +5,7 @@ import Modal from 'react-native-modal';
 import React from 'react';
 import {Icons} from '../../assets/icons';
 
-const SuccessModal = ({show, onLoginBackPress, onTouchCancel}) => {
+const SuccessModal = ({show, onLoginBackPress, onTouchCancel, reset}) => {
   return (
     <Modal
       isVisible={show}
@@ -15,12 +15,22 @@ const SuccessModal = ({show, onLoginBackPress, onTouchCancel}) => {
       <View style={styles.modalContainer}>
         <View style={styles.modalViewStyle}>
           {Icons.done}
-          <Text style={styles.successTxt}>{'Password Changed!'}</Text>
-          <Text style={styles.successTxtDetail}>
+          <Text
+            style={[
+              styles.successTxt,
+              {color: reset ? colors.g19 : colors.blue},
+            ]}>
+            {'Password Changed!'}
+          </Text>
+          <Text
+            style={[
+              styles.successTxtDetail,
+              {fontSize: reset ? size.medium : size.small},
+            ]}>
             {'Your password has been changed successfully.'}
           </Text>
           <AppButton
-            title={'Back to Login'}
+            title={reset ? 'OK' : 'Back to Login'}
             buttonStyle={styles.buttonStyle}
             touchableOpacity={{
               onPress: () => onLoginBackPress(),
@@ -52,16 +62,15 @@ const styles = StyleSheet.create({
   },
   successTxt: {
     fontSize: size.h3,
-    color: colors.blue,
+
     marginTop: WP(5),
     alignSelf: 'center',
     fontFamily: family.Roboto_Bold,
   },
   successTxtDetail: {
-    fontSize: size.small,
     color: colors.g19,
     marginTop: WP(5),
-    width: WP(60),
+    width: '80%',
     textAlign: 'center',
     alignSelf: 'center',
     fontFamily: family.Roboto_Regular,

@@ -52,19 +52,19 @@ const AccountBtns = [
     id: 4,
     title: 'Change Password',
     leftIcon: Icons?.lock,
-    screen: ['EditProfile'],
+    screen: ['ResetPassword'],
   },
   {
     id: 5,
     title: 'FAQs',
     leftIcon: Icons?.faq,
-    screen: ['EditProfile'],
+    screen: ['Faq'],
   },
   {
     id: 6,
     title: 'Terms & Conditions',
     leftIcon: Icons?.terms,
-    screen: ['EditProfile'],
+    screen: ['Terms'],
   },
   {
     id: 7,
@@ -76,7 +76,7 @@ const AccountBtns = [
     id: 8,
     title: 'Contact Us',
     leftIcon: Icons?.contact,
-    screen: ['EditProfile'],
+    screen: ['ContactUs'],
   },
   {
     id: 9,
@@ -86,4 +86,27 @@ const AccountBtns = [
   },
 ];
 
-export {socialIcons, AccountBtns};
+const TabIcons = [
+  {
+    icon: Icons.data,
+    fillIcon: Icons.fillData,
+  },
+  {
+    icon: Icons.mic,
+    fillIcon: Icons.fillMic,
+  },
+  {
+    icon: Icons.search,
+    fillIcon: Icons.search,
+  },
+  {
+    icon: Icons.learn,
+    fillIcon: Icons.fillLearn,
+  },
+  {
+    icon: Icons.account,
+    fillIcon: Icons.fillAccount,
+  },
+];
+
+export {socialIcons, AccountBtns, TabIcons};

@@ -1,7 +1,19 @@
-import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
-import {appIcons, colors, family, HP, size, WP} from '../../shared/exporter';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  Dimensions,
+  ImageBackground,
+} from 'react-native';
+import {colors, family, HP, size, WP} from '../../shared/exporter';
+import {Icons} from '../../assets/icons';
 import {FlatList} from 'react-native-gesture-handler';
 import React, {useState} from 'react';
+import {TabIcons} from '../../shared/utilities/dummyData';
+
+let width = Dimensions.get('window').width;
 
 export const BottomTab = ({state, descriptors, navigation}) => {
   //Tab State
@@ -19,119 +31,109 @@ export const BottomTab = ({state, descriptors, navigation}) => {
       navigation.navigate({name: state?.routes[index]?.name, merge: true});
     }
   };
+
   return (
     <View style={styles.container}>
-      <FlatList
-        scrollEnabled={false}
-        numColumns={4}
-        data={state?.routes}
-        renderItem={({item, index}) => {
-          const {options} = descriptors[item?.key];
-          const label =
-            options.tabBarLabel !== undefined
-              ? options.tabBarLabel
-              : options.title !== undefined
-              ? options.title
-              : item.name;
+      <ImageBackground
+        source={require('../../assets/images/bottomTabImage.png')}
+        style={{width: '100%', height: '100%'}}
+        resizeMode="contain">
+        <FlatList
+          horizontal={true}
+          scrollEnabled={false}
+          data={state?.routes}
+          renderItem={({item, index}) => {
+            const {options} = descriptors[item?.key];
+            const label =
+              options.tabBarLabel !== undefined
+                ? options.tabBarLabel
+                : options.title !== undefined
+                ? options.title
+                : item.name;
 
-          const isFocused = state.index === index;
+            const isFocused = state.index === index;
 
-          const onPress = () => {
-            const event = navigation.emit({
-              type: 'tabPress',
-              target: item.key,
-              canPreventDefault: true,
-            });
+            const onPress = () => {
+              const event = navigation.emit({
+                type: 'tabPress',
+                target: item.key,
+                canPreventDefault: true,
+              });
 
-            if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate({name: item.name, merge: true});
-            }
-          };
+              if (!isFocused && !event.defaultPrevented) {
+                navigation.navigate({name: item.name, merge: true});
+              }
+            };
 
-          const onLongPress = () => {
-            navigation.emit({
-              type: 'tabLongPress',
-              target: item.key,
-            });
-          };
+            const onLongPress = () => {
+              navigation.emit({
+                type: 'tabLongPress',
+                target: item.key,
+              });
+            };
 
-          return (
-            <View
-              style={[
-                styles.tabContainer,
-                {
-                  // backgroundColor: index == 1 ? 'red' : 'blue',
-                  // borderTopRightRadius: index == 1 ? 20 : 0,
-                },
-              ]}>
-              <TouchableOpacity
-                activeOpacity={0.9}
-                onPress={onPress}
-                style={styles.aiCenter}>
-                <Image
-                  source={
-                    index == 0
-                      ? appIcons.data
-                      : index == 1
-                      ? appIcons.mic
-                      : index == 2
-                      ? appIcons.learn
-                      : index == 3
-                      ? appIcons.account
-                      : null
-                  }
-                  style={[
-                    styles.tabIcons,
-                    {tintColor: isFocused ? colors.P1 : colors.g24},
-                  ]}
-                />
-                <Text
-                  style={[
-                    styles.textStyle,
-                    {
-                      color: isFocused ? colors.P1 : colors.g24,
-                    },
-                  ]}>
-                  {label}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          );
-        }}
-      />
+            return (
+              <View style={[styles.tabContainer]}>
+                <TouchableOpacity
+                  activeOpacity={0.9}
+                  onPress={onPress}
+                  style={styles.aiCenter}>
+                  {index == 2 ? (
+                    <View
+                      style={{
+                        marginBottom: HP(6),
+                        marginLeft: WP(0.8),
+                      }}>
+                      {isFocused
+                        ? TabIcons[index].fillIcon
+                        : TabIcons[index].icon}
+                    </View>
+                  ) : (
+                    <>
+                      {isFocused
+                        ? TabIcons[index].fillIcon
+                        : TabIcons[index].icon}
+                      <Text
+                        style={[
+                          styles.textStyle,
+                          {
+                            color: isFocused ? colors.P1 : colors.g24,
+                          },
+                        ]}>
+                        {label}
+                      </Text>
+                    </>
+                  )}
+                </TouchableOpacity>
+              </View>
+            );
+          }}
+        />
+      </ImageBackground>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.white,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    borderTopRightRadius: 40,
-    borderTopLeftRadius: 40,
   },
-  tabIcons: {
-    width: WP(7),
-    height: WP(7),
-    resizeMode: 'contain',
-  },
+
   textStyle: {
     fontSize: size.tiny,
     fontFamily: family.OpenSans_Regular,
     marginTop: 5,
   },
-  borderStyle: {},
+
   tabContainer: {
-    width: WP(25),
-    height: HP(10),
+    width: width / 5,
+    height: HP(12),
     alignItems: 'center',
     justifyContent: 'center',
   },
   aiCenter: {
-    width: WP(25),
-    height: HP(10),
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -4,8 +4,11 @@ import {NavigationContainer} from '@react-navigation/native';
 import AuthStack from './stacks/AuthStack';
 import PrivacyTerms from './stacks/PrivacyTerms';
 import RNBootSplash from 'react-native-bootsplash';
-import AccountStack from './stacks/AccountStack';
-import EditProfileScreen from '../screens/App/AccountTab/editProfileScreen';
+import EditProfileScreen from '../screens/App/AccountTab/EditProfileScreen';
+import BottomTabs from './bottomTab';
+import FaqScreen from '../screens/App/AccountTab/Faqs';
+import TermsScreen from '../screens/App/AccountTab/Terms&Condition';
+import ContactUs from '../screens/App/AccountTab/ContactUs';
 
 const AppStack = createStackNavigator();
 
@@ -16,8 +19,12 @@ const MainAppNav = () => {
         initialRouteName="auth"
         screenOptions={{headerShown: false}}>
         <AppStack.Screen name={'auth'} component={AuthStack} />
-        <AppStack.Screen name={'Account'} component={AccountStack} />
+        <AppStack.Screen name={'BottomTabs'} component={BottomTabs} />
         <AppStack.Screen name={'EditProfile'} component={EditProfileScreen} />
+        <AppStack.Screen name={'Faq'} component={FaqScreen} />
+        <AppStack.Screen name={'Terms'} component={TermsScreen} />
+        <AppStack.Screen name={'ContactUs'} component={ContactUs} />
+
         <AppStack.Screen name={'privacyTerms'} component={PrivacyTerms} />
       </AppStack.Navigator>
     </NavigationContainer>
