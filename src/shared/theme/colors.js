@@ -5,6 +5,7 @@ export const colors = {
   P3: '#237B9F',
   P4: '#71B4DB',
   P5: '#70B3DC',
+  P6: '#70B2DC',
 
   // Secondary Color
   s1: '#FA515B',

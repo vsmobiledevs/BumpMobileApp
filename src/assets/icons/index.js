@@ -25,9 +25,12 @@ import Wallet from './wallet.svg';
 import RightArrow from './rightArrow.svg';
 import Privacy from './privacy.svg';
 import EditPen from './editPen.svg';
+import EditPenFill from './editPenFill.svg';
 import Camera from './camera.svg';
 import MetaMask from './metaMask.svg';
 import Add from './add.svg';
+import Nft from './nft.svg';
+import Solana from './solana_logo.svg';
 
 const Icons = {
   email: <Email alignSelf="center" />,
@@ -57,9 +60,12 @@ const Icons = {
   rightArrow: <RightArrow alignSelf="center" />,
   privacy: <Privacy alignSelf="center" />,
   editPen: <EditPen alignSelf="center" />,
+  editPenFill: <EditPenFill alignSelf="center" />,
   camera: <Camera alignSelf="center" />,
   metaMask: <MetaMask alignSelf="center" />,
   add: <Add alignSelf="center" />,
+  nft: <Nft alignSelf="center" />,
+  solana: <Solana alignSelf="center" />,
 };
 
 export {Icons};

@@ -15,3 +15,9 @@ export {MyStatusBar} from './StatusBar/StatusBar';
 export {BottomTab} from './CustomBottomTab/BottomTab';
 export {CenterButton} from './CustomBottomTab/CenterButton';
 export {TabShape} from './CustomBottomTab/TabShape';
+
+// cards
+export {NftsCard} from './Cards/NftsCard';
+
+// Modal
+export {RNModal} from './Modal/RNModal';
