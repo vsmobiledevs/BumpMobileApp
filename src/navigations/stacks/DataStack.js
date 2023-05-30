@@ -5,9 +5,7 @@ const Stack = createNativeStackNavigator();
 
 function DataStack(props) {
   return (
-    <Stack.Navigator
-      initialRouteName="data"
-      screenOptions={{headerShown: false}}>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="data" component={Data} />
     </Stack.Navigator>
   );

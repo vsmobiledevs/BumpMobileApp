@@ -53,8 +53,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.t1,
   },
   inputStyle: {
-    width: WP(45),
-    marginStart: WP(4),
+    width: WP(42),
     color: colors.g18,
   },
   titleStyle: {
