@@ -3,7 +3,7 @@ export const colors = {
   P1: '#86CED7',
   P2: '#6EB0DC',
   P3: '#237B9F',
-  P4: '#71B4DB',
+
   p4: '#3987B3',
   p5: '#1B5E84',
   p6: '#2165A2',
@@ -53,6 +53,7 @@ export const colors = {
   g22: '#F7F8F9',
   g23: '#ADA4A5',
   g24: '#BBBBBB',
+  g25: '#ABABAB',
 
   //White colors
   white: '#ffffff',
@@ -65,6 +66,9 @@ export const colors = {
 
   //Yellow colors
   y1: '#E58200',
+
+  // orange
+  orange: '#FF8A00',
 
   // rgba colors
   t1: 'rgba(255, 255, 255, 0.2)',

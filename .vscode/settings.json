@@ -7,8 +7,10 @@
         "navigations",
         "reduxjs",
         "Roboto",
+        "solana",
         "svgs",
         "xxsmall",
         "xxtiny"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

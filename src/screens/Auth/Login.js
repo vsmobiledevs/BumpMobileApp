@@ -50,6 +50,7 @@ const Login = () => {
   // submit form for login user into app
   const handleLogin = async values => {
     navigation.navigate('BottomTabs');
+    // navigation.navigate('Account', {screen: 'AccountScreen'});
   };
 
   return (

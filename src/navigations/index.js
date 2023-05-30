@@ -24,8 +24,8 @@ const MainAppNav = () => {
         <AppStack.Screen name={'Faq'} component={FaqScreen} />
         <AppStack.Screen name={'Terms'} component={TermsScreen} />
         <AppStack.Screen name={'ContactUs'} component={ContactUs} />
-
         <AppStack.Screen name={'privacyTerms'} component={PrivacyTerms} />
+        <AppStack.Screen name={'BottomTabs'} component={BottomTabs} />
       </AppStack.Navigator>
     </NavigationContainer>
   );
