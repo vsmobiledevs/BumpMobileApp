@@ -1,5 +1,5 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import AccountScreen from '../../screens/App/AccountTab/AccountScreen';
+import AccountScreen from '../../screens/App/AccountTab/accountScreen';
 
 const Stack = createNativeStackNavigator();
 
