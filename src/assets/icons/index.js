@@ -27,6 +27,16 @@ import Privacy from './privacy.svg';
 import EditPen from './editPen.svg';
 import EditPenFill from './editPenFill.svg';
 import Camera from './camera.svg';
+import FillData from './fillData.svg';
+import FillLearn from './fillLearn.svg';
+import FillMic from './fillMic.svg';
+import FillAccount from './fillAccount.svg';
+import AppLogo from './appLogo.svg';
+import MetaMask from './metaMask.svg';
+import LeftArrow from './leftArrow.svg';
+import DownArrow from './downArrow.svg';
+import UpArrow from './upArrow.svg';
+import Condition from './condition.svg';
 import MetaMask from './metaMask.svg';
 import Add from './add.svg';
 import Nft from './nft.svg';
@@ -43,8 +53,8 @@ const Icons = {
   data: <Data alignSelf="center" />,
   dataFill: <DataFill alignSelf="center" />,
   mic: <Mic alignSelf="center" />,
+  search: <Search alignSelf="center" width={50} />,
   micFill: <MicFill alignSelf="center" />,
-  search: <Search alignSelf="center" />,
   SearchWhite: <SearchWhite alignSelf="center" />,
   learn: <Learn alignSelf="center" />,
   account: <Account alignSelf="center" />,
@@ -62,6 +72,17 @@ const Icons = {
   editPen: <EditPen alignSelf="center" />,
   editPenFill: <EditPenFill alignSelf="center" />,
   camera: <Camera alignSelf="center" />,
+  fillData: <FillData alignSelf="center" />,
+  fillLearn: <FillLearn alignSelf="center" />,
+  fillAccount: <FillAccount alignSelf="center" />,
+  fillMic: <FillMic alignSelf="center" />,
+  appLogo: <AppLogo alignSelf="center" />,
+  metaMask: <MetaMask alignSelf="center" />,
+  done: <Done alignSelf="center" />,
+  leftArrow: <LeftArrow alignSelf="center" />,
+  downArrow: <DownArrow alignSelf="center" />,
+  upArrow: <UpArrow alignSelf="center" />,
+  condition: <Condition alignSelf="center" />,
   metaMask: <MetaMask alignSelf="center" />,
   add: <Add alignSelf="center" />,
   nft: <Nft alignSelf="center" />,

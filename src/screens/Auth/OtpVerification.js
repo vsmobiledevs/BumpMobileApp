@@ -1,4 +1,10 @@
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {AuthHeader} from '../../components';
 import {HP, colors, size, WP} from '../../shared/exporter';
@@ -18,7 +24,7 @@ const OtpVerification = () => {
   // navigate when user enter OTP
   useEffect(() => {
     if (value?.length == 4) {
-      navigation.navigate('ResetPassword');
+      navigation.navigate('NewPassword');
       setValue('');
     }
   }, [value]);
@@ -28,7 +34,7 @@ const OtpVerification = () => {
     setValue,
   });
   return (
-    <View style={styles.main}>
+    <SafeAreaView style={styles.main}>
       <AuthHeader
         left={Icons.backIcon}
         onPressLeft={() => navigation.goBack()}
@@ -70,7 +76,7 @@ const OtpVerification = () => {
           <Text style={[styles.footer]}> Resend</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -1,5 +1,5 @@
 import {AppButton, AppInput, AuthHeader} from '../../components';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, SafeAreaView} from 'react-native';
 import React, {useRef} from 'react';
 import {Formik} from 'formik';
 import {
@@ -23,7 +23,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <View style={styles.main}>
+    <SafeAreaView style={styles.main}>
       <AuthHeader
         left={Icons.backIcon}
         onPressLeft={() => navigation.goBack()}
@@ -67,7 +67,7 @@ const ForgotPassword = () => {
           </>
         )}
       </Formik>
-    </View>
+    </SafeAreaView>
   );
 };
 

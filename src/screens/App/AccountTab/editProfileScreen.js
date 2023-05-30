@@ -5,6 +5,7 @@ import {
   StatusBar,
   Image,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
 import React, {useState} from 'react';
 import {HP, colors, WP, family} from '../../../shared/exporter';
@@ -28,17 +29,15 @@ const EditProfileScreen = ({navigation}) => {
     return <AppLoader loader_color={colors.g19} loading={isLoading} />;
   } else {
     return (
-      <View style={styles.container}>
-        <StatusBar animated={true} barStyle="dark-content" />
-        <View style={styles.headerSytle}>
-          <AuthHeader
-            left={Icons.backIcon}
-            center={'Edit Priofile'}
-            right={Icons.editPen}
-            onPressRight={isEditCheck}
-            onPressLeft={() => navigation.goBack()}
-          />
-        </View>
+      <SafeAreaView style={styles.container}>
+        <AuthHeader
+          left={Icons.leftArrow}
+          center={'Edit Priofile'}
+          right={Icons.editPen}
+          onPressRight={isEditCheck}
+          onPressLeft={() => navigation.goBack()}
+        />
+
         <View style={styles.imageContainer}>
           <Image
             source={{
@@ -75,7 +74,7 @@ const EditProfileScreen = ({navigation}) => {
           title={'E-mail'}
         />
         {isEdit && <AppButton title="Update" buttonContainer={styles.btn} />}
-      </View>
+      </SafeAreaView>
     );
   }
 };
@@ -87,9 +86,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
   },
-  headerSytle: {
-    marginTop: HP(4),
-  },
+
   imageContainer: {
     width: WP(40),
     height: WP(40),

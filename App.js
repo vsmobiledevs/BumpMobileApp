@@ -1,5 +1,4 @@
-import React from 'react';
-import {Provider} from 'react-redux';
+import React, {useEffect} from 'react';
 import MainNavigation from './src/navigations';
 import {persistor, store} from './src/redux/store';
 import {MenuProvider} from 'react-native-popup-menu';
