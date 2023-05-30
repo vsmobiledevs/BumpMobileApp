@@ -3,7 +3,7 @@ import Search from '../../screens/App/SearchTab/Search';
 
 const Stack = createNativeStackNavigator();
 
-function MicStack(props) {
+function SearchStack(props) {
   return (
     <Stack.Navigator
       initialRouteName="search"
@@ -13,4 +13,4 @@ function MicStack(props) {
   );
 }
 
-export default MicStack;
+export default SearchStack;

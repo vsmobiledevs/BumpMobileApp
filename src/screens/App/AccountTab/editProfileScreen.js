@@ -12,7 +12,7 @@ import {AppButton, AppInput, AuthHeader} from '../../../components';
 import {Icons} from '../../../assets/icons';
 import {AppLoader} from '../../../components/AppLoader';
 
-const EditProfileScreen = () => {
+const EditProfileScreen = ({navigation}) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -36,6 +36,7 @@ const EditProfileScreen = () => {
             center={'Edit Priofile'}
             right={Icons.editPen}
             onPressRight={isEditCheck}
+            onPressLeft={() => navigation.goBack()}
           />
         </View>
         <View style={styles.imageContainer}>

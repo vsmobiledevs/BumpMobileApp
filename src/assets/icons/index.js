@@ -5,10 +5,12 @@ import Apple from './apple.svg';
 import Amazon from './amazon.svg';
 import Facebook from './facebook.svg';
 import BackIcon from './backIcon.svg';
-import Done from './passChange.svg';
 import Data from './data.svg';
+import DataFill from './dataFill.svg';
 import Mic from './mic.svg';
+import MicFill from './micFill.svg';
 import Search from './search.svg';
+import SearchWhite from './searchWhite.svg';
 import Learn from './learn.svg';
 import Account from './account.svg';
 import Lock from './lock.svg';
@@ -24,6 +26,8 @@ import RightArrow from './rightArrow.svg';
 import Privacy from './privacy.svg';
 import EditPen from './editPen.svg';
 import Camera from './camera.svg';
+import MetaMask from './metaMask.svg';
+import Add from './add.svg';
 
 const Icons = {
   email: <Email alignSelf="center" />,
@@ -34,8 +38,11 @@ const Icons = {
   amazon: <Amazon alignSelf="center" />,
   backIcon: <BackIcon alignSelf="center" />,
   data: <Data alignSelf="center" />,
+  dataFill: <DataFill alignSelf="center" />,
   mic: <Mic alignSelf="center" />,
+  micFill: <MicFill alignSelf="center" />,
   search: <Search alignSelf="center" />,
+  SearchWhite: <SearchWhite alignSelf="center" />,
   learn: <Learn alignSelf="center" />,
   account: <Account alignSelf="center" />,
   earn: <Earning alignSelf="center" />,
@@ -51,6 +58,8 @@ const Icons = {
   privacy: <Privacy alignSelf="center" />,
   editPen: <EditPen alignSelf="center" />,
   camera: <Camera alignSelf="center" />,
+  metaMask: <MetaMask alignSelf="center" />,
+  add: <Add alignSelf="center" />,
 };
 
 export {Icons};

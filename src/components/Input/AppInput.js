@@ -2,11 +2,18 @@ import {StyleSheet, Text, View, TextInput} from 'react-native';
 import {HP, WP, colors, size} from '../../shared/exporter';
 import React from 'react';
 
-const AppInput = ({leftIcon, title, errorMessage, touched, textInPutProps}) => {
+const AppInput = ({
+  leftIcon,
+  title,
+  errorMessage,
+  touched,
+  textInPutProps,
+  containerStyle,
+}) => {
   return (
-    <View style={styles.mainContainer}>
+    <View style={[styles.mainContainer]}>
       {title && <Text style={styles.titleStyle}>{title}</Text>}
-      <View style={styles.inputContainer}>
+      <View style={[styles.inputContainer, containerStyle]}>
         {leftIcon}
         <TextInput
           {...textInPutProps}
