@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
     marginVertical: HP(1),
   },
   inputContainer: {
-    borderWidth: 1,
     height: WP(12),
+    borderWidth: 1,
     borderRadius: WP(7),
     flexDirection: 'row',
     alignItems: 'center',

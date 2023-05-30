@@ -7,6 +7,8 @@ const AppButton = ({
   title,
   buttonStyle,
   txtStyle,
+  clr1 = colors.P1,
+  clr2 = colors.P2,
   buttonContainer,
   touchableOpacity,
   text,
@@ -17,7 +19,7 @@ const AppButton = ({
       {...touchableOpacity}
       style={[styles.buttonContainer, {...buttonContainer}]}>
       <LinearGradient
-        colors={[colors.P1, colors.P2]}
+        colors={[clr1, clr2]}
         style={[styles.buttonStyle, {...buttonStyle}]}>
         <Text style={[styles.txtStyle, {...txtStyle}]} {...text}>
           {title}

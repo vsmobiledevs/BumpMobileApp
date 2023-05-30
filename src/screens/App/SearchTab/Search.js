@@ -1,44 +1,54 @@
 import {
-  TouchableOpacity,
-  ImageBackground,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
   View,
   FlatList,
-  Text,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+  ImageBackground,
 } from 'react-native';
 import React, {useState} from 'react';
 import {Icons} from '../../../assets/icons';
-import {MyStatusBar, SearchInput} from '../../../components';
 import {HP, WP, appImages, colors} from '../../../shared/exporter';
+import {MyStatusBar, NftsCard, RNModal, SearchInput} from '../../../components';
 
 const Search = () => {
-  const DATA = [1, 2, 3, 4, 5, 6];
   const [isPaid, setIsPaid] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [Nfts, setNfts] = useState([
+    {
+      id: 0,
+      name: 'Solana',
+      icon: Icons.solana,
+    },
+    {
+      id: 1,
+      name: 'NFT',
+      icon: Icons.solana,
+    },
+    {
+      id: 2,
+      name: 'Blockchain',
+      icon: Icons.solana,
+    },
+    {
+      id: 3,
+      name: 'Recent View',
+      icon: Icons.solana,
+    },
+    {
+      id: 4,
+      name: 'Add Shortcut',
+      icon: Icons.solana,
+    },
+  ]);
 
   // select browsing type
   const onSelectSwitch = val => {
     setIsPaid(val === 1 ? false : true);
   };
 
-  const addShortCut = index => {
-    if (index === 5) {
-      console.log('you want to add shortcut');
-    }
-  };
-
-  const Card = ({item, index}) => {
-    return (
-      <TouchableOpacity
-        onPress={() => addShortCut(index)}
-        activeOpacity={0.8}
-        style={styles.iconsMain}>
-        <View style={styles.iconContainer}>{index === 5 && Icons.add}</View>
-        <Text style={styles.iconText}>{'Etherium'}</Text>
-      </TouchableOpacity>
-    );
-  };
+  // edit or remove NFTs from list
+  const onPressIcon = index => {};
 
   return (
     <SafeAreaView style={styles.container}>
@@ -49,14 +59,10 @@ const Search = () => {
           isPaid ? appImages.homeBackgroundBlue : appImages.homeBackgroundOrange
         }>
         <ScrollView>
-          <ImageBackground source={appImages.homeHead} style={styles.homeHead}>
-            {/* Mask icon. */}
-            {/* <TouchableOpacity
-              activeOpacity={0.8}
-              style={styles.metaMaskIconContainer}>
-              {Icons.metaMask}
-            </TouchableOpacity> */}
-          </ImageBackground>
+          <ImageBackground
+            source={appImages.homeHead}
+            style={styles.homeHead}
+          />
 
           {/* Search input */}
           <SearchInput
@@ -69,17 +75,29 @@ const Search = () => {
             }}
             onSelectSwitch={onSelectSwitch}
           />
+
+          {/* NFTs card container */}
           <View style={styles.innerContainer}>
             <FlatList
-              style={{margin: 5}}
-              data={DATA}
+              data={Nfts}
               numColumns={4}
-              keyExtractor={(item, index) => index}
-              renderItem={({item, index}) => <Card item={item} index={index} />}
+              keyExtractor={item => item?.id}
+              renderItem={({item, index}) => (
+                <NftsCard
+                  item={item}
+                  index={index}
+                  showModal={setShowModal}
+                  arrayLength={Nfts.length}
+                  onPressIcon={() => onPressIcon(index)}
+                />
+              )}
             />
           </View>
         </ScrollView>
       </ImageBackground>
+      {showModal && (
+        <RNModal show={showModal} onTouchCancel={() => setShowModal(false)} />
+      )}
     </SafeAreaView>
   );
 };
@@ -119,21 +137,5 @@ const styles = StyleSheet.create({
   metaMaskIconContainer: {
     alignSelf: 'flex-end',
     margin: HP(3),
-  },
-  iconContainer: {
-    backgroundColor: colors.white,
-    borderRadius: HP(5),
-    width: WP(15),
-    height: WP(15),
-    margin: HP(1.5),
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  iconsMain: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  iconText: {
-    color: colors.white,
   },
 });
