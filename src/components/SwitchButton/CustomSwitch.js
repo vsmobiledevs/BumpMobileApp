@@ -45,7 +45,7 @@ const CustomSwitch = ({
         onPress={() => updatedSwitchData(2)}
         style={{
           flex: 1,
-          backgroundColor: getSelectionMode == 2 ? colors.P4 : colors.white,
+          backgroundColor: getSelectionMode == 2 ? colors.p4 : colors.white,
           borderTopRightRadius: roundCorner ? HP(2) : 0,
           borderBottomRightRadius: roundCorner ? HP(2) : 0,
           justifyContent: 'center',
