@@ -1,8 +1,9 @@
+import {persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist';
+import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import {configureStore} from '@reduxjs/toolkit';
-import { PostApi } from './api/postApi';
+import { AuthApis } from './api/auth';
 import rootReducer from './features';
 
 const persistConfig = {
@@ -20,8 +21,11 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat([PostApi.middleware])
+    }).concat([AuthApis.middleware])
 });
+
+// optional, but required for refetchOnFocus/refetchOnReconnect behaviors
+setupListeners(store.dispatch)
 
 const persistor = persistStore(store);
 

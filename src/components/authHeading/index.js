@@ -21,14 +21,14 @@ const styles = StyleSheet.create({
     marginTop: HP(3),
   },
   mainHeading: {
-    fontWeight: 700,
+    fontWeight: '700',
     fontSize: WP(7),
     fontStyle: 'normal',
     color: colors.g19,
   },
   subHeading: {
     marginTop: HP(1),
-    fontWeight: 500,
+    fontWeight: '500',
     fontSize: WP(4.8),
     lineHeight: HP(3.5),
     fontStyle: 'normal',

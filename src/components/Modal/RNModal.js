@@ -9,7 +9,7 @@ const RNModal = props => {
   const {
     show,
     onTouchCancel,
-    title = 'Add Shortcut',
+    title = 'Edit Shortcut',
     name = 'Name',
     url = 'URL',
   } = props;

@@ -9,14 +9,18 @@ import FaqScreen from '../screens/App/AccountTab/Faqs';
 import TermsScreen from '../screens/App/AccountTab/Terms&Condition';
 import ContactUs from '../screens/App/AccountTab/ContactUs';
 import BottomTabs from './bottomTab';
+import {useSelector} from 'react-redux';
 
 const AppStack = createStackNavigator();
 
 const MainAppNav = () => {
+  const authToken = useSelector(state => state.authSlice?.user);
+  console.log(authToken);
+
   return (
     <NavigationContainer onReady={() => RNBootSplash.hide()}>
       <AppStack.Navigator
-        initialRouteName="auth"
+        initialRouteName={authToken?.token ? 'BottomTabs' : 'auth'}
         screenOptions={{headerShown: false}}>
         <AppStack.Screen name={'auth'} component={AuthStack} />
         <AppStack.Screen name={'EditProfile'} component={EditProfileScreen} />

@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   faq: {
     fontFamily: family.Roboto_Bold,
     fontStyle: 'normal',
-    fontWeight: 700,
+    fontWeight: '700',
     fontSize: WP(5.5),
     lineHeight: WP(5),
     marginHorizontal: WP(2),
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: family.Roboto_Medium,
     fontStyle: 'normal',
-    fontWeight: 700,
+    fontWeight: '700',
     fontSize: size.large,
     lineHeight: WP(5),
     color: colors.white,

@@ -20,3 +20,5 @@ export {
   resetPassFormFields,
   ResetPassVS,
 } from './utilities/validations';
+
+export {endpoints} from './endpoints/endpoints';

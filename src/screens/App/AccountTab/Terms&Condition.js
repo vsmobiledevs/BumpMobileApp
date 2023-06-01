@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   terms: {
     fontFamily: family.Roboto_Bold,
     fontStyle: 'normal',
-    fontWeight: 700,
+    fontWeight: '700',
     fontSize: WP(5.5),
     lineHeight: WP(5),
     marginHorizontal: WP(2),
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   terms1: {
     fontFamily: family.Roboto_Bold,
     fontStyle: 'normal',
-    fontWeight: 700,
+    fontWeight: '700',
     fontSize: WP(4.5),
     lineHeight: WP(5),
     marginHorizontal: WP(2),
