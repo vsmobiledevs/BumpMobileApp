@@ -5,7 +5,7 @@ import {connect} from '../../../blockChain/metaMaskConfig';
 
 const Data = () => {
   const [isAccount, setIsAccount] = useState();
-  console.log(isAccount);
+
   return (
     <View>
       <Button

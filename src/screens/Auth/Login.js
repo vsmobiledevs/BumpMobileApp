@@ -6,7 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   HP,
   WP,
@@ -24,40 +24,28 @@ import {AppLoader} from '../../components/AppLoader';
 import {useNavigation} from '@react-navigation/native';
 import {useLoginUserMutation} from '../../redux/api/auth';
 import {socialIcons} from '../../shared/utilities/dummyData';
-import {login} from '../../redux/features/authSlice';
-import {useDispatch} from 'react-redux';
 
 const Login = () => {
-  const dispatch = useDispatch(null);
-  const [loginUser] = useLoginUserMutation();
+  const [loginUser, res] = useLoginUserMutation();
   const formikRef = useRef();
   const navigation = useNavigation();
 
-  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    if (res?.isSuccess) {
+      navigation.navigate('BottomTabs');
+      alert(res?.data?.message);
+    }
+    if (res?.isError) {
+      console.log('Error');
+    }
+  }, [res.isLoading]);
 
   // login user
-  const handleLogin = async (values, resetForm) => {
-    setIsLoading(true);
-    try {
-      var body = new FormData();
-      body.append('email', values.email);
-      body.append('password', values.password);
-      const response = await loginUser(body);
-      if (response?.data) {
-        resetForm();
-        setIsLoading(false);
-        alert(response?.data?.message);
-        dispatch(login(response?.data));
-        navigation.navigate('BottomTabs');
-      } else {
-        setIsLoading(false);
-        console.log('inside else case--', response?.error);
-        alert(response?.error?.data?.message);
-      }
-    } catch (error) {
-      setIsLoading(false);
-      console.log('login api error--', error);
-    }
+  const handleLogin = async values => {
+    var body = new FormData();
+    body.append('email', values.email);
+    body.append('password', values.password);
+    loginUser(body);
   };
 
   // social login buttons
@@ -190,7 +178,7 @@ const Login = () => {
           </>
         )}
       </Formik>
-      <AppLoader loader_color={colors.g19} loading={isLoading} />
+      <AppLoader loader_color={colors.g19} loading={res?.isLoading} />
     </ScrollView>
   );
 };
