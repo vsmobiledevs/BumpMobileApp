@@ -18,6 +18,7 @@ export const colors = {
   s7: '#A50094',
   s8: '#278062',
   s9: '#2E2B3C',
+  s10: '#EF3939',
 
   // Black Color
   b1: '#000000',

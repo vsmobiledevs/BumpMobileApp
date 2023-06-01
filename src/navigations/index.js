@@ -8,19 +8,17 @@ import EditProfileScreen from '../screens/App/AccountTab/editProfileScreen';
 import FaqScreen from '../screens/App/AccountTab/Faqs';
 import TermsScreen from '../screens/App/AccountTab/Terms&Condition';
 import ContactUs from '../screens/App/AccountTab/ContactUs';
+import DeleteAccount from '../screens/App/AccountTab/DeleteAccount';
 import BottomTabs from './bottomTab';
 import {useSelector} from 'react-redux';
 
 const AppStack = createStackNavigator();
 
 const MainAppNav = () => {
-  const authToken = useSelector(state => state.authSlice?.user);
-  console.log(authToken);
-
   return (
     <NavigationContainer onReady={() => RNBootSplash.hide()}>
       <AppStack.Navigator
-        initialRouteName={authToken?.token ? 'BottomTabs' : 'auth'}
+        initialRouteName={'auth'}
         screenOptions={{headerShown: false}}>
         <AppStack.Screen name={'auth'} component={AuthStack} />
         <AppStack.Screen name={'EditProfile'} component={EditProfileScreen} />
@@ -28,6 +26,7 @@ const MainAppNav = () => {
         <AppStack.Screen name={'Terms'} component={TermsScreen} />
         <AppStack.Screen name={'ContactUs'} component={ContactUs} />
         <AppStack.Screen name={'privacyTerms'} component={PrivacyTerms} />
+        <AppStack.Screen name={'deleteAccount'} component={DeleteAccount} />
         <AppStack.Screen name={'BottomTabs'} component={BottomTabs} />
       </AppStack.Navigator>
     </NavigationContainer>

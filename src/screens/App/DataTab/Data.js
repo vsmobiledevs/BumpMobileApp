@@ -1,10 +1,19 @@
-import {View, Text} from 'react-native';
-import React from 'react';
+import {View, Button} from 'react-native';
+import React, {useState} from 'react';
+
+import {connect} from '../../../blockChain/metaMaskConfig';
 
 const Data = () => {
+  const [isAccount, setIsAccount] = useState();
+
   return (
     <View>
-      <Text>Data</Text>
+      <Button
+        title={isAccount ? 'Connected' : 'Connect'}
+        onPress={() => {
+          setIsAccount(connect());
+        }}
+      />
     </View>
   );
 };

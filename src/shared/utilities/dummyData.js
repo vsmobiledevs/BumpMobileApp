@@ -70,7 +70,7 @@ const AccountButtons = [
     id: 7,
     title: 'Privacy Policy',
     leftIcon: Icons?.privacy,
-    screen: 'EditProfile',
+    screen: ['Terms'],
   },
   {
     id: 8,
@@ -82,7 +82,7 @@ const AccountButtons = [
     id: 9,
     title: 'Delete Account',
     leftIcon: Icons?.delete,
-    screen: 'EditProfile',
+    screen: ['deleteAccount'],
   },
 ];
 

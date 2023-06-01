@@ -31,7 +31,7 @@ const FaqScreen = ({navigation}) => {
               colors={
                 isIndex == index
                   ? [colors.p5, colors.p5]
-                  : [colors.P4, colors.P4]
+                  : [colors.p4, colors.p4]
               }
               start={{y: 0, x: 0}}
               end={{y: 0, x: 0}}
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: '700',
     fontSize: WP(5.5),
-    lineHeight: WP(5),
+    lineHeight: WP(7),
     marginHorizontal: WP(2),
     marginVertical: HP(3),
     color: colors.g19,
@@ -108,9 +108,9 @@ const styles = StyleSheet.create({
   },
   miniConatiner: {
     marginHorizontal: WP(2),
-    marginTop: HP(1),
+    marginTop: HP(5),
     backgroundColor: 'white',
-    borderRadius: 8,
+    borderRadius: WP(5),
     shadowColor: 'black',
     shadowOffset: {width: 0, height: 0.5},
     shadowOpacity: 0.3,

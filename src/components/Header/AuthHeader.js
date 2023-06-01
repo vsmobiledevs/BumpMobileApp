@@ -1,4 +1,11 @@
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Platform,
+} from 'react-native';
 import React from 'react';
 import {colors, family, WP, HP} from '../../shared/exporter';
 
@@ -54,7 +61,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: 'red',
-    marginTop: HP(2),
+    marginVertical: Platform.OS === 'android' ? HP(4) : HP(2),
   },
   backArrowContainer: {
     width: WP(10),

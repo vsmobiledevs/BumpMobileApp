@@ -41,6 +41,7 @@ import Condition from './condition.svg';
 import Add from './add.svg';
 import Nft from './nft.svg';
 import Solana from './solana_logo.svg';
+import Alert from './alert.svg';
 import ComingSoon from './comingSoon.svg';
 
 const Icons = {
@@ -88,6 +89,7 @@ const Icons = {
   add: <Add alignSelf="center" />,
   nft: <Nft alignSelf="center" />,
   solana: <Solana alignSelf="center" />,
+  alert: <Alert alignSelf="center" />,
   comingSoon: <ComingSoon alignSelf="center" />,
 };
 

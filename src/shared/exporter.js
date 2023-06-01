@@ -19,6 +19,8 @@ export {
   ForgotPassVS,
   resetPassFormFields,
   ResetPassVS,
+  DeleteAccountVS,
+  deleteAccountFields,
 } from './utilities/validations';
 
 export {endpoints} from './endpoints/endpoints';

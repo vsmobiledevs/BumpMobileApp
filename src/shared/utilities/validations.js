@@ -25,6 +25,10 @@ export const resetPassFormFields = {
   confirmPassword: '',
 };
 
+export const deleteAccountFields = {
+  password: '',
+};
+
 export const LoginVS = yup.object().shape({
   email: yup
     .string()
@@ -81,4 +85,11 @@ export const ResetPassVS = yup.object().shape({
     .min(6, 'Password must be at least 6 characters')
     .required('Confirm Password Required')
     .oneOf([yup.ref('password'), null], 'Passwords must match'),
+});
+
+export const DeleteAccountVS = yup.object().shape({
+  password: yup
+    .string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('Password Required'),
 });

@@ -1,40 +1,41 @@
-import {HP, WP, appIcons, colors, family, size} from '../../shared/exporter';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {HP, WP, colors, family, size} from '../../shared/exporter';
+import {StyleSheet, Text, View} from 'react-native';
 import {AppButton} from '../AppButton/AppButton';
 import Modal from 'react-native-modal';
 import React from 'react';
 import {Icons} from '../../assets/icons';
 
-const SuccessModal = ({show, onLoginBackPress, onTouchCancel, reset}) => {
+const ConfirmModal = ({show, onCancelPress, onTouchCancel, onConfirmPress}) => {
   return (
     <Modal
       isVisible={show}
       onBackdropPress={onTouchCancel}
       animationIn="fadeIn"
-      animationOut="fadeOut">
+      animationOut="fadeOut"
+      transparent={true}>
       <View style={styles.modalContainer}>
         <View style={styles.modalViewStyle}>
-          {Icons.done}
-          <Text
-            style={[
-              styles.successTxt,
-              {color: reset ? colors.g19 : colors.blue},
-            ]}>
-            {'Password Changed!'}
-          </Text>
-          <Text
-            style={[
-              styles.successTxtDetail,
-              {fontSize: reset ? size.medium : size.small},
-            ]}>
-            {'Your password has been changed successfully.'}
+          {Icons.alert}
+          <Text style={[styles.successTxtDetail, {fontSize: size.small}]}>
+            Are you sure you want to delete your {'\n'} account? It will
+            permanently {'\n'}erase your data!
           </Text>
           <AppButton
-            title={reset ? 'OK' : 'Back to Login'}
+            title={'Confirm Delete'}
             buttonStyle={styles.buttonStyle}
-            buttonContainer={{marginTop: WP(15)}}
+            buttonContainer={{marginTop: WP(20)}}
+            clr1={colors.s10}
+            clr2={colors.s10}
             touchableOpacity={{
-              onPress: () => onLoginBackPress(),
+              onPress: () => onConfirmPress(),
+            }}
+          />
+          <AppButton
+            title={'Cancel'}
+            buttonStyle={styles.buttonStyle}
+            buttonContainer={{marginTop: WP(0)}}
+            touchableOpacity={{
+              onPress: () => onCancelPress(),
             }}
           />
         </View>
@@ -43,7 +44,7 @@ const SuccessModal = ({show, onLoginBackPress, onTouchCancel, reset}) => {
   );
 };
 
-export default SuccessModal;
+export {ConfirmModal};
 
 const styles = StyleSheet.create({
   modalContainer: {
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
   },
   successTxtDetail: {
     color: colors.g19,
-    marginTop: WP(5),
+    marginTop: WP(7),
     width: '80%',
     textAlign: 'center',
     alignSelf: 'center',

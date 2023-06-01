@@ -24,11 +24,7 @@ const AccountScreen = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
-      <StatusBar
-        animated={true}
-        translucent={true}
-        backgroundColor={'transparent'}
-      />
+      <StatusBar animated={true} backgroundColor={colors.P1} />
 
       <LinearGradient colors={[colors.P1, colors.P2]} style={styles.header}>
         <View style={styles.header2}>
@@ -49,20 +45,27 @@ const AccountScreen = ({navigation}) => {
           </View>
         </View>
       </LinearGradient>
-      <ScrollView>
-        <View style={styles.miniContainer}>
+
+      <View style={styles.miniContainer}>
+        <ScrollView
+          contentContainerStyle={{flexGrow: 1, paddingBottom: HP(15)}}
+          contentInsetAdjustmentBehavior="automatic">
           {AccountButtons?.map(i => {
             return (
               <AccountButton
                 title={i.title}
                 leftIcon={i.leftIcon}
                 rightIcon={Icons?.rightArrow}
-                onPress={() => onPressListItem(i)}
+                onPress={() => {
+                  i.id == 6 || 7
+                    ? navigation.navigate(i.screen[0], {screenId: i.id})
+                    : navigation.navigate(i.screen[0]);
+                }}
               />
             );
           })}
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -110,5 +113,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     shadowRadius: 4,
     elevation: 5,
+    marginBottom: WP(25),
   },
 });
