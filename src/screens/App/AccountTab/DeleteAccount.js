@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, View, SafeAreaView, StatusBar} from 'react-native';
 import {
   AppButton,
   AppInput,
@@ -83,7 +83,7 @@ const DeleteAccount = () => {
               <>
                 <AppInput
                   textInPutProps={{
-                    style: styles.inputStyle,
+                    style: [styles.inputStyle, {height: WP(5)}],
                     value: values.password,
                     onChangeText: handleChange('password'),
                     placeholder: 'Enter password',

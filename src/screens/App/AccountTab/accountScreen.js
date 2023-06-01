@@ -16,11 +16,7 @@ import {Icons} from '../../../assets/icons';
 const AccountScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <StatusBar
-        animated={true}
-        translucent={true}
-        backgroundColor={'transparent'}
-      />
+      <StatusBar animated={true} backgroundColor={colors.P1} />
 
       <LinearGradient colors={[colors.P1, colors.P2]} style={styles.header}>
         <View style={styles.header2}>
