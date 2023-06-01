@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   TouchableOpacity,
   ImageBackground,
@@ -12,7 +12,6 @@ import {
   signupFormFields,
   appImages,
   SignupVS,
-  appIcons,
   colors,
   family,
   size,
@@ -23,16 +22,46 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useNavigation} from '@react-navigation/native';
 import {AppButton, AppInput} from '../../components';
 import {socialIcons} from '../../shared/utilities/dummyData';
+import {useCreateUserMutation} from '../../redux/api/auth';
 import {Formik} from 'formik';
+import {AppLoader} from '../../components/AppLoader';
 
 const Signup = () => {
+  const [createUser] = useCreateUserMutation();
+
   const formikRef = useRef();
   const navigation = useNavigation();
 
-  const handleSignup = values => {
-    console.log('values--', values);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSignup = async (values, resetForm) => {
+    setIsLoading(true);
+    try {
+      var data = new FormData();
+      data.append('username', values.name);
+      data.append('email', values.email);
+      data.append('password', values.password);
+      data.append('password_confirmation', values.password);
+
+      const response = await createUser(data);
+      console.log('create user response--', response);
+      if (response?.data) {
+        resetForm();
+        setIsLoading(false);
+        navigation.navigate('Login');
+        alert('User registered successfully');
+      } else {
+        setIsLoading(false);
+        console.log('inside else case--', response?.error);
+        alert(response?.error?.data?.message);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      console.log('Register user api error--', error);
+    }
   };
 
+  // social login icons
   const onPressIcon = id => {
     switch (id) {
       case 0:
@@ -62,8 +91,8 @@ const Signup = () => {
         innerRef={formikRef}
         initialValues={signupFormFields}
         onSubmit={(values, {resetForm}) => {
-          handleSignup(values);
-          resetForm(signupFormFields);
+          handleSignup(values, resetForm);
+          // resetForm(signupFormFields);
         }}
         validationSchema={SignupVS}>
         {({values, errors, touched, handleSubmit, handleChange}) => (
@@ -170,6 +199,7 @@ const Signup = () => {
           </KeyboardAwareScrollView>
         )}
       </Formik>
+      <AppLoader loader_color={colors.g19} loading={isLoading} />
     </ScrollView>
   );
 };

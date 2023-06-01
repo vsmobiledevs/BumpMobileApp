@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     fontStyle: 'normal',
-    fontWeight: 500,
+    fontWeight: '500',
     fontSize: WP(4),
     textAlign: 'center',
     color: colors.g19,
