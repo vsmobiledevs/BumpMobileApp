@@ -8,6 +8,7 @@ import EditProfileScreen from '../screens/App/AccountTab/editProfileScreen';
 import FaqScreen from '../screens/App/AccountTab/Faqs';
 import TermsScreen from '../screens/App/AccountTab/Terms&Condition';
 import ContactUs from '../screens/App/AccountTab/ContactUs';
+import DeleteAccount from '../screens/App/AccountTab/DeleteAccount';
 import BottomTabs from './bottomTab';
 
 const AppStack = createStackNavigator();
@@ -24,6 +25,7 @@ const MainAppNav = () => {
         <AppStack.Screen name={'Terms'} component={TermsScreen} />
         <AppStack.Screen name={'ContactUs'} component={ContactUs} />
         <AppStack.Screen name={'privacyTerms'} component={PrivacyTerms} />
+        <AppStack.Screen name={'deleteAccount'} component={DeleteAccount} />
         <AppStack.Screen name={'BottomTabs'} component={BottomTabs} />
       </AppStack.Navigator>
     </NavigationContainer>
