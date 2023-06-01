@@ -41,20 +41,27 @@ const AccountScreen = ({navigation}) => {
           </View>
         </View>
       </LinearGradient>
-      <ScrollView>
-        <View style={styles.miniConatiner}>
+
+      <View style={styles.miniConatiner}>
+        <ScrollView
+          contentContainerStyle={{flexGrow: 1, paddingBottom: HP(15)}}
+          contentInsetAdjustmentBehavior="automatic">
           {AccountBtns?.map(i => {
             return (
               <AccountButton
                 title={i.title}
                 leftIcon={i.leftIcon}
                 rightIcon={Icons?.rightArrow}
-                onPress={() => navigation.navigate(i.screen[0])}
+                onPress={() => {
+                  i.id == 6 || 7
+                    ? navigation.navigate(i.screen[0], {screenId: i.id})
+                    : navigation.navigate(i.screen[0]);
+                }}
               />
             );
           })}
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -102,5 +109,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.4,
     shadowRadius: 4,
     elevation: 5,
+    marginBottom: WP(25),
   },
 });

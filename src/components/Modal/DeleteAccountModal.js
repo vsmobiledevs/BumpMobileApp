@@ -1,40 +1,31 @@
-import {HP, WP, appIcons, colors, family, size} from '../../shared/exporter';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {HP, WP, colors, family, size} from '../../shared/exporter';
+import {StyleSheet, Text, View} from 'react-native';
 import {AppButton} from '../AppButton/AppButton';
 import Modal from 'react-native-modal';
 import React from 'react';
 import {Icons} from '../../assets/icons';
 
-const SuccessModal = ({show, onLoginBackPress, onTouchCancel, reset}) => {
+const DeleteAccountModal = ({show, onTouchCancel, onOKPress}) => {
   return (
     <Modal
       isVisible={show}
       onBackdropPress={onTouchCancel}
       animationIn="fadeIn"
-      animationOut="fadeOut">
+      animationOut="fadeOut"
+      transparent={true}>
       <View style={styles.modalContainer}>
         <View style={styles.modalViewStyle}>
           {Icons.done}
-          <Text
-            style={[
-              styles.successTxt,
-              {color: reset ? colors.g19 : colors.blue},
-            ]}>
-            {'Password Changed!'}
+          <Text style={[styles.successTxtDetail, {fontSize: size.h5}]}>
+            Account Deleted!
           </Text>
-          <Text
-            style={[
-              styles.successTxtDetail,
-              {fontSize: reset ? size.medium : size.small},
-            ]}>
-            {'Your password has been changed successfully.'}
-          </Text>
+
           <AppButton
-            title={reset ? 'OK' : 'Back to Login'}
+            title={'OK'}
             buttonStyle={styles.buttonStyle}
             buttonContainer={{marginTop: WP(15)}}
             touchableOpacity={{
-              onPress: () => onLoginBackPress(),
+              onPress: () => onOKPress(),
             }}
           />
         </View>
@@ -43,7 +34,7 @@ const SuccessModal = ({show, onLoginBackPress, onTouchCancel, reset}) => {
   );
 };
 
-export default SuccessModal;
+export {DeleteAccountModal};
 
 const styles = StyleSheet.create({
   modalContainer: {
@@ -70,11 +61,11 @@ const styles = StyleSheet.create({
   },
   successTxtDetail: {
     color: colors.g19,
-    marginTop: WP(5),
+    marginTop: WP(7),
     width: '80%',
     textAlign: 'center',
     alignSelf: 'center',
-    fontFamily: family.Roboto_Regular,
+    fontFamily: family.Roboto_Medium,
   },
   buttonStyle: {
     alignSelf: 'center',

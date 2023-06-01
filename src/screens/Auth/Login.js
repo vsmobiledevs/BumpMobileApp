@@ -56,7 +56,11 @@ const Login = () => {
   return (
     <ScrollView style={styles.main}>
       <Image source={appImages.bump} style={styles.imageStyle} />
-      <Image source={appImages.splash} style={styles.logo} />
+      <Image
+        source={appImages.splash}
+        style={styles.logo}
+        resizeMode="contain"
+      />
       <Formik
         innerRef={formikRef}
         initialValues={loginFormFields}

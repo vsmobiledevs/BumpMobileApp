@@ -21,3 +21,5 @@ export {NftsCard} from './Cards/NftsCard';
 
 // Modal
 export {RNModal} from './Modal/RNModal';
+export {ConfirmModal} from './Modal/ConfirmModal';
+export {DeleteAccountModal} from './Modal/DeleteAccountModal';

@@ -13,8 +13,9 @@ import {Icons} from '../../../assets/icons';
 import {AuthHeader} from '../../../components';
 import LinearGradient from 'react-native-linear-gradient';
 
-const TermsScreen = ({navigation}) => {
+const TermsScreen = ({route, navigation}) => {
   const [isIndex, setIsIndex] = useState(null);
+  const {screenId} = route.params;
   return (
     <SafeAreaView style={styles.container}>
       <AuthHeader
@@ -31,9 +32,13 @@ const TermsScreen = ({navigation}) => {
             marginBottom: HP(3),
           }}>
           {Icons.condition}
-          <Text style={styles.terms}>Terms & Conditions</Text>
+          <Text style={styles.terms}>
+            {screenId == 6 ? 'Terms & Conditions' : 'Privacy Policy'}
+          </Text>
         </View>
-        <Text style={styles.terms1}>Terms & Conditions</Text>
+        <Text style={styles.terms1}>
+          {screenId == 6 ? 'Terms & Conditions' : 'Privacy Policy'}
+        </Text>
       </View>
     </SafeAreaView>
   );
@@ -51,7 +56,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: 700,
     fontSize: WP(5.5),
-    lineHeight: WP(5),
+    lineHeight: WP(7),
     marginHorizontal: WP(2),
     marginVertical: HP(3),
     color: colors.p6,
@@ -62,16 +67,16 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: 700,
     fontSize: WP(4.5),
-    lineHeight: WP(5),
+    lineHeight: WP(7),
     marginHorizontal: WP(2),
     marginVertical: HP(3),
     color: colors.p6,
   },
   miniConatiner: {
     marginHorizontal: WP(2),
-    marginTop: HP(1),
+    marginTop: HP(5),
     backgroundColor: 'white',
-    borderRadius: 8,
+    borderRadius: WP(5),
     shadowColor: 'black',
     shadowOffset: {width: 0, height: 0.5},
     shadowOpacity: 0.3,
