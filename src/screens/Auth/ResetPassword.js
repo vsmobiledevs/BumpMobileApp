@@ -1,27 +1,56 @@
 import {AppButton, AppInput, AuthHeader} from '../../components';
 import {useNavigation} from '@react-navigation/native';
-import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, SafeAreaView} from 'react-native';
 import React, {useRef, useState} from 'react';
 import {Formik} from 'formik';
 import {Icons} from '../../assets/icons';
 import {
-  HP,
-  ResetPassVS,
-  WP,
-  colors,
-  family,
   resetPassFormFields,
+  ResetPassVS,
+  family,
+  colors,
+  HP,
+  WP,
 } from '../../shared/exporter';
 import SuccessModal from '../../components/Modal/SuccessModal';
-import {AuthHeading} from '../../components/authHeading';
+import {AppLoader} from '../../components/AppLoader';
+import {useChangePasswordMutation} from '../../redux/api/auth';
+import {useDispatch} from 'react-redux';
+import {logout} from '../../redux/features/authSlice';
 
 const ResetPassword = () => {
-  const formikRef = useRef();
+  const dispatch = useDispatch();
+  const [changePassword] = useChangePasswordMutation();
+  const formikRef = useRef(null);
   const navigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleResetPass = values => {
-    setShowModal(true);
+  const handleResetPass = async (values, resetForm) => {
+    console.log(values);
+    // setShowModal(true);
+    setIsLoading(true);
+    try {
+      var body = new FormData();
+      body.append('current_password', values.oldPassword);
+      body.append('password', values.password);
+      body.append('password_confirmation', values.confirmPassword);
+
+      const response = await changePassword(body);
+      if (response?.data) {
+        resetForm();
+        setIsLoading(false);
+        dispatch(logout());
+        alert(response?.data?.message);
+      } else {
+        console.log('inside else case--', response?.error);
+        setIsLoading(false);
+        alert(response?.error?.data?.message);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      console.log('change password api error--', error);
+    }
   };
 
   return (
@@ -38,8 +67,8 @@ const ResetPassword = () => {
       <Formik
         innerRef={formikRef}
         initialValues={resetPassFormFields}
-        onSubmit={values => {
-          handleResetPass(values);
+        onSubmit={(values, {resetForm}) => {
+          handleResetPass(values, resetForm);
         }}
         validationSchema={ResetPassVS}>
         {({values, errors, touched, handleSubmit, handleChange}) => (
@@ -91,6 +120,8 @@ const ResetPassword = () => {
         )}
       </Formik>
 
+      <AppLoader loader_color={colors.g19} loading={isLoading} />
+
       {/* success modal */}
       <SuccessModal
         show={showModal}
@@ -109,13 +140,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
   },
-
   headingStyle: {
-    marginHorizontal: WP(6),
-    color: colors.g19,
     fontFamily: family.Roboto_Medium,
-    fontSize: WP(5),
-    marginTop: HP(7),
+    marginHorizontal: WP(6),
     marginBottom: HP(5),
+    color: colors.g19,
+    marginTop: HP(7),
+    fontSize: WP(5),
   },
 });

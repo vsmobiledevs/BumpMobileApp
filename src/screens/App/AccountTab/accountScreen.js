@@ -10,10 +10,18 @@ import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import {WP, colors, HP, family} from '../../../shared/exporter';
 import AccountButton from '../../../components/AccountButton';
-import {AccountBtns} from '../../../shared/utilities/dummyData';
+import {AccountButtons} from '../../../shared/utilities/dummyData';
 import {Icons} from '../../../assets/icons';
 
 const AccountScreen = ({navigation}) => {
+  // open new screen
+  const onPressListItem = item => {
+    if (item?.id === 4) {
+      navigation.navigate('auth', {screen: item?.screen});
+    } else {
+      navigation.navigate(item?.screen);
+    }
+  };
   return (
     <View style={styles.container}>
       <StatusBar animated={true} backgroundColor={colors.P1} />
@@ -38,11 +46,11 @@ const AccountScreen = ({navigation}) => {
         </View>
       </LinearGradient>
 
-      <View style={styles.miniConatiner}>
+      <View style={styles.miniContainer}>
         <ScrollView
           contentContainerStyle={{flexGrow: 1, paddingBottom: HP(15)}}
           contentInsetAdjustmentBehavior="automatic">
-          {AccountBtns?.map(i => {
+          {AccountButtons?.map(i => {
             return (
               <AccountButton
                 title={i.title}
@@ -91,18 +99,18 @@ const styles = StyleSheet.create({
   nameContainer: {marginLeft: WP(4), alignSelf: 'center'},
   nameStyle: {
     fontFamily: family.Roboto_Bold,
-    fontSize: WP(6),
-    lineHeight: HP(4),
     color: colors.white,
+    lineHeight: HP(4),
+    fontSize: WP(6),
   },
-  miniConatiner: {
-    marginHorizontal: WP(2),
-    marginTop: HP(1),
-    backgroundColor: 'white',
-    borderRadius: 8,
-    shadowColor: 'black',
+  miniContainer: {
     shadowOffset: {width: 0, height: 2},
+    backgroundColor: colors.white,
+    marginHorizontal: WP(2),
+    shadowColor: colors.b1,
     shadowOpacity: 0.4,
+    marginTop: HP(1),
+    borderRadius: 8,
     shadowRadius: 4,
     elevation: 5,
     marginBottom: WP(25),

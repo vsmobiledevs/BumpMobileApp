@@ -23,48 +23,48 @@ const socialIcons = [
   },
 ];
 
-const AccountBtns = [
+const AccountButtons = [
   {
     id: 0,
     title: 'Earnings',
     leftIcon: Icons?.earn,
-    screen: ['EditProfile'],
+    screen: 'EditProfile',
   },
   {
     id: 1,
     title: 'Edit Profile',
     leftIcon: Icons?.edit,
-    screen: ['EditProfile'],
+    screen: 'EditProfile',
   },
   {
     id: 2,
     title: 'Custodial Wallet ',
     leftIcon: Icons?.wallet,
-    screen: ['EditProfile'],
+    screen: 'EditProfile',
   },
   {
     id: 3,
     title: 'Tax Documents',
     leftIcon: Icons?.tax,
-    screen: ['EditProfile'],
+    screen: 'EditProfile',
   },
   {
     id: 4,
     title: 'Change Password',
     leftIcon: Icons?.lock,
-    screen: ['ResetPassword'],
+    screen: 'ResetPassword',
   },
   {
     id: 5,
     title: 'FAQs',
     leftIcon: Icons?.faq,
-    screen: ['Faq'],
+    screen: 'Faq',
   },
   {
     id: 6,
     title: 'Terms & Conditions',
     leftIcon: Icons?.terms,
-    screen: ['Terms'],
+    screen: 'Terms',
   },
   {
     id: 7,
@@ -76,7 +76,7 @@ const AccountBtns = [
     id: 8,
     title: 'Contact Us',
     leftIcon: Icons?.contact,
-    screen: ['ContactUs'],
+    screen: 'ContactUs',
   },
   {
     id: 9,
@@ -109,4 +109,4 @@ const TabIcons = [
   },
 ];
 
-export {socialIcons, AccountBtns, TabIcons};
+export {socialIcons, AccountButtons, TabIcons};

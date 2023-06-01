@@ -110,20 +110,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: HEIGHT_SIZE,
     position: 'absolute',
-    shadowColor: 'black',
+    shadowColor: colors.b1,
     shadowOffset: {
       width: 0,
       height: 0,
     },
     shadowOpacity: 0.2,
-    elevation: 5,
     bottom: 0,
   },
   content: {
     flex: 1,
+    justifyContent: 'center',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   button: {
     flex: 1,

@@ -42,6 +42,7 @@ import Add from './add.svg';
 import Nft from './nft.svg';
 import Solana from './solana_logo.svg';
 import Alert from './alert.svg';
+import ComingSoon from './comingSoon.svg';
 
 const Icons = {
   email: <Email alignSelf="center" />,
@@ -89,6 +90,7 @@ const Icons = {
   nft: <Nft alignSelf="center" />,
   solana: <Solana alignSelf="center" />,
   alert: <Alert alignSelf="center" />,
+  comingSoon: <ComingSoon alignSelf="center" />,
 };
 
 export {Icons};

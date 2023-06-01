@@ -4,18 +4,15 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Dimensions,
   Platform,
 } from 'react-native';
 import React from 'react';
-import {colors, family, size, WP, HP} from '../../shared/exporter';
-let width = Dimensions.get('window').width;
+import {colors, family, WP, HP} from '../../shared/exporter';
 
 const AuthHeader = ({
   left,
   center,
   right,
-  leftText,
   onPressLeft,
   onPressRight,
   rightText,
@@ -73,7 +70,7 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontFamily: family.Roboto_Bold,
-    fontWeight: 500,
+    fontWeight: '500',
     fontStyle: 'normal',
     fontSize: WP(4.5),
     color: colors.g19,

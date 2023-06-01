@@ -1,34 +1,66 @@
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {
-  TouchableOpacity,
-  ScrollView,
-  StyleSheet,
-  Image,
-  Text,
   View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
 } from 'react-native';
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {
-  loginFormFields,
-  appImages,
-  appIcons,
-  LoginVS,
-  colors,
-  family,
-  size,
-  WP,
   HP,
+  WP,
+  size,
+  family,
+  colors,
+  LoginVS,
+  appImages,
+  loginFormFields,
 } from '../../shared/exporter';
 import {Formik} from 'formik';
 import {Icons} from '../../assets/icons';
-import {socialIcons} from '../../shared/utilities/dummyData';
 import {AppButton, AppInput} from '../../components';
+import {AppLoader} from '../../components/AppLoader';
 import {useNavigation} from '@react-navigation/native';
+import {useLoginUserMutation} from '../../redux/api/auth';
+import {socialIcons} from '../../shared/utilities/dummyData';
+import {login} from '../../redux/features/authSlice';
+import {useDispatch} from 'react-redux';
 
 const Login = () => {
+  const dispatch = useDispatch(null);
+  const [loginUser] = useLoginUserMutation();
   const formikRef = useRef();
   const navigation = useNavigation();
 
+  const [isLoading, setIsLoading] = useState(false);
+
+  // login user
+  const handleLogin = async (values, resetForm) => {
+    setIsLoading(true);
+    try {
+      var body = new FormData();
+      body.append('email', values.email);
+      body.append('password', values.password);
+      const response = await loginUser(body);
+      if (response?.data) {
+        resetForm();
+        setIsLoading(false);
+        alert(response?.data?.message);
+        dispatch(login(response?.data));
+        navigation.navigate('BottomTabs');
+      } else {
+        setIsLoading(false);
+        console.log('inside else case--', response?.error);
+        alert(response?.error?.data?.message);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      console.log('login api error--', error);
+    }
+  };
+
+  // social login buttons
   const onPressIcon = id => {
     switch (id) {
       case 0:
@@ -47,12 +79,6 @@ const Login = () => {
     }
   };
 
-  // submit form for login user into app
-  const handleLogin = async values => {
-    navigation.navigate('BottomTabs');
-    // navigation.navigate('Account', {screen: 'AccountScreen'});
-  };
-
   return (
     <ScrollView style={styles.main}>
       <Image source={appImages.bump} style={styles.imageStyle} />
@@ -65,7 +91,7 @@ const Login = () => {
         innerRef={formikRef}
         initialValues={loginFormFields}
         onSubmit={(values, {resetForm}) => {
-          handleLogin(values);
+          handleLogin(values, resetForm);
         }}
         validationSchema={LoginVS}>
         {({values, errors, touched, handleSubmit, handleChange}) => (
@@ -164,6 +190,7 @@ const Login = () => {
           </>
         )}
       </Formik>
+      <AppLoader loader_color={colors.g19} loading={isLoading} />
     </ScrollView>
   );
 };
