@@ -10,7 +10,7 @@ import {
   HP,
 } from '../../shared/exporter';
 import {Icons} from '../../assets/icons';
-
+import Toast from 'react-native-simple-toast';
 import {useNavigation} from '@react-navigation/native';
 import {AuthHeading} from '../../components/authHeading';
 
@@ -19,7 +19,12 @@ const ForgotPassword = () => {
   const formikRef = useRef();
 
   const handleForgotPass = values => {
-    navigation.navigate('OtpVerification');
+    Toast.showWithGravity(
+      'This screen is under construction!',
+      Toast.SHORT,
+      Toast.BOTTOM,
+    );
+    // navigation.navigate('OtpVerification');
   };
 
   return (

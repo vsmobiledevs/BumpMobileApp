@@ -23,18 +23,17 @@ export default AccountButton;
 
 const styles = StyleSheet.create({
   mainView: {
+    height: HP(8),
+    marginHorizontal: WP(5),
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginHorizontal: WP(5),
-    height: HP(8),
   },
   titleStyle: {
     fontFamily: family.Roboto_Medium,
     color: colors.g19,
-    fontSize: WP(5),
-    alignSelf: 'center',
-
+    fontSize: WP(4),
     marginLeft: WP(4),
+    alignSelf: 'center',
   },
 });

@@ -6,7 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
   HP,
   WP,
@@ -19,6 +19,7 @@ import {
 } from '../../shared/exporter';
 import {Formik} from 'formik';
 import {Icons} from '../../assets/icons';
+import Toast from 'react-native-simple-toast';
 import {AppButton, AppInput} from '../../components';
 import {AppLoader} from '../../components/AppLoader';
 import {useNavigation} from '@react-navigation/native';
@@ -26,17 +27,23 @@ import {useLoginUserMutation} from '../../redux/api/auth';
 import {socialIcons} from '../../shared/utilities/dummyData';
 
 const Login = () => {
-  const [loginUser, res] = useLoginUserMutation();
   const formikRef = useRef();
   const navigation = useNavigation();
+  const [loginUser, res] = useLoginUserMutation();
 
+  // handling response
   useEffect(() => {
     if (res?.isSuccess) {
-      navigation.navigate('BottomTabs');
-      alert(res?.data?.message);
+      console.log('Success--', res?.data);
+      Toast.showWithGravity(res?.data?.message, Toast.SHORT, Toast.BOTTOM);
     }
     if (res?.isError) {
-      console.log('Error');
+      console.log('Error--', res?.error?.data);
+      Toast.showWithGravity(
+        res?.error?.data?.message,
+        Toast.SHORT,
+        Toast.BOTTOM,
+      );
     }
   }, [res.isLoading]);
 
@@ -45,7 +52,7 @@ const Login = () => {
     var body = new FormData();
     body.append('email', values.email);
     body.append('password', values.password);
-    loginUser(body);
+    await loginUser(body);
   };
 
   // social login buttons
@@ -127,21 +134,13 @@ const Login = () => {
             <Text style={styles.descTxtStyle}>
               {'By continuing you accept our '}
               <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('privacyTerms', {
-                    screen: 'privacy',
-                  })
-                }
+                onPress={() => navigation.navigate('Terms', {screenId: 7})}
                 activeOpacity={0.8}>
                 <Text style={styles.descTxtBoldStyle}>{'Privacy Policy '}</Text>
               </TouchableOpacity>
               {'and '}
               <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('privacyTerms', {
-                    screen: 'terms',
-                  })
-                }
+                onPress={() => navigation.navigate('Terms', {screenId: 6})}
                 activeOpacity={0.8}>
                 <Text style={styles.descTxtBoldStyle}>{'Term of Use'}</Text>
               </TouchableOpacity>
@@ -178,6 +177,8 @@ const Login = () => {
           </>
         )}
       </Formik>
+
+      {/* app loader */}
       <AppLoader loader_color={colors.g19} loading={res?.isLoading} />
     </ScrollView>
   );

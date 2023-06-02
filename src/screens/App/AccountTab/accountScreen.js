@@ -1,46 +1,63 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  StatusBar,
-  Image,
-  ScrollView,
-} from 'react-native';
+import {StyleSheet, Text, View, Image, ScrollView} from 'react-native';
 import React from 'react';
-import LinearGradient from 'react-native-linear-gradient';
+import {AccountButtons} from '../../../shared/utilities/dummyData';
 import {WP, colors, HP, family} from '../../../shared/exporter';
 import AccountButton from '../../../components/AccountButton';
-import {AccountButtons} from '../../../shared/utilities/dummyData';
+import LinearGradient from 'react-native-linear-gradient';
 import {Icons} from '../../../assets/icons';
+import {MyStatusBar} from '../../../components';
+import {useDispatch} from 'react-redux';
+import {logout} from '../../../redux/features/authSlice';
+
+const dummyImage =
+  'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg';
 
 const AccountScreen = ({navigation}) => {
+  const dispatch = useDispatch(null);
   // open new screen
-  const onPressListItem = item => {
-    if (item?.id === 4) {
-      navigation.navigate('auth', {screen: item?.screen});
+  const onPressListItem = async item => {
+    if (item?.id === 6) {
+      navigation.navigate('accountTabScreens', {
+        screen: item.screen,
+        params: {screenId: item?.id},
+      });
+    } else if (item?.id === 7) {
+      navigation.navigate('accountTabScreens', {
+        screen: item.screen,
+        params: {screenId: item?.id},
+      });
+    } else if (item?.id === 10) {
+      console.log('perform logout action here');
+      dispatch(logout());
     } else {
-      navigation.navigate(item?.screen);
+      navigation.navigate('accountTabScreens', {screen: item.screen});
     }
   };
   return (
     <View style={styles.container}>
-      <StatusBar animated={true} backgroundColor={colors.P1} />
+      <MyStatusBar
+        animated={true}
+        backgroundColor={colors.P1}
+        barStyle={'light-content'}
+      />
 
       <LinearGradient colors={[colors.P1, colors.P2]} style={styles.header}>
         <View style={styles.header2}>
           <View style={styles.imageContainer}>
             <Image
               source={{
-                uri: 'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
+                uri: dummyImage,
               }}
               style={styles.imageStyle}
             />
           </View>
           <View style={styles.nameContainer}>
-            <Text style={styles.nameStyle}>Alexander Fred</Text>
+            <Text style={[styles.nameStyle, {fontWeight: 'bold'}]}>
+              {'Alexander Fred'}
+            </Text>
             <Text
               style={[styles.nameStyle, {fontFamily: family.Roboto_Medium}]}>
-              Earning: $103.00
+              {'Earning: $103.00'}
             </Text>
           </View>
         </View>
@@ -48,19 +65,17 @@ const AccountScreen = ({navigation}) => {
 
       <View style={styles.miniContainer}>
         <ScrollView
-          contentContainerStyle={{flexGrow: 1, paddingBottom: HP(15)}}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{flexGrow: 1}}
           contentInsetAdjustmentBehavior="automatic">
           {AccountButtons?.map(i => {
             return (
               <AccountButton
+                key={i?.id}
                 title={i.title}
                 leftIcon={i.leftIcon}
                 rightIcon={Icons?.rightArrow}
-                onPress={() => {
-                  i.id == 6 || 7
-                    ? navigation.navigate(i.screen[0], {screenId: i.id})
-                    : navigation.navigate(i.screen[0]);
-                }}
+                onPress={() => onPressListItem(i)}
               />
             );
           })}
@@ -78,10 +93,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   header: {
-    height: HP(20),
-    justifyContent: 'flex-end',
-    alignItems: 'flex-start',
     padding: HP(3),
+    height: HP(16),
+    alignItems: 'flex-start',
+    justifyContent: 'flex-end',
+    borderBottomRightRadius: HP(1.5),
+    borderBottomLeftRadius: HP(1.5),
   },
   header2: {
     flexDirection: 'row',
@@ -101,18 +118,15 @@ const styles = StyleSheet.create({
     fontFamily: family.Roboto_Bold,
     color: colors.white,
     lineHeight: HP(4),
-    fontSize: WP(6),
+    fontSize: WP(5),
   },
   miniContainer: {
-    shadowOffset: {width: 0, height: 2},
-    backgroundColor: colors.white,
-    marginHorizontal: WP(2),
-    shadowColor: colors.b1,
-    shadowOpacity: 0.4,
+    height: HP(70),
     marginTop: HP(1),
     borderRadius: 8,
-    shadowRadius: 4,
-    elevation: 5,
-    marginBottom: WP(25),
+    borderWidth: 1.5,
+    marginHorizontal: WP(5),
+    backgroundColor: colors.white,
+    borderColor: `${colors.g24}50`,
   },
 });
