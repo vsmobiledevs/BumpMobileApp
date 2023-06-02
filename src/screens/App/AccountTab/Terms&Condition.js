@@ -1,21 +1,12 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-} from 'react-native';
-import React, {useState} from 'react';
-import * as Animatable from 'react-native-animatable';
-import {WP, colors, HP, family, size} from '../../../shared/exporter';
-
+import React from 'react';
 import {Icons} from '../../../assets/icons';
 import {AuthHeader} from '../../../components';
-import LinearGradient from 'react-native-linear-gradient';
+import {WP, colors, HP, family} from '../../../shared/exporter';
+import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
 
 const TermsScreen = ({route, navigation}) => {
-  const [isIndex, setIsIndex] = useState(null);
   const {screenId} = route.params;
+
   return (
     <SafeAreaView style={styles.container}>
       <AuthHeader

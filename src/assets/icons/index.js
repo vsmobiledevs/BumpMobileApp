@@ -1,31 +1,31 @@
-import Email from './email.svg';
-import Password from './password.svg';
-import Google from './google.svg';
-import Apple from './apple.svg';
-import Amazon from './amazon.svg';
-import Facebook from './facebook.svg';
-import BackIcon from './backIcon.svg';
-import Data from './data.svg';
-import DataFill from './dataFill.svg';
-import Mic from './mic.svg';
-import MicFill from './micFill.svg';
-import Search from './search.svg';
 import SearchWhite from './searchWhite.svg';
-import Learn from './learn.svg';
-import Account from './account.svg';
-import Lock from './lock.svg';
-import Faq from './faq.svg';
-import Earning from './earning.svg';
-import Edit from './edit.svg';
-import Contact from './contact.svg';
-import Delete from './delete.svg';
-import Tax from './tax.svg';
-import Terms from './terms.svg';
-import Wallet from './wallet.svg';
+import EditPenFill from './editPenFill.svg';
 import RightArrow from './rightArrow.svg';
+import Password from './password.svg';
+import BackIcon from './backIcon.svg';
+import Facebook from './facebook.svg';
+import DataFill from './dataFill.svg';
+import Contact from './contact.svg';
+import MicFill from './micFill.svg';
+import Earning from './earning.svg';
+import Account from './account.svg';
 import Privacy from './privacy.svg';
 import EditPen from './editPen.svg';
-import EditPenFill from './editPenFill.svg';
+import Delete from './delete.svg';
+import Amazon from './amazon.svg';
+import Search from './search.svg';
+import Google from './google.svg';
+import Wallet from './wallet.svg';
+import Learn from './learn.svg';
+import Email from './email.svg';
+import Apple from './apple.svg';
+import Terms from './terms.svg';
+import Lock from './lock.svg';
+import Data from './data.svg';
+import Edit from './edit.svg';
+import Mic from './mic.svg';
+import Faq from './faq.svg';
+import Tax from './tax.svg';
 import Camera from './camera.svg';
 import FillData from './fillData.svg';
 import FillLearn from './fillLearn.svg';
@@ -41,6 +41,7 @@ import Condition from './condition.svg';
 import Add from './add.svg';
 import Nft from './nft.svg';
 import Solana from './solana_logo.svg';
+import Logout from './logout.svg';
 import Alert from './alert.svg';
 import ComingSoon from './comingSoon.svg';
 
@@ -79,7 +80,6 @@ const Icons = {
   fillAccount: <FillAccount alignSelf="center" />,
   fillMic: <FillMic alignSelf="center" />,
   appLogo: <AppLogo alignSelf="center" />,
-  metaMask: <MetaMask alignSelf="center" />,
   done: <Done alignSelf="center" />,
   leftArrow: <LeftArrow alignSelf="center" />,
   downArrow: <DownArrow alignSelf="center" />,
@@ -91,6 +91,7 @@ const Icons = {
   solana: <Solana alignSelf="center" />,
   alert: <Alert alignSelf="center" />,
   comingSoon: <ComingSoon alignSelf="center" />,
+  logout: <Logout alignSelf="center" />,
 };
 
 export {Icons};

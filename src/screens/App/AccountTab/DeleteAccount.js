@@ -1,5 +1,5 @@
-import React, {useState, useRef} from 'react';
-import {StyleSheet, Text, View, SafeAreaView, StatusBar} from 'react-native';
+import React, {useState, useRef, useEffect} from 'react';
+import {StyleSheet, Text, SafeAreaView, ScrollView} from 'react-native';
 import {
   AppButton,
   AppInput,
@@ -17,10 +17,17 @@ import {
 } from '../../../shared/exporter';
 import {Icons} from '../../../assets/icons';
 import {useNavigation} from '@react-navigation/native';
-import {ConfirmModal} from '../../../components/';
+import {useDeleteAccountMutation} from '../../../redux/api/auth';
 import {Formik} from 'formik';
+import Toast from 'react-native-simple-toast';
+import {ConfirmModal} from '../../../components/';
+import {AppLoader} from '../../../components/AppLoader';
+import {useAppSelector} from '../../../redux/store';
 
 const DeleteAccount = () => {
+  const {user} = useAppSelector(state => state?.authSlice);
+  const [deleteAccount, {isSuccess, isError, isLoading, data, error}] =
+    useDeleteAccountMutation();
   const navigation = useNavigation();
   const [reason, setReason] = useState('');
   const [confirm, setConfirm] = useState(false);
@@ -29,9 +36,31 @@ const DeleteAccount = () => {
 
   const formikRef = useRef();
 
+  // handling response
+  useEffect(() => {
+    if (isSuccess) {
+      console.log('Success--', data);
+      Toast.showWithGravity(data?.message, Toast.SHORT, Toast.BOTTOM);
+    }
+    if (isError) {
+      console.log('Error--', error);
+      Toast.showWithGravity(error?.data?.message, Toast.SHORT, Toast.BOTTOM);
+    }
+  }, [isLoading]);
+
   const handleDelete = async values => {
-    setDeleteModal(true);
+    // setDeleteModal(true);
+    const id = user?.id;
+    var body = new FormData();
+    body.append('password', values.password);
+    body.append('body', reason);
+    await deleteAccount(body, id);
   };
+
+  const onPressContinue = () => {
+    setConfirmModal(true);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <AuthHeader
@@ -40,7 +69,7 @@ const DeleteAccount = () => {
         onPressLeft={() => navigation.goBack()}
       />
       {!confirm ? (
-        <>
+        <ScrollView>
           <Text style={styles.feedbackTxt}>
             We’re sorry to see you go! Could you please let us know why you’d
             like to delete your account? {'\n'}Your feedback would be greatly
@@ -63,15 +92,15 @@ const DeleteAccount = () => {
             title={'Continue...'}
             buttonContainer={styles.buttonStyle}
             touchableOpacity={{
-              onPress: () => {
-                setConfirmModal(true);
-              },
+              onPress: () => onPressContinue(),
             }}
           />
-        </>
+        </ScrollView>
       ) : (
-        <>
-          <Text style={styles.headingStyle}>Please Enter your Password.</Text>
+        <ScrollView>
+          <Text style={styles.headingStyle}>
+            {'Please Enter your Password.'}
+          </Text>
           <Formik
             innerRef={formikRef}
             initialValues={deleteAccountFields}
@@ -83,7 +112,7 @@ const DeleteAccount = () => {
               <>
                 <AppInput
                   textInPutProps={{
-                    style: [styles.inputStyle, {height: WP(5)}],
+                    style: styles.passwordInputStyle,
                     value: values.password,
                     onChangeText: handleChange('password'),
                     placeholder: 'Enter password',
@@ -103,7 +132,7 @@ const DeleteAccount = () => {
               </>
             )}
           </Formik>
-        </>
+        </ScrollView>
       )}
       <ConfirmModal
         show={confirmModal}
@@ -118,10 +147,11 @@ const DeleteAccount = () => {
         show={deleteModal}
         onTouchCancel={() => setDeleteModal(false)}
         onOKPress={() => {
-          navigation.replace('auth');
           setDeleteModal(false);
         }}
       />
+      {/* app loader */}
+      <AppLoader loader_color={colors.g19} loading={isLoading} />
     </SafeAreaView>
   );
 };
@@ -142,14 +172,22 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginHorizontal: WP(6),
-    marginTop: WP(5),
     height: HP(30),
     borderWidth: 1,
     borderRadius: WP(5),
     borderColor: colors.P2,
+    paddingHorizontal: WP(1),
+    marginTop: HP(3),
   },
   inputStyle: {
     height: HP(28),
+    width: WP(75),
+    alignSelf: 'center',
+    marginStart: HP(1),
+    marginTop: HP(0.5),
+  },
+  passwordInputStyle: {
+    height: HP(5),
     width: WP(75),
     alignSelf: 'center',
   },

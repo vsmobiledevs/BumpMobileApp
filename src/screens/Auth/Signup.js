@@ -1,12 +1,12 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
   TouchableOpacity,
   ImageBackground,
   ScrollView,
   StyleSheet,
+  Image,
   Text,
   View,
-  Image,
 } from 'react-native';
 import {
   signupFormFields,
@@ -19,46 +19,48 @@ import {
   HP,
 } from '../../shared/exporter';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {useNavigation} from '@react-navigation/native';
-import {AppButton, AppInput} from '../../components';
 import {socialIcons} from '../../shared/utilities/dummyData';
 import {useCreateUserMutation} from '../../redux/api/auth';
-import {Formik} from 'formik';
+import {useNavigation} from '@react-navigation/native';
+import {AppButton, AppInput} from '../../components';
 import {AppLoader} from '../../components/AppLoader';
+import Toast from 'react-native-simple-toast';
+import {Formik} from 'formik';
 
 const Signup = () => {
-  const [createUser] = useCreateUserMutation();
+  // mutation
+  const [createUser, response] = useCreateUserMutation();
 
+  // references
   const formikRef = useRef();
   const navigation = useNavigation();
 
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSignup = async (values, resetForm) => {
-    setIsLoading(true);
-    try {
-      var data = new FormData();
-      data.append('username', values.name);
-      data.append('email', values.email);
-      data.append('password', values.password);
-      data.append('password_confirmation', values.password);
-
-      const response = await createUser(data);
-      console.log('create user response--', response);
-      if (response?.data) {
-        resetForm();
-        setIsLoading(false);
-        navigation.navigate('Login');
-        alert('User registered successfully');
-      } else {
-        setIsLoading(false);
-        console.log('inside else case--', response?.error);
-        alert(response?.error?.data?.message);
-      }
-    } catch (error) {
-      setIsLoading(false);
-      console.log('Register user api error--', error);
+  // handling response
+  useEffect(() => {
+    if (response?.isSuccess) {
+      console.log('Success--', response?.data);
+      Toast.showWithGravity(response?.data?.message, Toast.SHORT, Toast.BOTTOM);
+      navigation.navigate('auth');
     }
+    if (response?.isError) {
+      console.log('Error--', response?.error?.data);
+      Toast.showWithGravity(
+        response?.error?.data?.message,
+        Toast.SHORT,
+        Toast.BOTTOM,
+      );
+    }
+  }, [response.isLoading]);
+
+  // calling register mutation
+  const handleSignup = async values => {
+    var body = new FormData();
+    body.append('username', values.name);
+    body.append('email', values.email);
+    body.append('password', values.password);
+    body.append('password_confirmation', values.password);
+
+    createUser(body);
   };
 
   // social login icons
@@ -90,9 +92,8 @@ const Signup = () => {
       <Formik
         innerRef={formikRef}
         initialValues={signupFormFields}
-        onSubmit={(values, {resetForm}) => {
-          handleSignup(values, resetForm);
-          // resetForm(signupFormFields);
+        onSubmit={values => {
+          handleSignup(values);
         }}
         validationSchema={SignupVS}>
         {({values, errors, touched, handleSubmit, handleChange}) => (
@@ -144,21 +145,13 @@ const Signup = () => {
             <Text style={styles.descTxtStyle}>
               {'By continuing you accept our '}
               <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('privacyTerms', {
-                    screen: 'privacy',
-                  })
-                }
+                onPress={() => navigation.navigate('Terms', {screenId: 7})}
                 activeOpacity={0.8}>
                 <Text style={styles.descTxtBoldStyle}>{'Privacy Policy '}</Text>
               </TouchableOpacity>
               {'and '}
               <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('privacyTerms', {
-                    screen: 'terms',
-                  })
-                }
+                onPress={() => navigation.navigate('Terms', {screenId: 6})}
                 activeOpacity={0.8}>
                 <Text style={styles.descTxtBoldStyle}>{'Term of Use'}</Text>
               </TouchableOpacity>
@@ -199,7 +192,7 @@ const Signup = () => {
           </KeyboardAwareScrollView>
         )}
       </Formik>
-      <AppLoader loader_color={colors.g19} loading={isLoading} />
+      <AppLoader loader_color={colors.g19} loading={response?.isLoading} />
     </ScrollView>
   );
 };

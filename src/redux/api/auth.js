@@ -1,6 +1,7 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import {BASE_URL, PREFIX} from '@env';
 import {endpoints} from '../../shared/exporter';
+import {setUser} from '../features/authSlice';
 
 // Define your custom headers
 const customHeaders = {
@@ -13,15 +14,14 @@ const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL, // Set your API base URL here
   prepareHeaders: (headers, {getState}) => {
     const {authSlice} = getState();
-    headers.set('authorization', authSlice?.user?.token);
+    console.log(authSlice);
+    headers.set('Authorization', `Token ${authSlice?.user?.token}`);
   },
 });
 
 export const AuthApis = createApi({
   reducerPath: 'authApis',
-
   baseQuery,
-
   endpoints: builder => ({
     // create user
     createUser: builder.mutation({
@@ -41,6 +41,12 @@ export const AuthApis = createApi({
         body: data,
       }),
       transformResponse: result => result,
+      async onQueryStarted(args, {dispatch, queryFulfilled}) {
+        try {
+          const {data} = await queryFulfilled;
+          dispatch(setUser(data));
+        } catch (error) {}
+      },
     }),
     // change password
     changePassword: builder.mutation({
@@ -50,11 +56,30 @@ export const AuthApis = createApi({
         body: data,
       }),
     }),
+    // forgot password
+    forgotPassword: builder.mutation({
+      query: data => ({
+        url: `${PREFIX}${endpoints.forgotPassword}`,
+        method: 'post',
+        body: data,
+      }),
+    }),
+    // delete account
+    deleteAccount: builder.mutation({
+      query: (data, id) => ({
+        url: `${PREFIX}${endpoints.signUp}/${id}`,
+        method: 'delete',
+        body: data,
+        headers: customHeaders,
+      }),
+    }),
   }),
 });
 
 export const {
-  useCreateUserMutation,
   useLoginUserMutation,
+  useCreateUserMutation,
+  useDeleteAccountMutation,
   useChangePasswordMutation,
+  useForgotPasswordMutation,
 } = AuthApis;
