@@ -1,13 +1,14 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+/* eslint-disable react/prop-types */
 import React from 'react';
-import {HP, WP, colors, family} from '../../shared/exporter';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { HP, WP, colors, family } from '../../shared/exporter';
 import Divider from '../Divider';
 
-const AccountButton = ({leftIcon, title, rightIcon, onPress}) => {
+function AccountButton({ leftIcon, title, rightIcon, onPress }) {
   return (
     <>
       <TouchableOpacity style={styles.mainView} onPress={onPress}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={styles.innerView}>
           {leftIcon}
 
           <Text style={styles.titleStyle}>{title}</Text>
@@ -17,7 +18,7 @@ const AccountButton = ({leftIcon, title, rightIcon, onPress}) => {
       <Divider color={colors.g19} opacity={0.1} />
     </>
   );
-};
+}
 
 export default AccountButton;
 
@@ -35,5 +36,8 @@ const styles = StyleSheet.create({
     fontSize: WP(4),
     marginLeft: WP(4),
     alignSelf: 'center',
+  },
+  innerView: {
+    flexDirection: 'row',
   },
 });

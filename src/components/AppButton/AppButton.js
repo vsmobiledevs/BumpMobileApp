@@ -1,9 +1,12 @@
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
 import React from 'react';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {colors, family, size, WP} from '../../shared/exporter';
+import { colors, family, size, WP } from '../../shared/exporter';
 
-const AppButton = ({
+function AppButton({
   title,
   buttonStyle,
   txtStyle,
@@ -12,24 +15,23 @@ const AppButton = ({
   buttonContainer,
   touchableOpacity,
   text,
-}) => {
+}) {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       {...touchableOpacity}
-      style={[styles.buttonContainer, {...buttonContainer}]}>
-      <LinearGradient
-        colors={[clr1, clr2]}
-        style={[styles.buttonStyle, {...buttonStyle}]}>
-        <Text style={[styles.txtStyle, {...txtStyle}]} {...text}>
+      style={[styles.buttonContainer, { ...buttonContainer }]}
+    >
+      <LinearGradient colors={[clr1, clr2]} style={[styles.buttonStyle, { ...buttonStyle }]}>
+        <Text style={[styles.txtStyle, { ...txtStyle }]} {...text}>
           {title}
         </Text>
       </LinearGradient>
     </TouchableOpacity>
   );
-};
+}
 
-export {AppButton};
+export { AppButton };
 
 const styles = StyleSheet.create({
   buttonContainer: {

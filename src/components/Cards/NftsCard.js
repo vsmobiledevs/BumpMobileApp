@@ -1,15 +1,13 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {HP, WP, colors} from '../../shared/exporter';
-import {
-  Menu,
-  MenuOption,
-  MenuOptions,
-  MenuTrigger,
-} from 'react-native-popup-menu';
-import {Icons} from '../../assets/icons';
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Menu, MenuOption, MenuOptions, MenuTrigger } from 'react-native-popup-menu';
+import { HP, WP, colors } from '../../shared/exporter';
+import { Icons } from '../../assets/icons';
 
-const NftsCard = props => {
-  const {item, arrayLength, onPressIcon, index, showModal} = props;
+function NftsCard(props) {
+  const { item, arrayLength, onPressIcon, index, showModal } = props;
 
   return (
     <TouchableOpacity activeOpacity={0.9} style={styles.iconsMain}>
@@ -22,11 +20,11 @@ const NftsCard = props => {
         <MenuOptions optionsContainerStyle={styles.menuOptionsStyle}>
           <MenuOption style={styles.menuStyle} onSelect={() => showModal(true)}>
             {Icons.editPenFill}
-            <Text style={styles.menuText}>{'Edit Shortcut'}</Text>
+            <Text style={styles.menuText}>Edit Shortcut</Text>
           </MenuOption>
-          <MenuOption style={styles.menuStyle} onSelect={() => alert(`Remove`)}>
+          <MenuOption style={styles.menuStyle} onSelect={() => true}>
             {Icons.delete}
-            <Text style={styles.menuText}>{'Remove'}</Text>
+            <Text style={styles.menuText}>Remove</Text>
           </MenuOption>
         </MenuOptions>
       </Menu>
@@ -34,7 +32,7 @@ const NftsCard = props => {
       <Text style={styles.iconText}>{item?.name}</Text>
     </TouchableOpacity>
   );
-};
+}
 
 const styles = StyleSheet.create({
   iconContainer: {
@@ -73,4 +71,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export {NftsCard};
+export { NftsCard };

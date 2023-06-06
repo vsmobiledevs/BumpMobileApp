@@ -1,13 +1,12 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+/* eslint-disable react/react-in-jsx-scope */
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Search from '../../screens/App/SearchTab/Search';
 
 const Stack = createNativeStackNavigator();
 
-function SearchStack(props) {
+function SearchStack() {
   return (
-    <Stack.Navigator
-      initialRouteName="search"
-      screenOptions={{headerShown: false}}>
+    <Stack.Navigator initialRouteName="search" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="search" component={Search} />
     </Stack.Navigator>
   );

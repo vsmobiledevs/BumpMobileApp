@@ -1,24 +1,21 @@
-import {HP, WP, colors, family, size} from '../../shared/exporter';
-import {StyleSheet, Text, View} from 'react-native';
-import {AppButton} from '../AppButton/AppButton';
-import Modal from 'react-native-modal';
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable react/prop-types */
 import React from 'react';
-import {AppInput} from '../Input/AppInput';
+import Modal from 'react-native-modal';
+import { StyleSheet, Text, View } from 'react-native';
+import { HP, WP, colors, size } from '../../shared/exporter';
+import { AppButton } from '../AppButton/AppButton';
+import { AppInput } from '../Input/AppInput';
 
-const RNModal = props => {
-  const {
-    show,
-    onTouchCancel,
-    title = 'Edit Shortcut',
-    name = 'Name',
-    url = 'URL',
-  } = props;
+function RNModal(props) {
+  const { show, onTouchCancel, title = 'Edit Shortcut', name = 'Name', url = 'URL' } = props;
   return (
     <Modal
       isVisible={show}
       onBackdropPress={onTouchCancel}
       animationIn="fadeIn"
-      animationOut="fadeOut">
+      animationOut="fadeOut"
+    >
       <View style={styles.modalContainer}>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.inputContainer}>
@@ -31,7 +28,7 @@ const RNModal = props => {
               placeholderTextColor: colors.g24,
             }}
           />
-          <Text style={[styles.inputLabel, {marginTop: HP(2)}]}>{url}</Text>
+          <Text style={[styles.inputLabel, { marginTop: HP(2) }]}>{url}</Text>
           <AppInput
             containerStyle={styles.containerStyle}
             textInPutProps={{
@@ -44,20 +41,20 @@ const RNModal = props => {
 
         <View style={styles.buttonsContainer}>
           <AppButton
-            title={'Done'}
-            buttonContainer={{width: WP(20)}}
+            title="Done"
+            buttonContainer={{ width: WP(20) }}
             buttonStyle={styles.done}
             // touchableOpacity={{
             //   onPress: () => onLoginBackPress(),
             // }}
           />
           <AppButton
-            title={'Cancel'}
+            title="Cancel"
             clr1={colors.white}
             clr2={colors.white}
-            buttonContainer={{width: WP(20)}}
+            buttonContainer={{ width: WP(20) }}
             buttonStyle={styles.cancel}
-            txtStyle={{color: colors.P6}}
+            txtStyle={{ color: colors.P6 }}
             // touchableOpacity={{
             //   onPress: () => onLoginBackPress(),
             // }}
@@ -66,9 +63,9 @@ const RNModal = props => {
       </View>
     </Modal>
   );
-};
+}
 
-export {RNModal};
+export { RNModal };
 
 const styles = StyleSheet.create({
   modalContainer: {

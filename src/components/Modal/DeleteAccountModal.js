@@ -1,29 +1,30 @@
-import {HP, WP, colors, family, size} from '../../shared/exporter';
-import {StyleSheet, Text, View} from 'react-native';
-import {AppButton} from '../AppButton/AppButton';
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable react/prop-types */
+import { StyleSheet, Text, View } from 'react-native';
 import Modal from 'react-native-modal';
 import React from 'react';
-import {Icons} from '../../assets/icons';
+import { Icons } from '../../assets/icons';
+import { AppButton } from '../AppButton/AppButton';
+import { HP, WP, colors, family, size } from '../../shared/exporter';
 
-const DeleteAccountModal = ({show, onTouchCancel, onOKPress}) => {
+function DeleteAccountModal({ show, onTouchCancel, onOKPress }) {
   return (
     <Modal
       isVisible={show}
       onBackdropPress={onTouchCancel}
       animationIn="fadeIn"
       animationOut="fadeOut"
-      transparent={true}>
+      transparent
+    >
       <View style={styles.modalContainer}>
         <View style={styles.modalViewStyle}>
           {Icons.done}
-          <Text style={[styles.successTxtDetail, {fontSize: size.h5}]}>
-            Account Deleted!
-          </Text>
+          <Text style={[styles.successTxtDetail, { fontSize: size.h5 }]}>Account Deleted!</Text>
 
           <AppButton
-            title={'OK'}
+            title="OK"
             buttonStyle={styles.buttonStyle}
-            buttonContainer={{marginTop: WP(15)}}
+            buttonContainer={{ marginTop: WP(15) }}
             touchableOpacity={{
               onPress: () => onOKPress(),
             }}
@@ -32,9 +33,9 @@ const DeleteAccountModal = ({show, onTouchCancel, onOKPress}) => {
       </View>
     </Modal>
   );
-};
+}
 
-export {DeleteAccountModal};
+export { DeleteAccountModal };
 
 const styles = StyleSheet.create({
   modalContainer: {

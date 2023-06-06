@@ -1,29 +1,32 @@
-import {HP, WP, colors, family, size} from '../../shared/exporter';
-import {StyleSheet, Text, View} from 'react-native';
-import {AppButton} from '../AppButton/AppButton';
-import Modal from 'react-native-modal';
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable react/prop-types */
 import React from 'react';
-import {Icons} from '../../assets/icons';
+import { StyleSheet, Text, View } from 'react-native';
+import Modal from 'react-native-modal';
+import { HP, WP, colors, family, size } from '../../shared/exporter';
+import { AppButton } from '../AppButton/AppButton';
+import { Icons } from '../../assets/icons';
 
-const ConfirmModal = ({show, onCancelPress, onTouchCancel, onConfirmPress}) => {
+function ConfirmModal({ show, onCancelPress, onTouchCancel, onConfirmPress }) {
   return (
     <Modal
       isVisible={show}
       onBackdropPress={onTouchCancel}
       animationIn="fadeIn"
       animationOut="fadeOut"
-      transparent={true}>
+      transparent
+    >
       <View style={styles.modalContainer}>
         <View style={styles.modalViewStyle}>
           {Icons.alert}
-          <Text style={[styles.successTxtDetail, {fontSize: size.small}]}>
-            Are you sure you want to delete your {'\n'} account? It will
-            permanently {'\n'}erase your data!
+          <Text style={[styles.successTxtDetail, { fontSize: size.small }]}>
+            Are you sure you want to delete your {'\n'} account? It will permanently {'\n'}erase
+            your data!
           </Text>
           <AppButton
-            title={'Confirm Delete'}
+            title="Confirm Delete"
             buttonStyle={styles.buttonStyle}
-            buttonContainer={{marginTop: WP(20)}}
+            buttonContainer={{ marginTop: WP(20) }}
             clr1={colors.s10}
             clr2={colors.s10}
             touchableOpacity={{
@@ -31,9 +34,9 @@ const ConfirmModal = ({show, onCancelPress, onTouchCancel, onConfirmPress}) => {
             }}
           />
           <AppButton
-            title={'Cancel'}
+            title="Cancel"
             buttonStyle={styles.buttonStyle}
-            buttonContainer={{marginTop: WP(0)}}
+            buttonContainer={{ marginTop: WP(0) }}
             touchableOpacity={{
               onPress: () => onCancelPress(),
             }}
@@ -42,9 +45,9 @@ const ConfirmModal = ({show, onCancelPress, onTouchCancel, onConfirmPress}) => {
       </View>
     </Modal>
   );
-};
+}
 
-export {ConfirmModal};
+export { ConfirmModal };
 
 const styles = StyleSheet.create({
   modalContainer: {

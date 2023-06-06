@@ -1,31 +1,25 @@
-import {StyleSheet, Text, View, TextInput} from 'react-native';
-import {HP, WP, colors, size} from '../../shared/exporter';
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
 import React from 'react';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { HP, WP, colors, size } from '../../shared/exporter';
 import CustomSwitch from '../SwitchButton/CustomSwitch';
 
-const SearchInput = ({
-  leftIcon,
-  title,
-  textInPutProps,
-  containerStyle,
-  onSelectSwitch,
-}) => {
+function SearchInput({ leftIcon, title, textInPutProps, containerStyle, onSelectSwitch }) {
   return (
     <View style={[styles.mainContainer]}>
       {title && <Text style={styles.titleStyle}>{title}</Text>}
       <View style={[styles.inputContainer, containerStyle]}>
         {leftIcon}
-        <TextInput
-          {...textInPutProps}
-          style={[styles.inputStyle, {...textInPutProps.style}]}
-        />
+        <TextInput {...textInPutProps} style={[styles.inputStyle, { ...textInPutProps.style }]} />
 
         <View style={styles.buttonContainer}>
           <CustomSwitch
             selectionMode={1}
-            roundCorner={true}
-            option1={'Private'}
-            option2={'Paid'}
+            roundCorner
+            option1="Private"
+            option2="Paid"
             onSelectSwitch={onSelectSwitch}
             selectionColor={colors.orange}
           />
@@ -33,9 +27,9 @@ const SearchInput = ({
       </View>
     </View>
   );
-};
+}
 
-export {SearchInput};
+export { SearchInput };
 
 const styles = StyleSheet.create({
   mainContainer: {

@@ -1,10 +1,19 @@
-import React, {useState, useRef, useEffect} from 'react';
-import {StyleSheet, Text, SafeAreaView, ScrollView} from 'react-native';
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
+import React, { useState, useRef, useEffect } from 'react';
+import { StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Formik } from 'formik';
+import Toast from 'react-native-simple-toast';
+import { useDispatch } from 'react-redux';
 import {
   AppButton,
   AppInput,
   AuthHeader,
   DeleteAccountModal,
+  ConfirmModal,
 } from '../../../components';
 import {
   HP,
@@ -15,19 +24,16 @@ import {
   DeleteAccountVS,
   deleteAccountFields,
 } from '../../../shared/exporter';
-import {Icons} from '../../../assets/icons';
-import {useNavigation} from '@react-navigation/native';
-import {useDeleteAccountMutation} from '../../../redux/api/auth';
-import {Formik} from 'formik';
-import Toast from 'react-native-simple-toast';
-import {ConfirmModal} from '../../../components/';
-import {AppLoader} from '../../../components/AppLoader';
-import {useAppSelector} from '../../../redux/store';
+import { Icons } from '../../../assets/icons';
+import { useDeleteAccountMutation } from '../../../redux/api/auth';
+import { AppLoader } from '../../../components/AppLoader';
+import { useAppSelector } from '../../../redux/store';
+import { logout } from '../../../redux/features/authSlice';
 
-const DeleteAccount = () => {
-  const {user} = useAppSelector(state => state?.authSlice);
-  const [deleteAccount, {isSuccess, isError, isLoading, data, error}] =
-    useDeleteAccountMutation();
+function DeleteAccount() {
+  const dispatch = useDispatch(null);
+  const { user } = useAppSelector((state) => state?.authSlice);
+  const [deleteAccount, response] = useDeleteAccountMutation();
   const navigation = useNavigation();
   const [reason, setReason] = useState('');
   const [confirm, setConfirm] = useState(false);
@@ -38,23 +44,29 @@ const DeleteAccount = () => {
 
   // handling response
   useEffect(() => {
-    if (isSuccess) {
-      console.log('Success--', data);
-      Toast.showWithGravity(data?.message, Toast.SHORT, Toast.BOTTOM);
+    if (response?.isSuccess) {
+      if (response?.data.message === 'Password is incorrect') {
+        Toast.showWithGravity(response?.data?.message, Toast.SHORT, Toast.BOTTOM);
+      } else {
+        setDeleteModal(true);
+        Toast.showWithGravity(response?.data?.message, Toast.SHORT, Toast.BOTTOM);
+        setTimeout(() => {
+          setDeleteModal(false);
+          dispatch(logout());
+        }, 3000);
+      }
     }
-    if (isError) {
-      console.log('Error--', error);
-      Toast.showWithGravity(error?.data?.message, Toast.SHORT, Toast.BOTTOM);
+    if (response?.isError) {
+      Toast.showWithGravity(response?.error?.data?.message, Toast.SHORT, Toast.BOTTOM);
     }
-  }, [isLoading]);
+  }, [response?.isLoading]);
 
-  const handleDelete = async values => {
-    // setDeleteModal(true);
+  const handleDelete = async (values) => {
     const id = user?.id;
-    var body = new FormData();
+    const body = new FormData();
     body.append('password', values.password);
     body.append('body', reason);
-    await deleteAccount(body, id);
+    await deleteAccount({ body, id });
   };
 
   const onPressContinue = () => {
@@ -64,17 +76,16 @@ const DeleteAccount = () => {
   return (
     <SafeAreaView style={styles.container}>
       <AuthHeader
-        center={'Delete Account'}
+        center="Delete Account"
         left={Icons.leftArrow}
         onPressLeft={() => navigation.goBack()}
       />
       {!confirm ? (
         <ScrollView>
           <Text style={styles.feedbackTxt}>
-            We’re sorry to see you go! Could you please let us know why you’d
-            like to delete your account? {'\n'}Your feedback would be greatly
-            appreciated and would help us improve our services in the future.
-            Thank you!"
+            We’re sorry to see you go! Could you please let us know why you’d like to delete your
+            account? {'\n'}Your feedback would be greatly appreciated and would help us improve our
+            services in the future. Thank you!"
           </Text>
           <AppInput
             textInPutProps={{
@@ -82,14 +93,14 @@ const DeleteAccount = () => {
               style: styles.inputStyle,
               placeholder: 'Write Here..',
               placeholderTextColor: colors.g25,
-              onChangeText: txt => setReason(txt),
+              onChangeText: (txt) => setReason(txt),
               multiline: true,
               textAlignVertical: 'top',
             }}
             containerStyle={styles.inputContainer}
           />
           <AppButton
-            title={'Continue...'}
+            title="Continue..."
             buttonContainer={styles.buttonStyle}
             touchableOpacity={{
               onPress: () => onPressContinue(),
@@ -98,17 +109,16 @@ const DeleteAccount = () => {
         </ScrollView>
       ) : (
         <ScrollView>
-          <Text style={styles.headingStyle}>
-            {'Please Enter your Password.'}
-          </Text>
+          <Text style={styles.headingStyle}>Please Enter your Password.</Text>
           <Formik
             innerRef={formikRef}
             initialValues={deleteAccountFields}
-            onSubmit={(values, {resetForm}) => {
+            onSubmit={(values) => {
               handleDelete(values);
             }}
-            validationSchema={DeleteAccountVS}>
-            {({values, errors, touched, handleSubmit, handleChange}) => (
+            validationSchema={DeleteAccountVS}
+          >
+            {({ values, errors, touched, handleSubmit, handleChange }) => (
               <>
                 <AppInput
                   textInPutProps={{
@@ -121,8 +131,8 @@ const DeleteAccount = () => {
                   touched={touched.password}
                 />
                 <AppButton
-                  title={'Delete Account'}
-                  buttonContainer={{marginTop: WP(15)}}
+                  title="Delete Account"
+                  buttonContainer={{ marginTop: WP(15) }}
                   clr1={colors.s10}
                   clr2={colors.s10}
                   touchableOpacity={{
@@ -151,10 +161,10 @@ const DeleteAccount = () => {
         }}
       />
       {/* app loader */}
-      <AppLoader loader_color={colors.g19} loading={isLoading} />
+      <AppLoader loader_color={colors.g19} loading={response?.isLoading} />
     </SafeAreaView>
   );
-};
+}
 
 export default DeleteAccount;
 
@@ -191,7 +201,7 @@ const styles = StyleSheet.create({
     width: WP(75),
     alignSelf: 'center',
   },
-  buttonStyle: {marginTop: WP(20)},
+  buttonStyle: { marginTop: WP(20) },
   headingStyle: {
     fontSize: size.h5,
     fontFamily: family.Roboto_Regular,

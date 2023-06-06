@@ -1,25 +1,17 @@
-import {AppButton, AppInput, AuthHeader} from '../../../components';
-import {useNavigation} from '@react-navigation/native';
-import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
-import React, {useRef, useState} from 'react';
-import {Formik} from 'formik';
-import {Icons} from '../../../assets/icons';
-import {
-  HP,
-  ResetPassVS,
-  WP,
-  colors,
-  family,
-  resetPassFormFields,
-} from '../../../shared/exporter';
-import SuccessModal from '../../../components/Modal/SuccessModal';
+import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, View, SafeAreaView } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { Formik } from 'formik';
+import { AppButton, AppInput, AuthHeader } from '../../../components';
+import { Icons } from '../../../assets/icons';
+import { HP, ResetPassVS, WP, colors, family, resetPassFormFields } from '../../../shared/exporter';
 
-const ContactUs = () => {
+function ContactUs() {
   const formikRef = useRef();
   const navigation = useNavigation();
-  const [showModal, setShowModal] = useState(false);
+  const [, setShowModal] = useState(false);
 
-  const handleResetPass = values => {
+  const handleResetPass = () => {
     setShowModal(true);
   };
 
@@ -27,48 +19,49 @@ const ContactUs = () => {
     <SafeAreaView style={styles.main}>
       <AuthHeader
         left={Icons.leftArrow}
-        center={'Contact US'}
+        center="Contact US"
         onPressLeft={() => navigation.goBack()}
-        rightText={'a'}
+        rightText="a"
       />
 
       <Formik
         innerRef={formikRef}
         initialValues={resetPassFormFields}
-        onSubmit={values => {
+        onSubmit={(values) => {
           handleResetPass(values);
         }}
-        validationSchema={ResetPassVS}>
-        {({values, errors, touched, handleSubmit, handleChange}) => (
+        validationSchema={ResetPassVS}
+      >
+        {({ values, errors, touched, handleSubmit, handleChange }) => (
           <View style={styles.miniContainer}>
             <AppInput
               textInPutProps={{
-                style: {color: colors.b1},
+                style: { color: colors.b1 },
                 value: values.username,
                 placeholder: 'Username',
                 placeholderTextColor: colors.b4,
                 onChangeText: handleChange('username'),
               }}
-              title={'User Name'}
+              title="User Name"
               errorMessage={errors.username}
               touched={touched.username}
             />
             <AppInput
               textInPutProps={{
-                style: {color: colors.b1},
+                style: { color: colors.b1 },
                 value: values.email,
                 placeholder: 'example@gmail.com',
                 placeholderTextColor: colors.b4,
                 onChangeText: handleChange('email'),
               }}
-              title={'E-mail'}
+              title="E-mail"
               errorMessage={errors.email}
               touched={touched.email}
             />
 
             <AppButton
-              title={'Send'}
-              buttonContainer={{marginTop: WP(10)}}
+              title="Send"
+              buttonContainer={{ marginTop: WP(10) }}
               touchableOpacity={{
                 onPress: () => handleSubmit(),
               }}
@@ -78,7 +71,7 @@ const ContactUs = () => {
       </Formik>
     </SafeAreaView>
   );
-};
+}
 
 export default ContactUs;
 

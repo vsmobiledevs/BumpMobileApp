@@ -1,4 +1,17 @@
-import {Icons} from '../../assets/icons';
+/* eslint-disable camelcase */
+import { Icons } from '../../assets/icons';
+
+const dummyImage =
+  'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg';
+
+const image_options = {
+  title: 'Select Avatar',
+  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
 
 const socialIcons = [
   {
@@ -115,4 +128,4 @@ const TabIcons = [
   },
 ];
 
-export {socialIcons, AccountButtons, TabIcons};
+export { socialIcons, AccountButtons, TabIcons, dummyImage, image_options };

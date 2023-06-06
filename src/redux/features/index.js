@@ -1,5 +1,6 @@
-import {combineReducers} from 'redux';
-import {AuthApis} from '../api/auth';
+/* eslint-disable import/no-named-as-default */
+import { combineReducers } from 'redux';
+import { AuthApis } from '../api/auth';
 import authSlice from './authSlice';
 
 const rootReducer = combineReducers({

@@ -1,22 +1,21 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  StatusBar,
-  Platform,
-  SafeAreaView,
-} from 'react-native';
+import { StyleSheet, View, StatusBar, Platform, SafeAreaView } from 'react-native';
 
 const STATUSBAR_HEIGHT = StatusBar.currentHeight;
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 
-const MyStatusBar = ({backgroundColor, ...props}) => (
-  <View style={[styles.statusBar, {backgroundColor}]}>
-    <SafeAreaView>
-      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
-    </SafeAreaView>
-  </View>
-);
+function MyStatusBar({ backgroundColor, ...props }) {
+  return (
+    <View style={[styles.statusBar, { backgroundColor }]}>
+      <SafeAreaView>
+        <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+      </SafeAreaView>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -35,4 +34,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export {MyStatusBar};
+export { MyStatusBar };

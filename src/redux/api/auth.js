@@ -1,7 +1,8 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import {BASE_URL, PREFIX} from '@env';
-import {endpoints} from '../../shared/exporter';
-import {setUser} from '../features/authSlice';
+/* eslint-disable import/no-unresolved */
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { BASE_URL, PREFIX } from '@env';
+import { endpoints } from '../../shared/exporter';
+import { setUser } from '../features/authSlice';
 
 // Define your custom headers
 const customHeaders = {
@@ -12,9 +13,8 @@ const customHeaders = {
 // Create the base query function with global headers
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL, // Set your API base URL here
-  prepareHeaders: (headers, {getState}) => {
-    const {authSlice} = getState();
-    console.log(authSlice);
+  prepareHeaders: (headers, { getState }) => {
+    const { authSlice } = getState();
     headers.set('Authorization', `Token ${authSlice?.user?.token}`);
   },
 });
@@ -22,10 +22,10 @@ const baseQuery = fetchBaseQuery({
 export const AuthApis = createApi({
   reducerPath: 'authApis',
   baseQuery,
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     // create user
     createUser: builder.mutation({
-      query: data => ({
+      query: (data) => ({
         url: `${PREFIX}${endpoints.signUp}`,
         method: 'post',
         headers: customHeaders,
@@ -34,23 +34,48 @@ export const AuthApis = createApi({
     }),
     // login user
     loginUser: builder.mutation({
-      query: data => ({
+      query: (data) => ({
         url: `${PREFIX}${endpoints.login}`,
         method: 'post',
         headers: customHeaders,
         body: data,
       }),
-      transformResponse: result => result,
-      async onQueryStarted(args, {dispatch, queryFulfilled}) {
+      transformResponse: (result) => result,
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
-          const {data} = await queryFulfilled;
+          const { data } = await queryFulfilled;
           dispatch(setUser(data));
-        } catch (error) {}
+        } catch (error) {
+          /* empty */
+        }
+      },
+    }),
+    // update user
+    updateUser: builder.mutation({
+      query: (data) => ({
+        url: `${PREFIX}${endpoints.updateUser}`,
+        method: 'put',
+        body: data,
+        headers: customHeaders,
+      }),
+      transformResponse: (result) => result,
+      async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
+        try {
+          const { data } = await queryFulfilled;
+          const { authSlice } = getState();
+          const obj = { ...authSlice?.user };
+          obj.name = data.name;
+          obj.email = data.email;
+          obj.profile_image = data.profile_image;
+          dispatch(setUser(obj));
+        } catch (error) {
+          /* empty */
+        }
       },
     }),
     // change password
     changePassword: builder.mutation({
-      query: data => ({
+      query: (data) => ({
         url: `${PREFIX}${endpoints.changePassword}`,
         method: 'put',
         body: data,
@@ -58,7 +83,7 @@ export const AuthApis = createApi({
     }),
     // forgot password
     forgotPassword: builder.mutation({
-      query: data => ({
+      query: (data) => ({
         url: `${PREFIX}${endpoints.forgotPassword}`,
         method: 'post',
         body: data,
@@ -66,10 +91,17 @@ export const AuthApis = createApi({
     }),
     // delete account
     deleteAccount: builder.mutation({
-      query: (data, id) => ({
+      query: ({ body, id }) => ({
         url: `${PREFIX}${endpoints.signUp}/${id}`,
         method: 'delete',
-        body: data,
+        body,
+      }),
+    }),
+    // get privacy policy and terms & conditions
+    termsAndPrivacy: builder.mutation({
+      query: (key) => ({
+        url: `${PREFIX}${endpoints.termsAndPrivacy}?name=${key}`,
+        method: 'get',
         headers: customHeaders,
       }),
     }),
@@ -79,6 +111,8 @@ export const AuthApis = createApi({
 export const {
   useLoginUserMutation,
   useCreateUserMutation,
+  useUpdateUserMutation,
+  useTermsAndPrivacyMutation,
   useDeleteAccountMutation,
   useChangePasswordMutation,
   useForgotPasswordMutation,

@@ -1,18 +1,14 @@
-import {BottomTabBarButtonProps} from '@react-navigation/bottom-tabs';
+/* eslint-disable import/prefer-default-export */
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {WP, colors} from '../../shared/exporter';
-import {Icons} from '../../assets/icons';
+import { StyleSheet, View } from 'react-native';
+import { WP, colors } from '../../shared/exporter';
+import { Icons } from '../../assets/icons';
 
-interface TabBarButtonProps {
-  props?: BottomTabBarButtonProps;
-}
-
-function CenterButton({}: TabBarButtonProps) {
+function CenterButton() {
   return <View style={styles.container}>{Icons.search}</View>;
 }
 
-export {CenterButton};
+export { CenterButton };
 
 const styles = StyleSheet.create({
   container: {

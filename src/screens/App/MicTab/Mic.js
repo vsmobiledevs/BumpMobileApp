@@ -1,10 +1,10 @@
 import {ImageBackground, SafeAreaView, StyleSheet, View} from 'react-native';
+import React from 'react';
 import {HP, WP, appImages, colors} from '../../../shared/exporter';
 import {MyStatusBar} from '../../../components';
-import React from 'react';
 import {Icons} from '../../../assets/icons';
 
-const Mic = () => {
+function Mic() {
   return (
     <SafeAreaView style={styles.container}>
       <MyStatusBar backgroundColor={colors.white} />
@@ -15,7 +15,7 @@ const Mic = () => {
       </ImageBackground>
     </SafeAreaView>
   );
-};
+}
 
 export default Mic;
 

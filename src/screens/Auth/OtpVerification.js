@@ -1,29 +1,23 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  SafeAreaView,
-} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import {AuthHeader} from '../../components';
-import {HP, colors, size, WP} from '../../shared/exporter';
-import {useNavigation} from '@react-navigation/native';
-import {
-  CodeField,
-  useClearByFocusCell,
-} from 'react-native-confirmation-code-field';
-import {Icons} from '../../assets/icons';
-import {AuthHeading} from '../../components/authHeading';
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/no-unescaped-entities */
+import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { CodeField, useClearByFocusCell } from 'react-native-confirmation-code-field';
+import { AuthHeader } from '../../components';
+import { HP, colors, size, WP } from '../../shared/exporter';
+import { Icons } from '../../assets/icons';
+import { AuthHeading } from '../../components/authHeading';
 
-const OtpVerification = () => {
+function OtpVerification() {
   const ref = useRef();
   const navigation = useNavigation();
   const [value, setValue] = useState('');
 
   // navigate when user enter OTP
   useEffect(() => {
-    if (value?.length == 4) {
+    if (value?.length === 4) {
       navigation.navigate('NewPassword');
       setValue('');
     }
@@ -35,16 +29,13 @@ const OtpVerification = () => {
   });
   return (
     <SafeAreaView style={styles.main}>
-      <AuthHeader
-        left={Icons.backIcon}
-        onPressLeft={() => navigation.goBack()}
-      />
+      <AuthHeader left={Icons.backIcon} onPressLeft={() => navigation.goBack()} />
       <AuthHeading
         mainHeading="OTP Verification"
         subHeading="Enter the verification code we just sent on your email address."
       />
 
-      <View style={{marginHorizontal: WP(6), marginVertical: HP(4)}}>
+      <View style={{ marginHorizontal: WP(6), marginVertical: HP(4) }}>
         <CodeField
           ref={ref}
           value={value}
@@ -52,12 +43,13 @@ const OtpVerification = () => {
           {...codeFieldProps}
           keyboardType="number-pad"
           textContentType="oneTimeCode"
-          onChangeText={val => setValue(val)}
-          renderCell={({index, symbol}) => (
+          onChangeText={(val) => setValue(val)}
+          renderCell={({ index, symbol }) => (
             <View
               key={index}
               style={symbol ? styles.cellFillStyle : styles.cellStyle}
-              onLayout={getCellOnLayoutHandler(index)}>
+              onLayout={getCellOnLayoutHandler(index)}
+            >
               <Text style={styles.txtStyle}>{symbol}</Text>
             </View>
           )}
@@ -70,7 +62,8 @@ const OtpVerification = () => {
           alignItems: 'flex-end',
           flexDirection: 'row',
           marginBottom: HP(5),
-        }}>
+        }}
+      >
         <Text style={styles.footer}>Didn't receive code?</Text>
         <TouchableOpacity onPress={() => null}>
           <Text style={[styles.footer]}> Resend</Text>
@@ -78,7 +71,7 @@ const OtpVerification = () => {
       </View>
     </SafeAreaView>
   );
-};
+}
 
 export default OtpVerification;
 

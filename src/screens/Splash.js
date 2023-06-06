@@ -1,26 +1,22 @@
-import {appImages, colors, WP} from '../shared/exporter';
-import {useNavigation} from '@react-navigation/native';
-import {StyleSheet, View, Image} from 'react-native';
-import React, {useEffect} from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, View, Image } from 'react-native';
+import React, { useEffect } from 'react';
+import { appImages, colors, WP } from '../shared/exporter';
 
-const Splash = () => {
+function Splash() {
   const navigation = useNavigation();
   useEffect(() => {
     setTimeout(() => {
       navigation.replace('auth');
     }, 3000);
-  }, []);
+  }, [navigation]);
 
   return (
     <View style={styles.main}>
-      <Image
-        source={appImages.splash}
-        style={styles.logo}
-        resizeMode="contain"
-      />
+      <Image source={appImages.splash} style={styles.logo} resizeMode="contain" />
     </View>
   );
-};
+}
 
 export default Splash;
 

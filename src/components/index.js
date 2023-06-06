@@ -1,11 +1,11 @@
-//Inputs
+// Inputs
 export {AppInput} from './Input/AppInput';
 export {SearchInput} from './Input/SearchInput';
 
-//Buttons
+// Buttons
 export {AppButton} from './AppButton/AppButton';
 
-//Headers
+// Headers
 export {AuthHeader} from './Header/AuthHeader';
 
 // Status bar
