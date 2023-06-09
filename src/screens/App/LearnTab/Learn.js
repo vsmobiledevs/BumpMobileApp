@@ -1,11 +1,38 @@
-import React, { useCallback, useState } from 'react';
-import { ImageBackground, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { MyStatusBar } from '../../../components';
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable import/no-extraneous-dependencies */
+import React, { useCallback, useEffect, useState } from 'react';
+import { ImageBackground, View, StyleSheet, Text, TouchableOpacity, FlatList } from 'react-native';
 import { HP, WP, appImages, colors, size } from '../../../shared/exporter';
+import { LearnCard, MyStatusBar } from '../../../components';
+import { useTermsAndPrivacyMutation } from '../../../redux/api/auth';
+import { AppLoader } from '../../../components/AppLoader';
 
 function Learn() {
+  const [termsAndPrivacy, response] = useTermsAndPrivacyMutation();
+  const [data, setData] = useState([]);
   const [textShown, setTextShown] = useState(false);
   const [lengthMore, setLengthMore] = useState(false);
+
+  useEffect(() => {
+    learnAboutBump();
+  }, []);
+
+  // handling response
+  useEffect(() => {
+    if (response?.isSuccess) {
+      if (response.data.learn_about_bump) {
+        setData(response.data.learn_about_bump);
+      }
+    }
+    if (response?.isError) {
+      /* empty */
+    }
+  }, [response.isLoading]);
+
+  // get learning about bump
+  const learnAboutBump = async () => {
+    await termsAndPrivacy('learn_about_bump');
+  };
 
   const toggleNumberOfLines = () => {
     setTextShown(!textShown);
@@ -22,8 +49,8 @@ function Learn() {
 
         <View style={styles.innerContainer}>
           <Text style={styles.learnAboutText}>Learn About Bump</Text>
+          {/* about bump section */}
           <View style={styles.aboutContainer}>
-            {/* about bump section */}
             <Text style={styles.title}>About Bump</Text>
             <Text
               onTextLayout={onTextLayout}
@@ -42,8 +69,21 @@ function Learn() {
               </TouchableOpacity>
             ) : null}
           </View>
+
+          {/* about bump images and videos list */}
+          <FlatList
+            data={data}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <LearnCard item={item} />}
+            numColumns={2}
+            showsVerticalScrollIndicator={false}
+            onEndReachedThreshold={0.1}
+            style={styles.randomContainer}
+          />
         </View>
       </ImageBackground>
+      {/* app loader */}
+      <AppLoader loader_color={colors.g19} loading={response?.isLoading} />
     </View>
   );
 }
@@ -95,5 +135,11 @@ const styles = StyleSheet.create({
     color: colors.blue,
     marginTop: HP(0.4),
     lineHeight: 21,
+  },
+  randomContainer: {
+    marginTop: HP(1),
+    marginBottom: HP(10),
+    width: '90%',
+    alignSelf: 'center',
   },
 });

@@ -9,7 +9,7 @@ import { HP, ResetPassVS, WP, colors, family, resetPassFormFields } from '../../
 function ContactUs() {
   const formikRef = useRef();
   const navigation = useNavigation();
-  const [, setShowModal] = useState(false);
+  const [setShowModal] = useState(false);
 
   const handleResetPass = () => {
     setShowModal(true);
@@ -39,7 +39,7 @@ function ContactUs() {
                 style: { color: colors.b1 },
                 value: values.username,
                 placeholder: 'Username',
-                placeholderTextColor: colors.b4,
+                placeholderTextColor: colors.g25,
                 onChangeText: handleChange('username'),
               }}
               title="User Name"
@@ -51,10 +51,23 @@ function ContactUs() {
                 style: { color: colors.b1 },
                 value: values.email,
                 placeholder: 'example@gmail.com',
-                placeholderTextColor: colors.b4,
+                placeholderTextColor: colors.g25,
                 onChangeText: handleChange('email'),
               }}
               title="E-mail"
+              errorMessage={errors.email}
+              touched={touched.email}
+            />
+
+            <AppInput
+              containerStyle={{ height: HP(30) }}
+              textInPutProps={{
+                style: { color: colors.b1 },
+                value: values.email,
+                placeholder: 'Message',
+                placeholderTextColor: colors.g25,
+                onChangeText: handleChange('email'),
+              }}
               errorMessage={errors.email}
               touched={touched.email}
             />

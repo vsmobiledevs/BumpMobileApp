@@ -4,6 +4,7 @@
         "codegen",
         "Formik",
         "middlewares",
+        "mydata",
         "navigations",
         "reduxjs",
         "Roboto",

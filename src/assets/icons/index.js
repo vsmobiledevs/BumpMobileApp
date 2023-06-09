@@ -35,6 +35,12 @@ import FillMic from './fillMic.svg';
 import FillAccount from './fillAccount.svg';
 import AppLogo from './appLogo.svg';
 import MetaMask from './metaMask.svg';
+import Binance from './binance.svg';
+import BitGo from './bitgo.svg';
+import BitMax from './bitmax.svg';
+import Blockchain from './blockchain.svg';
+import WalletConnect from './walletconnect.svg';
+import EWallet from './ewallet.svg';
 import Done from './passChange.svg';
 import LeftArrow from './leftArrow.svg';
 import DownArrow from './downArrow.svg';
@@ -42,10 +48,15 @@ import UpArrow from './upArrow.svg';
 import Condition from './condition.svg';
 import Add from './add.svg';
 import Nft from './nft.svg';
+import Nft1 from './nft1.svg';
 import Solana from './solana_logo.svg';
 import Logout from './logout.svg';
 import Alert from './alert.svg';
 import ComingSoon from './comingSoon.svg';
+import Person from './person.svg';
+import Download from './download-fill.svg';
+import Checked from './check.svg';
+import UnChecked from './uncheck.svg';
 
 const Icons = {
   email: <Email alignSelf="center" />,
@@ -88,12 +99,23 @@ const Icons = {
   upArrow: <UpArrow alignSelf="center" />,
   condition: <Condition alignSelf="center" />,
   metaMask: <MetaMask alignSelf="center" />,
+  binance: <Binance alignSelf="center" />,
+  bitGo: <BitGo alignSelf="center" />,
+  bitMax: <BitMax alignSelf="center" />,
+  blockchain: <Blockchain alignSelf="center" />,
+  walletConnect: <WalletConnect alignSelf="center" />,
+  eWallet: <EWallet alignSelf="center" />,
   add: <Add alignSelf="center" />,
   nft: <Nft alignSelf="center" />,
+  nft1: <Nft1 alignSelf="center" />,
   solana: <Solana alignSelf="center" />,
   alert: <Alert alignSelf="center" />,
   comingSoon: <ComingSoon alignSelf="center" />,
   logout: <Logout alignSelf="center" />,
+  person: <Person alignSelf="center" />,
+  download: <Download alignSelf="center" />,
+  checked: <Checked alignSelf="center" />,
+  unchecked: <UnChecked alignSelf="center" />,
 };
 
 export { Icons };

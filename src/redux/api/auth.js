@@ -105,15 +105,24 @@ export const AuthApis = createApi({
         headers: customHeaders,
       }),
     }),
+    // get privacy policy and terms & conditions
+    faqs: builder.mutation({
+      query: () => ({
+        url: `${PREFIX}${endpoints.faqs}`,
+        method: 'get',
+        headers: customHeaders,
+      }),
+    }),
   }),
 });
 
 export const {
+  useFaqsMutation,
   useLoginUserMutation,
   useCreateUserMutation,
   useUpdateUserMutation,
-  useTermsAndPrivacyMutation,
   useDeleteAccountMutation,
-  useChangePasswordMutation,
   useForgotPasswordMutation,
+  useChangePasswordMutation,
+  useTermsAndPrivacyMutation,
 } = AuthApis;

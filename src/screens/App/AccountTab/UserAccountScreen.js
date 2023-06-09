@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch } from 'react-redux';
-import { AccountButtons, dummyImage } from '../../../shared/utilities/dummyData';
+import { AccountButtons, DummyImage } from '../../../shared/utilities/staticInfo';
 import { WP, colors, HP, family } from '../../../shared/exporter';
 import AccountButton from '../../../components/AccountButton';
 import { Icons } from '../../../assets/icons';
@@ -15,27 +15,18 @@ import { useAppSelector } from '../../../redux/store';
 function UserAccountScreen({ navigation }) {
   const { user } = useAppSelector((state) => state?.authSlice);
   const dispatch = useDispatch(null);
+
   // open new screen
   const onPressListItem = async (item) => {
-    if (item?.id === 1) {
-      navigation.navigate('accountTabScreens', {
-        screen: item.screen,
-        params: { screenId: item?.id },
-      });
-    } else if (item?.id === 4) {
-      navigation.navigate('accountTabScreens', {
-        screen: item.screen,
-        params: { screenId: item?.id },
-      });
-    } else if (item?.id === 9) {
-      navigation.navigate('accountTabScreens', {
-        screen: item.screen,
-        params: { screenId: item?.id },
-      });
+    if (item?.id === 2) {
+      navigation.navigate(item?.screen);
     } else if (item?.id === 10) {
       dispatch(logout());
     } else {
-      // navigation.navigate('accountTabScreens', { screen: item.screen });
+      navigation.navigate(item?.parentScreen, {
+        screen: item.screen,
+        params: { screenId: item?.id },
+      });
     }
   };
 
@@ -45,7 +36,7 @@ function UserAccountScreen({ navigation }) {
       <LinearGradient colors={[colors.P1, colors.P2]} style={styles.header}>
         <View style={styles.header2}>
           <View style={styles.imageContainer}>
-            <Image source={{ uri: user?.profile_image || dummyImage }} style={styles.imageStyle} />
+            <Image source={{ uri: user?.profile_image || DummyImage }} style={styles.imageStyle} />
           </View>
 
           <View style={styles.nameContainer}>
@@ -83,6 +74,7 @@ export default UserAccountScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.w1,
   },
   header: {
     height: HP(16),

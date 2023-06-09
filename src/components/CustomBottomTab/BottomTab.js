@@ -2,10 +2,9 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
-import { HP, colors, size } from '../../shared/exporter';
+import { View, TouchableOpacity, StyleSheet, Dimensions, Image, Text } from 'react-native';
+import { HP, WP, appImages, colors, size } from '../../shared/exporter';
 import { CenterButton } from './CenterButton';
-import { Icons } from '../../assets/icons';
 import { TabShape } from './TabShape';
 
 export const HEIGHT_SIZE = 80;
@@ -30,7 +29,6 @@ function BottomTab({ props: { state, descriptors, navigation } }) {
                 : options.title !== undefined
                 ? options.title
                 : route.name;
-
             const isFocused = state.index === index;
 
             const onPress = () => {
@@ -65,18 +63,23 @@ function BottomTab({ props: { state, descriptors, navigation } }) {
                 style={styles.button}
               >
                 {options.tabBarButton ? (
-                  <CenterButton />
+                  <CenterButton isFocused={isFocused} />
                 ) : (
                   <View style={styles.textIconContainer}>
-                    {index === 0
-                      ? Icons.data
-                      : index === 1
-                      ? Icons.mic
-                      : index === 3
-                      ? Icons.learn
-                      : index === 4
-                      ? Icons.account
-                      : null}
+                    <Image
+                      source={
+                        index === 0
+                          ? appImages.myData
+                          : index === 1
+                          ? appImages.mic
+                          : index === 3
+                          ? appImages.learn
+                          : index === 4
+                          ? appImages.account
+                          : null
+                      }
+                      style={[styles.icon, { tintColor: isFocused ? colors.P1 : colors.g24 }]}
+                    />
                     <Text style={isFocused ? styles.label : styles.inactiveLabel}>{label}</Text>
                   </View>
                 )}
@@ -103,7 +106,8 @@ const styles = StyleSheet.create({
       height: 0,
     },
     shadowOpacity: 0.2,
-    bottom: 0,
+    elevation: 10,
+    bottom: 5,
   },
   content: {
     flex: 1,
@@ -114,7 +118,7 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     alignItems: 'center',
-    marginBottom: HP(1.5),
+    marginBottom: HP(2),
   },
   label: {
     color: colors.P1,
@@ -129,5 +133,10 @@ const styles = StyleSheet.create({
   textIconContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  icon: {
+    width: WP(5),
+    height: WP(5),
+    resizeMode: 'contain',
   },
 });

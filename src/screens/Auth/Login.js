@@ -18,7 +18,7 @@ import { Icons } from '../../assets/icons';
 import { AppButton, AppInput } from '../../components';
 import { AppLoader } from '../../components/AppLoader';
 import { useLoginUserMutation } from '../../redux/api/auth';
-import { socialIcons } from '../../shared/utilities/dummyData';
+import { SocialIcons } from '../../shared/utilities/staticInfo';
 
 function Login() {
   const formikRef = useRef();
@@ -134,7 +134,7 @@ function Login() {
 
             {/* social icons */}
             <View style={styles.otherSignInView}>
-              {socialIcons?.map((item) => (
+              {SocialIcons?.map((item) => (
                 <TouchableOpacity
                   activeOpacity={0.8}
                   onPress={() => onPressIcon(item?.id)}

@@ -27,7 +27,7 @@ function TermsScreen({ route, navigation }) {
       }
     }
     if (res?.isError) {
-      console.log(res.error);
+      /* empty */
     }
   }, [res.isLoading]);
 
