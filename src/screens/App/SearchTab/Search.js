@@ -6,15 +6,15 @@ import {
   SafeAreaView,
   ImageBackground,
 } from 'react-native';
-import React, {useState} from 'react';
-import {Icons} from '../../../assets/icons';
-import {HP, WP, appImages, colors} from '../../../shared/exporter';
-import {MyStatusBar, NftsCard, RNModal, SearchInput} from '../../../components';
+import React, { useState } from 'react';
+import { Icons } from '../../../assets/icons';
+import { HP, WP, appImages, colors } from '../../../shared/exporter';
+import { MyStatusBar, NftsCard, RNModal, SearchInput } from '../../../components';
 
-const Search = () => {
+function Search() {
   const [isPaid, setIsPaid] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [Nfts, setNfts] = useState([
+  const [Nfts] = useState([
     {
       id: 0,
       name: 'Solana',
@@ -43,26 +43,22 @@ const Search = () => {
   ]);
 
   // select browsing type
-  const onSelectSwitch = val => {
-    setIsPaid(val === 1 ? false : true);
+  const onSelectSwitch = (val) => {
+    setIsPaid(val !== 1);
   };
 
   // edit or remove NFTs from list
-  const onPressIcon = index => {};
+  const onPressIcon = () => {};
 
   return (
     <SafeAreaView style={styles.container}>
       <MyStatusBar backgroundColor={colors.white} />
       <ImageBackground
         style={styles.homeBackground}
-        source={
-          isPaid ? appImages.homeBackgroundBlue : appImages.homeBackgroundOrange
-        }>
+        source={isPaid ? appImages.homeBackgroundBlue : appImages.homeBackgroundOrange}
+      >
         <ScrollView>
-          <ImageBackground
-            source={appImages.homeHead}
-            style={styles.homeHead}
-          />
+          <ImageBackground source={appImages.homeHead} style={styles.homeHead} />
 
           {/* Search input */}
           <SearchInput
@@ -81,8 +77,8 @@ const Search = () => {
             <FlatList
               data={Nfts}
               numColumns={4}
-              keyExtractor={item => item?.id}
-              renderItem={({item, index}) => (
+              keyExtractor={(item) => item?.id}
+              renderItem={({ item, index }) => (
                 <NftsCard
                   item={item}
                   index={index}
@@ -95,12 +91,10 @@ const Search = () => {
           </View>
         </ScrollView>
       </ImageBackground>
-      {showModal && (
-        <RNModal show={showModal} onTouchCancel={() => setShowModal(false)} />
-      )}
+      {showModal && <RNModal show={showModal} onTouchCancel={() => setShowModal(false)} />}
     </SafeAreaView>
   );
-};
+}
 
 export default Search;
 

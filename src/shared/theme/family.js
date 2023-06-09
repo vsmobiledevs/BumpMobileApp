@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 export const family = {
   Roboto_Light: 'Roboto-Light',
   Roboto_Medium: 'Roboto-Medium',

@@ -1,3 +1,5 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable react/react-in-jsx-scope */
 import SearchWhite from './searchWhite.svg';
 import EditPenFill from './editPenFill.svg';
 import RightArrow from './rightArrow.svg';
@@ -94,4 +96,4 @@ const Icons = {
   logout: <Logout alignSelf="center" />,
 };
 
-export {Icons};
+export { Icons };

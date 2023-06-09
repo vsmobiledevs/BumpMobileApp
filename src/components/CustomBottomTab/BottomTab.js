@@ -1,27 +1,16 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable react/prop-types */
 import React from 'react';
-import {
-  BottomTabBarOptions,
-  BottomTabBarProps,
-} from '@react-navigation/bottom-tabs';
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  Dimensions,
-} from 'react-native';
-import {TabShape} from './TabShape';
-import {CenterButton} from './CenterButton';
-import {Icons} from '../../assets/icons';
-import {HP, colors, size} from '../../shared/exporter';
+import { View, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
+import { HP, colors, size } from '../../shared/exporter';
+import { CenterButton } from './CenterButton';
+import { Icons } from '../../assets/icons';
+import { TabShape } from './TabShape';
 
 export const HEIGHT_SIZE = 80;
 
-interface TabBarProps {
-  props: BottomTabBarProps<BottomTabBarOptions>;
-}
-
-function BottomTab({props: {state, descriptors, navigation}}: TabBarProps) {
+function BottomTab({ props: { state, descriptors, navigation } }) {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
 
   if (focusedOptions.tabBarVisible === false) {
@@ -34,7 +23,7 @@ function BottomTab({props: {state, descriptors, navigation}}: TabBarProps) {
       <View style={StyleSheet.absoluteFill}>
         <View style={styles.content}>
           {state.routes.map((route, index) => {
-            const {options} = descriptors[route.key];
+            const { options } = descriptors[route.key];
             const label =
               options.tabBarLabel !== undefined
                 ? options.tabBarLabel
@@ -68,29 +57,27 @@ function BottomTab({props: {state, descriptors, navigation}}: TabBarProps) {
                 key={index}
                 activeOpacity={0.8}
                 accessibilityRole="button"
-                accessibilityState={isFocused ? {selected: true} : {}}
+                accessibilityState={isFocused ? { selected: true } : {}}
                 accessibilityLabel={options.tabBarAccessibilityLabel}
                 testID={options.tabBarTestID}
                 onPress={onPress}
                 onLongPress={onLongPress}
-                style={styles.button}>
+                style={styles.button}
+              >
                 {options.tabBarButton ? (
                   <CenterButton />
                 ) : (
                   <View style={styles.textIconContainer}>
-                    {index == 0
+                    {index === 0
                       ? Icons.data
-                      : index == 1
+                      : index === 1
                       ? Icons.mic
-                      : index == 3
+                      : index === 3
                       ? Icons.learn
-                      : index == 4
+                      : index === 4
                       ? Icons.account
                       : null}
-                    <Text
-                      style={isFocused ? styles.label : styles.inactiveLabel}>
-                      {label}
-                    </Text>
+                    <Text style={isFocused ? styles.label : styles.inactiveLabel}>{label}</Text>
                   </View>
                 )}
               </TouchableOpacity>
@@ -102,7 +89,7 @@ function BottomTab({props: {state, descriptors, navigation}}: TabBarProps) {
   );
 }
 
-export {BottomTab};
+export { BottomTab };
 
 const styles = StyleSheet.create({
   container: {

@@ -1,4 +1,5 @@
-import React, {useEffect, useRef} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useRef } from 'react';
 import {
   TouchableOpacity,
   ImageBackground,
@@ -8,6 +9,10 @@ import {
   Text,
   View,
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useNavigation } from '@react-navigation/native';
+import { Formik } from 'formik';
+import Toast from 'react-native-simple-toast';
 import {
   signupFormFields,
   appImages,
@@ -18,16 +23,12 @@ import {
   WP,
   HP,
 } from '../../shared/exporter';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {socialIcons} from '../../shared/utilities/dummyData';
-import {useCreateUserMutation} from '../../redux/api/auth';
-import {useNavigation} from '@react-navigation/native';
-import {AppButton, AppInput} from '../../components';
-import {AppLoader} from '../../components/AppLoader';
-import Toast from 'react-native-simple-toast';
-import {Formik} from 'formik';
+import { socialIcons } from '../../shared/utilities/dummyData';
+import { useCreateUserMutation } from '../../redux/api/auth';
+import { AppButton, AppInput } from '../../components';
+import { AppLoader } from '../../components/AppLoader';
 
-const Signup = () => {
+function Signup() {
   // mutation
   const [createUser, response] = useCreateUserMutation();
 
@@ -38,69 +39,57 @@ const Signup = () => {
   // handling response
   useEffect(() => {
     if (response?.isSuccess) {
-      console.log('Success--', response?.data);
-      Toast.showWithGravity(response?.data?.message, Toast.SHORT, Toast.BOTTOM);
-      navigation.navigate('auth');
+      Toast.showWithGravity('User successfully registered!', Toast.SHORT, Toast.BOTTOM);
+      navigation.navigate('Login');
     }
     if (response?.isError) {
-      console.log('Error--', response?.error?.data);
-      Toast.showWithGravity(
-        response?.error?.data?.message,
-        Toast.SHORT,
-        Toast.BOTTOM,
-      );
+      Toast.showWithGravity(response?.error?.data?.message, Toast.SHORT, Toast.BOTTOM);
     }
   }, [response.isLoading]);
 
   // calling register mutation
-  const handleSignup = async values => {
-    var body = new FormData();
+  const handleSignup = async (values) => {
+    const body = new FormData();
     body.append('username', values.name);
     body.append('email', values.email);
     body.append('password', values.password);
     body.append('password_confirmation', values.password);
-
-    createUser(body);
+    await createUser(body);
   };
 
   // social login icons
-  const onPressIcon = id => {
+  const onPressIcon = (id) => {
     switch (id) {
       case 0:
-        console.log('Apple');
         break;
       case 1:
-        console.log('Google');
         break;
-      default:
       case 2:
-        console.log('AWS');
         break;
       case 3:
-        console.log('Facebook');
         break;
+      default:
     }
   };
 
   return (
     <ScrollView style={styles.main}>
-      <ImageBackground
-        source={appImages.backgroundSignup}
-        style={styles.imageStyle}>
+      <ImageBackground source={appImages.backgroundSignup} style={styles.imageStyle}>
         <Image source={appImages.splash} style={styles.logo} />
       </ImageBackground>
       <Formik
         innerRef={formikRef}
         initialValues={signupFormFields}
-        onSubmit={values => {
+        onSubmit={(values) => {
           handleSignup(values);
         }}
-        validationSchema={SignupVS}>
-        {({values, errors, touched, handleSubmit, handleChange}) => (
+        validationSchema={SignupVS}
+      >
+        {({ values, errors, touched, handleSubmit, handleChange }) => (
           <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
             <AppInput
               textInPutProps={{
-                style: {color: colors.b1},
+                style: { color: colors.b1 },
                 value: values.name,
                 placeholder: 'Enter Name',
                 placeholderTextColor: colors.b4,
@@ -111,7 +100,7 @@ const Signup = () => {
             />
             <AppInput
               textInPutProps={{
-                style: {color: colors.b1},
+                style: { color: colors.b1 },
                 value: values.email,
                 placeholder: 'Enter email',
                 keyboardType: 'email-address',
@@ -123,7 +112,7 @@ const Signup = () => {
             />
             <AppInput
               textInPutProps={{
-                style: {color: colors.b1},
+                style: { color: colors.b1 },
                 value: values.password,
                 placeholder: 'Enter Password',
                 keyboardType: 'email-address',
@@ -135,7 +124,7 @@ const Signup = () => {
               touched={touched.password}
             />
             <AppButton
-              title={'Sign Up'}
+              title="Sign Up"
               touchableOpacity={{
                 onPress: () => handleSubmit(),
               }}
@@ -145,48 +134,45 @@ const Signup = () => {
             <Text style={styles.descTxtStyle}>
               {'By continuing you accept our '}
               <TouchableOpacity
-                onPress={() => navigation.navigate('Terms', {screenId: 7})}
-                activeOpacity={0.8}>
+                onPress={() => navigation.navigate('Terms', { screenId: 7 })}
+                activeOpacity={0.8}
+              >
                 <Text style={styles.descTxtBoldStyle}>{'Privacy Policy '}</Text>
               </TouchableOpacity>
               {'and '}
               <TouchableOpacity
-                onPress={() => navigation.navigate('Terms', {screenId: 6})}
-                activeOpacity={0.8}>
-                <Text style={styles.descTxtBoldStyle}>{'Term of Use'}</Text>
+                onPress={() => navigation.navigate('Terms', { screenId: 6 })}
+                activeOpacity={0.8}
+              >
+                <Text style={styles.descTxtBoldStyle}>Term of Use</Text>
               </TouchableOpacity>
             </Text>
 
             <View style={styles.orView}>
-              <View style={styles.barView}></View>
+              <View style={styles.barView} />
               <Text style={styles.orTxt}>OR</Text>
-              <View style={styles.barView}></View>
+              <View style={styles.barView} />
             </View>
 
             <Text style={styles.txtSigninWith}>Sign Up with</Text>
 
             {/* social icons */}
             <View style={styles.otherSignInView}>
-              {socialIcons?.map(item => {
-                return (
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() => onPressIcon(item?.id)}
-                    key={item?.id}>
-                    {item?.icon}
-                  </TouchableOpacity>
-                );
-              })}
+              {socialIcons?.map((item) => (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => onPressIcon(item?.id)}
+                  key={item?.id}
+                >
+                  {item?.icon}
+                </TouchableOpacity>
+              ))}
             </View>
 
             <View style={styles.createAccountView}>
               <Text style={styles.txtAccount}>Already have an account? </Text>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => navigation.navigate('Login')}>
-                <Text style={[styles.txtAccount, {color: colors.P3}]}>
-                  Login
-                </Text>
+              <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate('Login')}>
+                <Text style={[styles.txtAccount, { color: colors.P3 }]}>Login</Text>
               </TouchableOpacity>
             </View>
           </KeyboardAwareScrollView>
@@ -195,7 +181,7 @@ const Signup = () => {
       <AppLoader loader_color={colors.g19} loading={response?.isLoading} />
     </ScrollView>
   );
-};
+}
 
 export default Signup;
 

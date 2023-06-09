@@ -1,33 +1,24 @@
-import {StyleSheet, Text, View, TextInput} from 'react-native';
-import {HP, WP, colors, size} from '../../shared/exporter';
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
 import React from 'react';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { HP, WP, colors, size } from '../../shared/exporter';
 
-const AppInput = ({
-  leftIcon,
-  title,
-  errorMessage,
-  touched,
-  textInPutProps,
-  containerStyle,
-}) => {
+function AppInput({ leftIcon, title, errorMessage, touched, textInPutProps, containerStyle }) {
   return (
     <View style={[styles.mainContainer]}>
       {title && <Text style={styles.titleStyle}>{title}</Text>}
       <View style={[styles.inputContainer, containerStyle]}>
         {leftIcon}
-        <TextInput
-          {...textInPutProps}
-          style={[styles.inputStyle, {...textInPutProps.style}]}
-        />
+        <TextInput {...textInPutProps} style={[styles.inputStyle, { ...textInPutProps.style }]} />
       </View>
-      {touched && errorMessage && (
-        <Text style={styles.error}>{errorMessage || ''}</Text>
-      )}
+      {touched && errorMessage && <Text style={styles.error}>{errorMessage || ''}</Text>}
     </View>
   );
-};
+}
 
-export {AppInput};
+export { AppInput };
 
 const styles = StyleSheet.create({
   mainContainer: {

@@ -1,12 +1,9 @@
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
-import React, {useEffect, useRef} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { Formik } from 'formik';
+import Toast from 'react-native-simple-toast';
+import { useNavigation } from '@react-navigation/native';
 import {
   HP,
   WP,
@@ -17,16 +14,13 @@ import {
   appImages,
   loginFormFields,
 } from '../../shared/exporter';
-import {Formik} from 'formik';
-import {Icons} from '../../assets/icons';
-import Toast from 'react-native-simple-toast';
-import {AppButton, AppInput} from '../../components';
-import {AppLoader} from '../../components/AppLoader';
-import {useNavigation} from '@react-navigation/native';
-import {useLoginUserMutation} from '../../redux/api/auth';
-import {socialIcons} from '../../shared/utilities/dummyData';
+import { Icons } from '../../assets/icons';
+import { AppButton, AppInput } from '../../components';
+import { AppLoader } from '../../components/AppLoader';
+import { useLoginUserMutation } from '../../redux/api/auth';
+import { socialIcons } from '../../shared/utilities/dummyData';
 
-const Login = () => {
+function Login() {
   const formikRef = useRef();
   const navigation = useNavigation();
   const [loginUser, res] = useLoginUserMutation();
@@ -34,66 +28,53 @@ const Login = () => {
   // handling response
   useEffect(() => {
     if (res?.isSuccess) {
-      console.log('Success--', res?.data);
-      Toast.showWithGravity(res?.data?.message, Toast.SHORT, Toast.BOTTOM);
+      Toast.showWithGravity('User successfully logged in', Toast.SHORT, Toast.BOTTOM);
     }
     if (res?.isError) {
-      console.log('Error--', res?.error?.data);
-      Toast.showWithGravity(
-        res?.error?.data?.message,
-        Toast.SHORT,
-        Toast.BOTTOM,
-      );
+      Toast.showWithGravity(res?.error?.data?.message, Toast.SHORT, Toast.BOTTOM);
     }
   }, [res.isLoading]);
 
   // login user
-  const handleLogin = async values => {
-    var body = new FormData();
+  const handleLogin = async (values) => {
+    const body = new FormData();
     body.append('email', values.email);
     body.append('password', values.password);
     await loginUser(body);
   };
 
   // social login buttons
-  const onPressIcon = id => {
+  const onPressIcon = (id) => {
     switch (id) {
       case 0:
-        console.log('Apple');
         break;
       case 1:
-        console.log('Google');
         break;
-      default:
       case 2:
-        console.log('AWS');
         break;
       case 3:
-        console.log('Facebook');
         break;
+      default:
     }
   };
 
   return (
     <ScrollView style={styles.main}>
       <Image source={appImages.bump} style={styles.imageStyle} />
-      <Image
-        source={appImages.splash}
-        style={styles.logo}
-        resizeMode="contain"
-      />
+      <Image source={appImages.splash} style={styles.logo} resizeMode="contain" />
       <Formik
         innerRef={formikRef}
         initialValues={loginFormFields}
-        onSubmit={(values, {resetForm}) => {
+        onSubmit={(values, { resetForm }) => {
           handleLogin(values, resetForm);
         }}
-        validationSchema={LoginVS}>
-        {({values, errors, touched, handleSubmit, handleChange}) => (
+        validationSchema={LoginVS}
+      >
+        {({ values, errors, touched, handleSubmit, handleChange }) => (
           <>
             <AppInput
               textInPutProps={{
-                style: {color: colors.b1},
+                style: { color: colors.b1 },
                 value: values.email,
                 placeholder: 'Enter email',
                 keyboardType: 'email-address',
@@ -110,7 +91,7 @@ const Login = () => {
                 onChangeText: handleChange('password'),
                 placeholder: 'Enter Password',
                 placeholderTextColor: colors.b4,
-                style: {color: colors.b1},
+                style: { color: colors.b1 },
                 secureTextEntry: true,
               }}
               leftIcon={Icons.password}
@@ -120,7 +101,8 @@ const Login = () => {
             <TouchableOpacity
               activeOpacity={0.8}
               style={styles.forgotPasswordContainer}
-              onPress={() => navigation.navigate('ForgotPassword')}>
+              onPress={() => navigation.navigate('ForgotPassword')}
+            >
               <Text style={styles.forgotTxt}>Forgot Password ?</Text>
             </TouchableOpacity>
             <AppButton
@@ -134,44 +116,39 @@ const Login = () => {
             <Text style={styles.descTxtStyle}>
               {'By continuing you accept our '}
               <TouchableOpacity
-                onPress={() => navigation.navigate('Terms', {screenId: 7})}
-                activeOpacity={0.8}>
+                onPress={() => navigation.navigate('Terms', { screenId: 7 })}
+                activeOpacity={0.8}
+              >
                 <Text style={styles.descTxtBoldStyle}>{'Privacy Policy '}</Text>
               </TouchableOpacity>
               {'and '}
               <TouchableOpacity
-                onPress={() => navigation.navigate('Terms', {screenId: 6})}
-                activeOpacity={0.8}>
-                <Text style={styles.descTxtBoldStyle}>{'Term of Use'}</Text>
+                onPress={() => navigation.navigate('Terms', { screenId: 6 })}
+                activeOpacity={0.8}
+              >
+                <Text style={styles.descTxtBoldStyle}>Term of Use</Text>
               </TouchableOpacity>
             </Text>
 
-            <Text style={styles.txtSignInWith}>{'Sign In with'}</Text>
+            <Text style={styles.txtSignInWith}>Sign In with</Text>
 
             {/* social icons */}
             <View style={styles.otherSignInView}>
-              {socialIcons?.map(item => {
-                return (
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() => onPressIcon(item?.id)}
-                    key={item?.id}>
-                    {item?.icon}
-                  </TouchableOpacity>
-                );
-              })}
+              {socialIcons?.map((item) => (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => onPressIcon(item?.id)}
+                  key={item?.id}
+                >
+                  {item?.icon}
+                </TouchableOpacity>
+              ))}
             </View>
 
             <View style={styles.createAccountView}>
-              <Text style={styles.txtAccount}>
-                {'Don’t have an account ? '}
-              </Text>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => navigation.navigate('Signup')}>
-                <Text style={[styles.txtAccount, {color: colors.P3}]}>
-                  {'Create Account'}
-                </Text>
+              <Text style={styles.txtAccount}>{'Don’t have an account ? '}</Text>
+              <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate('Signup')}>
+                <Text style={[styles.txtAccount, { color: colors.P3 }]}>Create Account</Text>
               </TouchableOpacity>
             </View>
           </>
@@ -182,7 +159,7 @@ const Login = () => {
       <AppLoader loader_color={colors.g19} loading={res?.isLoading} />
     </ScrollView>
   );
-};
+}
 
 export default Login;
 

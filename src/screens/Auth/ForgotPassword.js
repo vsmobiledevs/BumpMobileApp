@@ -1,38 +1,25 @@
-import {AppButton, AppInput, AuthHeader} from '../../components';
-import {StyleSheet, View, SafeAreaView} from 'react-native';
-import React, {useRef} from 'react';
-import {Formik} from 'formik';
-import {
-  forgotPassFormFields,
-  ForgotPassVS,
-  colors,
-  WP,
-  HP,
-} from '../../shared/exporter';
-import {Icons} from '../../assets/icons';
+import { StyleSheet, View, SafeAreaView } from 'react-native';
+import React, { useRef } from 'react';
+import { Formik } from 'formik';
 import Toast from 'react-native-simple-toast';
-import {useNavigation} from '@react-navigation/native';
-import {AuthHeading} from '../../components/authHeading';
+import { useNavigation } from '@react-navigation/native';
+import { forgotPassFormFields, ForgotPassVS, colors, WP, HP } from '../../shared/exporter';
+import { Icons } from '../../assets/icons';
+import { AppButton, AppInput, AuthHeader } from '../../components';
+import { AuthHeading } from '../../components/authHeading';
 
-const ForgotPassword = () => {
+function ForgotPassword() {
   const navigation = useNavigation();
   const formikRef = useRef();
 
-  const handleForgotPass = values => {
-    Toast.showWithGravity(
-      'This screen is under construction!',
-      Toast.SHORT,
-      Toast.BOTTOM,
-    );
+  const handleForgotPass = () => {
+    Toast.showWithGravity('This screen is under construction!', Toast.SHORT, Toast.BOTTOM);
     // navigation.navigate('OtpVerification');
   };
 
   return (
     <SafeAreaView style={styles.main}>
-      <AuthHeader
-        left={Icons.backIcon}
-        onPressLeft={() => navigation.goBack()}
-      />
+      <AuthHeader left={Icons.backIcon} onPressLeft={() => navigation.goBack()} />
       <AuthHeading
         mainHeading="Forgot Password?"
         subHeading="Please enter the email address linked with your account."
@@ -40,16 +27,17 @@ const ForgotPassword = () => {
       <Formik
         innerRef={formikRef}
         initialValues={forgotPassFormFields}
-        onSubmit={values => {
+        onSubmit={(values) => {
           handleForgotPass(values);
         }}
-        validationSchema={ForgotPassVS}>
-        {({values, errors, touched, handleSubmit, handleChange}) => (
+        validationSchema={ForgotPassVS}
+      >
+        {({ values, errors, touched, handleSubmit, handleChange }) => (
           <>
             <View style={styles.inputStyle}>
               <AppInput
                 textInPutProps={{
-                  style: {color: colors.b1},
+                  style: { color: colors.b1 },
                   value: values.email,
                   placeholder: 'Enter Your email',
                   keyboardType: 'email-address',
@@ -62,8 +50,8 @@ const ForgotPassword = () => {
             </View>
             <View>
               <AppButton
-                title={'Send Code'}
-                buttonContainer={{marginTop: WP(35)}}
+                title="Send Code"
+                buttonContainer={{ marginTop: WP(35) }}
                 touchableOpacity={{
                   onPress: () => handleSubmit(),
                 }}
@@ -74,7 +62,7 @@ const ForgotPassword = () => {
       </Formik>
     </SafeAreaView>
   );
-};
+}
 
 export default ForgotPassword;
 

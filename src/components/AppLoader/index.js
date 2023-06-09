@@ -1,9 +1,13 @@
+/* eslint-disable react/jsx-no-useless-fragment */
+/* eslint-disable camelcase */
+/* eslint-disable react/prop-types */
+/* eslint-disable import/prefer-default-export */
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {SkypeIndicator} from 'react-native-indicators';
-import {colors} from '../../shared/exporter';
+import { StyleSheet, View } from 'react-native';
+import { SkypeIndicator } from 'react-native-indicators';
+import { colors } from '../../shared/exporter';
 
-export const AppLoader = ({loader_color, loading}) => {
+export function AppLoader({ loader_color, loading }) {
   return (
     <>
       {loading && (
@@ -13,7 +17,7 @@ export const AppLoader = ({loader_color, loading}) => {
       )}
     </>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

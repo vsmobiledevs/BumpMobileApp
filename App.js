@@ -1,18 +1,22 @@
+/* eslint-disable import/no-unresolved */
+import 'react-native-gesture-handler';
 import React from 'react';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
+import { MenuProvider } from 'react-native-popup-menu';
+import { PersistGate } from 'redux-persist/integration/react';
+import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import MainNavigation from './src/navigations';
-import {persistor, store} from './src/redux/store';
-import {MenuProvider} from 'react-native-popup-menu';
-import {PersistGate} from 'redux-persist/integration/react';
-import {KeyboardAvoidingView, Platform} from 'react-native';
+// eslint-disable-next-line import/extensions
+import { persistor, store } from './src/redux/store';
 
-const App = props => {
+function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={{flex: 1}}>
+          style={styles.main}
+        >
           <MenuProvider>
             <MainNavigation />
           </MenuProvider>
@@ -20,6 +24,12 @@ const App = props => {
       </PersistGate>
     </Provider>
   );
-};
+}
+
+const styles = StyleSheet.create({
+  main: {
+    flex: 1,
+  },
+});
 
 export default App;

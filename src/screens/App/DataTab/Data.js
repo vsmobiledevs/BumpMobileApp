@@ -1,25 +1,27 @@
-import {View, Button, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import { View, StyleSheet, Button } from 'react-native';
+import React from 'react';
 
-import {connect} from '../../../blockChain/metaMaskConfig';
+// import {connect} from '../../../blockChain/metaMaskConfig';
 
-const Data = () => {
+function Data() {
   // const user = useAppSelector(state => state);
   // console.log('user--', user);
-  const [isAccount, setIsAccount] = useState();
+  // const [isAccount, setIsAccount] = useState();
 
   return (
     <View style={styles.mainContainer}>
       <Button
-        color={'red'}
-        title={isAccount ? 'Connected' : 'Connect'}
+        // color="red"
+        // title={isAccount ? 'Connected' : 'Connect'}
+        disabled
+        title="This screen is under construction!"
         onPress={() => {
-          setIsAccount(connect());
+          // setIsAccount(connect());
         }}
       />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   mainContainer: {

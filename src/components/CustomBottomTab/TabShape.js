@@ -1,11 +1,12 @@
+/* eslint-disable import/prefer-default-export */
 import React from 'react';
-import {Dimensions} from 'react-native';
-import {curveBasis, line} from 'd3-shape';
-import Svg, {Path} from 'react-native-svg';
+import { Dimensions } from 'react-native';
+import { curveBasis, line } from 'd3-shape';
+import Svg, { Path } from 'react-native-svg';
 
 const HEIGHT_SIZE = 90;
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const lineGenerator = line();
 
@@ -30,9 +31,9 @@ const d = `${center} ${rect}`;
 function TabShape() {
   return (
     <Svg width={width} height={HEIGHT_SIZE}>
-      <Path fill={'white'} {...{d}} />
+      <Path fill="white" {...{ d }} />
     </Svg>
   );
 }
 
-export {TabShape};
+export { TabShape };

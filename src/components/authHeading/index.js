@@ -1,9 +1,11 @@
-import {StyleSheet, Text, View, TextInput} from 'react-native';
-import {HP, WP, colors, size} from '../../shared/exporter';
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable react/prop-types */
 import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { HP, WP, colors } from '../../shared/exporter';
 
-const AuthHeading = props => {
-  const {mainHeading, subHeading} = props;
+function AuthHeading(props) {
+  const { mainHeading, subHeading } = props;
 
   return (
     <View style={styles.container}>
@@ -11,9 +13,9 @@ const AuthHeading = props => {
       <Text style={styles.subHeading}>{subHeading}</Text>
     </View>
   );
-};
+}
 
-export {AuthHeading};
+export { AuthHeading };
 
 const styles = StyleSheet.create({
   container: {

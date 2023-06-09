@@ -1,18 +1,18 @@
 import React from 'react';
+import {ImageBackground, SafeAreaView, StyleSheet} from 'react-native';
 import {MyStatusBar} from '../../../components';
 import {HP, WP, appImages, colors} from '../../../shared/exporter';
-import {ImageBackground, SafeAreaView, StyleSheet} from 'react-native';
 
-const Learn = () => {
+function Learn() {
   return (
     <SafeAreaView style={styles.container}>
       <MyStatusBar backgroundColor={colors.white} />
       <ImageBackground
         style={styles.homeBackground}
-        source={appImages.homeBackgroundBlue}></ImageBackground>
+        source={appImages.homeBackgroundBlue} />
     </SafeAreaView>
   );
-};
+}
 
 export default Learn;
 

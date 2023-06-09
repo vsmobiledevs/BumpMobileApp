@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 export const colors = {
   // Primary Color
   P1: '#86CED7',
@@ -28,7 +29,7 @@ export const colors = {
   b5: '#100E1D',
   b6: '#141120',
 
-  //Gray Color
+  // Gray Color
   g1: '#181317',
   g2: '#A4A4A4',
   g3: '#A2A0A8',
@@ -54,17 +55,18 @@ export const colors = {
   g23: '#ADA4A5',
   g24: '#BBBBBB',
   g25: '#ABABAB',
+  g26: '#989898',
 
-  //White colors
+  // White colors
   white: '#ffffff',
   w1: '#ffffff80',
   w2: '#E3E3E350',
   blue: '#6DAFDC',
 
-  //red colors
+  // red colors
   red: '#FF0000',
 
-  //Yellow colors
+  // Yellow colors
   y1: '#E58200',
 
   // orange
@@ -77,7 +79,7 @@ export const colors = {
   t4: 'rgba(255, 255, 255, 0.1)',
   t5: 'rgba(145, 59, 68, 0.8)',
 
-  //******************- Gradients -*******************/
+  //* *****************- Gradients -*******************/
   p_gradient: ['#2189E1', '#096ABC'],
   s_gradient: ['#FA515B', '#DE2B36'],
   b_gradient: ['#1E96FC', '#0070CF'],
