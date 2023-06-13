@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { HP, WP, colors, size } from '../../shared/exporter';
 
-function CustomSwitch({ selectionMode, roundCorner, option1, option2, onSelectSwitch }) {
+function CustomSwitch({ selectionMode, roundCorner, option1, option2, onSelectSwitch, customStyle, color, color2 }) {
   const [getSelectionMode, setSelectionMode] = useState(selectionMode);
 
   const updatedSwitchData = (val) => {
@@ -13,13 +13,13 @@ function CustomSwitch({ selectionMode, roundCorner, option1, option2, onSelectSw
   };
 
   return (
-    <View style={[styles.container]}>
+    <View style={[styles.container, customStyle]}>
       <TouchableOpacity
         activeOpacity={1}
         onPress={() => updatedSwitchData(1)}
         style={{
           flex: 1,
-          backgroundColor: getSelectionMode === 1 ? colors.orange : colors.white,
+          backgroundColor: getSelectionMode === 1 ? color : colors.white,
           borderTopLeftRadius: roundCorner ? HP(2) : 0,
           borderBottomLeftRadius: roundCorner ? HP(2) : 0,
           justifyContent: 'center',
@@ -37,7 +37,7 @@ function CustomSwitch({ selectionMode, roundCorner, option1, option2, onSelectSw
         onPress={() => updatedSwitchData(2)}
         style={{
           flex: 1,
-          backgroundColor: getSelectionMode === 2 ? colors.p4 : colors.white,
+          backgroundColor: getSelectionMode === 2 ? color2 : colors.white,
           borderTopRightRadius: roundCorner ? HP(2) : 0,
           borderBottomRightRadius: roundCorner ? HP(2) : 0,
           justifyContent: 'center',

@@ -17,6 +17,7 @@ import { useAppSelector } from '../redux/store';
 import EditUserProfile from '../screens/App/AccountTab/EditUserProfile';
 import TaxDocument from '../screens/App/AccountTab/TaxDocument/TaxDocument';
 import DataTabs from './dataTabs';
+import SubscriptionPlan from '../screens/App/AccountTab/SubscriptionPlan';
 
 const AppStack = createStackNavigator();
 
@@ -33,6 +34,7 @@ function MainAppNav() {
         <AppStack.Screen name="deleteAccount" component={DeleteAccount} />
         <AppStack.Screen name="ResetPassword" component={ResetPassword} />
         <AppStack.Screen name="TaxDocument" component={TaxDocument} />
+        <AppStack.Screen name="SubscriptionPlan" component={SubscriptionPlan} />
       </AppStack.Navigator>
     );
   }

@@ -68,21 +68,6 @@ export default function MyData() {
                 onPressIcon={onPresEdit}
               />
 
-              {!isEdit ? (
-                <MyDataDropdown
-                  open={open}
-                  value={value}
-                  items={values.gender}
-                  setOpen={setOpen}
-                  setValue={setValue}
-                  setItems={handleChange('gender')}
-                  placeholder="Select gender"
-                  dropDownDirection="TOP"
-                />
-              ) : (
-                <MyDataInput value={gender} label="Gender" isEdit={isEdit} />
-              )}
-
               <MyDataInput
                 value={values.email}
                 setValue={handleChange('email')}
@@ -103,6 +88,21 @@ export default function MyData() {
                 label="Date Of Birth"
                 isEdit={isEdit}
               />
+
+              {!isEdit ? (
+                <MyDataDropdown
+                  open={open}
+                  value={value}
+                  items={values.gender}
+                  setOpen={setOpen}
+                  setValue={setValue}
+                  setItems={handleChange('gender')}
+                  placeholder="Select gender"
+                  dropDownDirection="TOP"
+                />
+              ) : (
+                <MyDataInput value={gender} label="Gender" isEdit={isEdit} />
+              )}
 
               {!isEdit ? (
                 <MyDataDropdown
@@ -164,13 +164,6 @@ export default function MyData() {
                 <MyDataInput value={profession} label="Profession" isEdit={isEdit} />
               )}
 
-              <MyDataInput
-                value={values.experience}
-                setValue={handleChange('experience')}
-                label="Experience"
-                isEdit={isEdit}
-              />
-
               {!isEdit ? (
                 <MyDataDropdown
                   open={statusDropDown}
@@ -186,12 +179,6 @@ export default function MyData() {
                 <MyDataInput value={status} label="Status" isEdit={isEdit} />
               )}
 
-              <MyDataInput
-                value={values.kids}
-                setValue={handleChange('kids')}
-                label="Kids"
-                isEdit={isEdit}
-              />
 
               {!isEdit ? (
                 <MyDataDropdown
@@ -207,6 +194,21 @@ export default function MyData() {
               ) : (
                 <MyDataInput value={smoking} label="Smoking" isEdit={isEdit} />
               )}
+
+
+              <MyDataInput
+                value={values.kids}
+                setValue={handleChange('kids')}
+                label="Kids"
+                isEdit={isEdit}
+              />
+
+              <MyDataInput
+                value={values.experience}
+                setValue={handleChange('experience')}
+                label="Experience"
+                isEdit={isEdit}
+              />
 
               <MyDataInput
                 value={values.weight}

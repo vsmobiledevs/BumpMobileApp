@@ -1,17 +1,19 @@
 import {
   View,
+  Text,
   FlatList,
   StyleSheet,
   ScrollView,
   SafeAreaView,
   ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
 import React, { useState } from 'react';
 import { Icons } from '../../../assets/icons';
-import { HP, WP, appImages, colors } from '../../../shared/exporter';
+import { HP, WP, appImages, colors, size } from '../../../shared/exporter';
 import { MyStatusBar, NftsCard, RNModal, SearchInput } from '../../../components';
 
-function Search() {
+function Search({ navigation }) {
   const [isPaid, setIsPaid] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [Nfts] = useState([
@@ -48,7 +50,7 @@ function Search() {
   };
 
   // edit or remove NFTs from list
-  const onPressIcon = () => {};
+  const onPressIcon = () => { };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -58,7 +60,16 @@ function Search() {
         source={isPaid ? appImages.homeBackgroundBlue : appImages.homeBackgroundOrange}
       >
         <ScrollView>
-          <ImageBackground source={appImages.homeHead} style={styles.homeHead} />
+          <ImageBackground source={appImages.homeHead} style={styles.homeHead}>
+            <View style={styles.premiumContainer}>
+              <TouchableOpacity onPress={() => navigation.navigate("accountTabScreens", { screen: "SubscriptionPlan" })} activeOpacity={0.8}>
+                <Text style={styles.premiumText}>Premium</Text>
+              </TouchableOpacity>
+              <TouchableOpacity activeOpacity={0.8}>
+                {Icons.metaMask}
+              </TouchableOpacity>
+            </View>
+          </ImageBackground>
 
           {/* Search input */}
           <SearchInput
@@ -132,4 +143,16 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     margin: HP(3),
   },
+  premiumContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: HP(3),
+    marginTop: HP(4)
+  },
+  premiumText: {
+    fontSize: size.small,
+    color: colors.P1,
+    fontWeight: 'bold',
+    marginTop: HP(1.5)
+  }
 });

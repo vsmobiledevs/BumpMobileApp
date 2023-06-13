@@ -5,6 +5,18 @@ import { AuthHeader, MetaMaskCard } from '../../../components';
 import { Icons } from '../../../assets/icons';
 
 function CustodialWallets({ navigation }) {
+
+  const onPressItem = (item) => {
+    switch (item.id) {
+      case 0:
+        console.log("click on metamask");
+        break;
+
+      default:
+        break;
+    }
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <AuthHeader left={Icons.leftArrow} onPressLeft={() => navigation.goBack()} />
@@ -13,7 +25,7 @@ function CustodialWallets({ navigation }) {
       <View style={styles.innerContainer}>
         <Text style={styles.title}>Select a Custodial NFT Wallet</Text>
         {MetaMasks.map((item) => (
-          <MetaMaskCard key={item.id} item={item} />
+          <MetaMaskCard key={item.id} item={item} onPressItem={() => onPressItem(item)} />
         ))}
       </View>
     </SafeAreaView>

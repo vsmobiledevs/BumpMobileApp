@@ -54,7 +54,7 @@ function FaqScreen({ navigation }) {
               }}
             >
               <View style={styles.rowStyle}>
-                <Text style={[styles.text]}>{i?.question}</Text>
+                <Text numberOfLines={1} style={[styles.text]}>{i?.question}</Text>
                 <TouchableOpacity onPress={() => setIsIndex(index)} style={styles.arrowBtn}>
                   {index === isIndex ? Icons.upArrow : Icons.downArrow}
                 </TouchableOpacity>
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     fontSize: size.large,
     lineHeight: WP(6),
     color: colors.white,
-    marginTop: HP(0.5),
+    marginTop: HP(1),
   },
   miniContainer: {
     marginHorizontal: WP(3),

@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     elevation: 0,
   },
   tabBar: {
-    width: WP(35),
+    width: WP(40),
     marginTop: Platform.OS === 'android' ? HP(3) : null,
   },
   tabBarTitle: {
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     right: HP(3),
   },
   indicator: {
-    width: WP(20),
+    width: WP(25),
     backgroundColor: colors.P1,
   },
 });
