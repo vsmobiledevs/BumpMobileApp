@@ -23,6 +23,7 @@ export { LearnCard } from './Cards/LearnCard';
 export { MetaMaskCard } from './Cards/MetaMaskCard';
 export { TaxDocumentCard } from './Cards/TaxDocumentCard';
 export { HistoryCard } from './Cards/HistoryCard';
+export { SubscriptionPlanCard } from './Cards/SubscriptionPlanCard';
 
 // Modal
 export { RNModal } from './Modal/RNModal';

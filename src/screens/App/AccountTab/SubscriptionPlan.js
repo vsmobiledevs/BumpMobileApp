@@ -1,37 +1,59 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Platform, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { HP, WP, colors, size } from '../../../shared/exporter';
-import { AuthHeader } from '../../../components';
+import { AppButton, AuthHeader, SubscriptionPlanCard } from '../../../components';
 import { Icons } from '../../../assets/icons';
 import CustomSwitch from '../../../components/SwitchButton/CustomSwitch';
 
 function SubscriptionPlan({ navigation }) {
+    const [selectedMode, setSelectionMode] = useState(1)
+
+    // select browsing type
     const onSelectSwitch = (val) => {
-        console.log(val);
+        setSelectionMode(val)
     };
 
     return (
         <SafeAreaView style={styles.container}>
-            <AuthHeader
-                center="Bump Dark Web"
-                left={Icons.leftArrow}
-                onPressLeft={() => navigation.goBack()} />
+            <ScrollView>
+                <AuthHeader
+                    center="Bump Dark Web"
+                    left={Icons.leftArrow}
+                    onPressLeft={() => navigation.goBack()} />
 
-            {/* title and heading container */}
-            <View style={styles.textContainer}>
-                <Text style={styles.title}>Choose Subscription Plan</Text>
-                <Text style={styles.description}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt </Text>
-            </View>
+                {/* title and heading container */}
+                <View style={styles.textContainer}>
+                    <Text style={styles.title}>Choose Subscription Plan</Text>
+                    <Text style={styles.description}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt </Text>
+                </View>
 
-            <CustomSwitch
-                customStyle={styles.buttonsContainer}
-                selectionMode={1}
-                color={colors.p7}
-                color2={colors.p7}
-                roundCorner
-                option1="Monthly"
-                option2="Yearly"
-                onSelectSwitch={onSelectSwitch} />
+                {/* switch for selecting subscription plan */}
+                <CustomSwitch
+                    customStyle={styles.buttonsContainer}
+                    option1CustomStyle={[styles.leftButtonStyle, { backgroundColor: selectedMode === 1 ? colors.p7 : colors.w1 }]}
+                    option2CustomStyle={[styles.rightButtonStyle, { backgroundColor: selectedMode === 1 ? colors.w1 : colors.p7 }]}
+                    selectionMode={selectedMode}
+                    option1="Monthly"
+                    option2="Yearly"
+                    roundCorner
+                    onSelectSwitch={onSelectSwitch}
+                    selectionColor={colors.p4}
+                    color={colors.orange}
+                    color2={colors.p4}
+                />
+
+                {/* subscription plans */}
+                <SubscriptionPlanCard />
+                <SubscriptionPlanCard />
+                <SubscriptionPlanCard />
+                <AppButton
+                    title="Ok"
+                    touchableOpacity={{
+                        // onPress: () => handleSubmit(),
+                    }}
+                />
+
+            </ScrollView>
         </SafeAreaView>
     );
 }
@@ -47,7 +69,8 @@ const styles = StyleSheet.create({
         width: WP(80),
         justifyContent: 'center',
         alignItems: 'center',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        marginTop: Platform.OS === "ios" ? HP(2) : 0
     },
     title: {
         fontSize: size.h6,
@@ -69,5 +92,20 @@ const styles = StyleSheet.create({
         borderColor: colors.g24,
         borderWidth: HP(0.1),
         marginVertical: HP(3),
+        padding: HP(0.5)
     },
+    leftButtonStyle: {
+        height: HP(4),
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        borderRadius: HP(2)
+    },
+    rightButtonStyle: {
+        height: HP(4),
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        borderRadius: HP(2)
+    }
 });

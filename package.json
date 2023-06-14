@@ -18,6 +18,7 @@
   "dependencies": {
     "@metamask/sdk": "^0.3.2",
     "@react-native-async-storage/async-storage": "^1.18.1",
+    "@react-native-community/cli-debugger-ui": "^11.3.2",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-seoul/masonry-list": "^1.4.1",
     "@react-navigation/bottom-tabs": "^6.5.7",
@@ -42,6 +43,7 @@
     "react-native-confirmation-code-field": "^7.3.1",
     "react-native-crypto": "^2.2.0",
     "react-native-dropdown-picker": "^5.4.6",
+    "react-native-eject": "^0.2.0",
     "react-native-gesture-handler": "^2.11.0",
     "react-native-image-picker": "^5.4.0",
     "react-native-indicators": "^0.17.0",
@@ -73,6 +75,7 @@
     "@babel/eslint-parser": "^7.21.8",
     "@babel/plugin-transform-private-methods": "^7.22.5",
     "@babel/preset-env": "^7.20.0",
+    "@babel/preset-react": "^7.22.5",
     "@babel/runtime": "^7.20.0",
     "@tsconfig/react-native": "^2.0.2",
     "@types/jest": "^29.2.1",

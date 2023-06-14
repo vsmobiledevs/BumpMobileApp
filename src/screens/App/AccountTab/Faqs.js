@@ -47,12 +47,7 @@ function FaqScreen({ navigation }) {
               colors={isIndex === index ? [colors.p5, colors.p5] : [colors.p4, colors.p4]}
               start={{ y: 0, x: 0 }}
               end={{ y: 0, x: 0 }}
-              style={{
-                padding: index === isIndex ? 12 : 16,
-                borderRadius: index === isIndex ? WP(5) : WP(12),
-                marginVertical: HP(1),
-              }}
-            >
+              style={styles.questions}>
               <View style={styles.rowStyle}>
                 <Text numberOfLines={1} style={[styles.text]}>{i?.question}</Text>
                 <TouchableOpacity onPress={() => setIsIndex(index)} style={styles.arrowBtn}>
@@ -94,38 +89,43 @@ const styles = StyleSheet.create({
   rowStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   arrowBtn: {
-    width: WP(10),
-    height: HP(3),
     justifyContent: 'center',
   },
   text: {
-    fontFamily: family.Roboto_Medium,
-    fontStyle: 'normal',
+    width: WP(80),
     fontWeight: '700',
-    fontSize: size.large,
+    fontSize: size.xsmall,
     lineHeight: WP(5),
+    fontStyle: 'normal',
+    fontFamily: family.Roboto_Medium,
     color: colors.white,
   },
   text1: {
     fontFamily: family.Roboto_Regular,
-    fontSize: size.large,
+    fontSize: size.xxsmall,
     lineHeight: WP(6),
     color: colors.white,
     marginTop: HP(1),
   },
   miniContainer: {
-    marginHorizontal: WP(3),
+    marginHorizontal: WP(2),
     marginTop: HP(5),
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     borderRadius: WP(5),
-    shadowColor: 'black',
+    shadowColor: colors.b1,
     shadowOffset: { width: 0, height: 0.5 },
     shadowOpacity: 0.3,
     shadowRadius: 3,
-    elevation: 1,
+    elevation: 2,
     padding: 10,
+    marginBottom: HP(1)
   },
+  questions: {
+    padding: HP(2),
+    borderRadius: WP(8),
+    marginVertical: HP(1),
+  }
 });

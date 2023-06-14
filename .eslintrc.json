@@ -1,15 +1,11 @@
 {
+  "root": true,
   "env": {
     "browser": true,
     "es2021": true,
     "react-native/react-native": true
   },
-  "extends": [
-    "plugin:react/recommended",
-    "airbnb",
-    "airbnb/hooks",
-    "prettier"
-  ],
+  "extends": ["plugin:react/recommended", "airbnb", "airbnb/hooks", "prettier"],
   "parserOptions": {
     "parser": "@typescript-eslint/parser",
     "ecmaFeatures": {
@@ -18,20 +14,14 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "react-native"
-  ],
+  "plugins": ["react", "react-native"],
   "rules": {
     // allow .js files to contain JSX code
     "import/prefer-default-export": "off",
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".js",
-          ".jsx"
-        ]
+        "extensions": [".js", ".jsx"]
       }
     ],
     // prevent eslint to complain about the "styles" variable being used before it was defined
@@ -45,10 +35,7 @@
     "react/prop-types": [
       "error",
       {
-        "ignore": [
-          "navigation",
-          "navigation.navigate"
-        ]
+        "ignore": ["navigation", "navigation.navigate"]
       }
     ]
   }

@@ -23,7 +23,7 @@ function SearchInput({ leftIcon, title, textInPutProps, containerStyle, onSelect
             onSelectSwitch={onSelectSwitch}
             selectionColor={colors.orange}
             color={colors.orange}
-            color2={colors.p4}
+            color2={colors.p7}
           />
         </View>
       </View>

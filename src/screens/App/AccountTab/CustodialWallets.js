@@ -1,14 +1,70 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable new-cap */
+/* eslint-disable global-require */
+import { Linking, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import MetaMaskSDK from '@metamask/sdk';
+import BackgroundTimer from 'react-native-background-timer';
+import { ethers } from 'ethers';
 import { HP, MetaMasks, WP, colors, size } from '../../../shared/exporter';
 import { AuthHeader, MetaMaskCard } from '../../../components';
 import { Icons } from '../../../assets/icons';
 
+const sdk = new MetaMaskSDK({
+  openDeeplink: link => {
+    Linking.openURL(link);
+  },
+  timer: BackgroundTimer,
+  dappMetadata: {
+    name: 'Bump',
+    url: 'example.com',
+  },
+});
+
+const ethereum = sdk.getProvider();
+const provider = new ethers.getDefaultProvider()
+
 function CustodialWallets({ navigation }) {
+  const [setAccount] = useState();
+  const [setChain] = useState();
+  const [setBalance] = useState();
+
+  const getBalance = async () => {
+    if (!ethereum.selectedAddress) {
+      return;
+    }
+    const bal = await provider.getBalance(ethereum.selectedAddress);
+    console.log("Balance--", bal);
+    setBalance(ethers.formatEther(bal));
+  };
+
+  useEffect(() => {
+    ethereum.on('chainChanged', chain => {
+      console.log("chain--", chain);
+      setChain(chain);
+    });
+    ethereum.on('accountsChanged', accounts => {
+      console.log("accounts--", accounts);
+      setAccount(accounts?.[0]);
+      getBalance();
+    });
+  }, []);
+
+  const connect = async () => {
+    try {
+      const result = await ethereum.request({ method: 'eth_requestAccounts' });
+      console.log('RESULT', result?.[0]);
+      setAccount(result?.[0]);
+      getBalance();
+    } catch (e) {
+      console.log('ERROR', e);
+    }
+  };
 
   const onPressItem = (item) => {
     switch (item.id) {
       case 0:
+        connect()
         console.log("click on metamask");
         break;
 

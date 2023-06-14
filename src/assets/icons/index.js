@@ -57,6 +57,7 @@ import Person from './person.svg';
 import Download from './download-fill.svg';
 import Checked from './check.svg';
 import UnChecked from './uncheck.svg';
+import GreenTick from './greenTick.svg';
 
 const Icons = {
   email: <Email alignSelf="center" />,
@@ -116,6 +117,7 @@ const Icons = {
   download: <Download alignSelf="center" />,
   checked: <Checked alignSelf="center" />,
   unchecked: <UnChecked alignSelf="center" />,
+  greenTick: <GreenTick alignSelf="center" />,
 };
 
 export { Icons };

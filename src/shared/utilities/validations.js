@@ -1,4 +1,4 @@
-import * as yup from 'yup';
+import * as Yup from 'yup';
 
 export const loginFormFields = {
   email: '',
@@ -85,76 +85,76 @@ export const myDataFields = {
   ],
 };
 
-export const LoginVS = yup.object().shape({
-  email: yup.string().required('Email Required').email('Please provide a valid email address'),
-  password: yup
+export const LoginVS = Yup.object().shape({
+  email: Yup.string().email('Please provide a valid email address').required("Email is required"),
+  password: Yup
     .string()
     .min(6, 'Password must be at least 6 characters')
     .required('Password Required'),
 });
 
-export const SignupVS = yup.object().shape({
-  name: yup.string().required('Name Required'),
-  email: yup.string().required('Email Required').email('Please provide a valid email address'),
-  password: yup
+export const SignupVS = Yup.object().shape({
+  name: Yup.string().required('Name Required'),
+  email: Yup.string().required('Email Required').email('Please provide a valid email address'),
+  password: Yup
     .string()
     .min(6, 'Password must be at least 6 characters')
     .required('Password Required'),
 });
 
-export const ForgotPassVS = yup.object().shape({
-  email: yup.string().required('Email Required').email('Please provide a valid email address'),
+export const ForgotPassVS = Yup.object().shape({
+  email: Yup.string().required('Email Required').email('Please provide a valid email address'),
 });
 
-export const NewPassVS = yup.object().shape({
-  password: yup
+export const NewPassVS = Yup.object().shape({
+  password: Yup
     .string()
     .min(6, 'Password must be at least 6 characters')
     .required('Password Required'),
-  confirmPassword: yup
+  confirmPassword: Yup
     .string()
     .min(6, 'Password must be at least 6 characters')
     .required('Confirm Password Required')
-    .oneOf([yup.ref('password'), null], 'Passwords must match'),
+    .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 });
 
-export const ResetPassVS = yup.object().shape({
-  oldPassword: yup
+export const ResetPassVS = Yup.object().shape({
+  oldPassword: Yup
     .string()
     .min(6, 'Password must be at least 6 characters')
     .required('Old Password Required'),
-  password: yup
+  password: Yup
     .string()
     .min(6, 'Password must be at least 6 characters')
     .required('New Password Required'),
-  confirmPassword: yup
+  confirmPassword: Yup
     .string()
     .min(6, 'Password must be at least 6 characters')
     .required('Confirm Password Required')
-    .oneOf([yup.ref('password'), null], 'Passwords must match'),
+    .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 });
 
-export const DeleteAccountVS = yup.object().shape({
-  password: yup
+export const DeleteAccountVS = Yup.object().shape({
+  password: Yup
     .string()
     .min(6, 'Password must be at least 6 characters')
     .required('Password Required'),
 });
 
-export const myDataVS = yup.object().shape({
-  fullName: yup.string(),
-  gender: yup.string(),
-  email: yup.string().email('Please provide a valid email address'),
-  phone: yup.string(),
-  dob: yup.string(),
-  countries: yup.string(),
-  cities: yup.string(),
-  degrees: yup.string(),
-  profession: yup.string(),
-  experience: yup.string(),
-  status: yup.string(),
-  kids: yup.string(),
-  smoking: yup.string(),
-  weight: yup.string(),
-  interests: yup.string(),
+export const myDataVS = Yup.object().shape({
+  fullName: Yup.string(),
+  gender: Yup.string(),
+  email: Yup.string().email('Please provide a valid email address'),
+  phone: Yup.string(),
+  dob: Yup.string(),
+  countries: Yup.string(),
+  cities: Yup.string(),
+  degrees: Yup.string(),
+  profession: Yup.string(),
+  experience: Yup.string(),
+  status: Yup.string(),
+  kids: Yup.string(),
+  smoking: Yup.string(),
+  weight: Yup.string(),
+  interests: Yup.string(),
 });
