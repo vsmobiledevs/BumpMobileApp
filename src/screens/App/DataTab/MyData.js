@@ -245,15 +245,6 @@ const styles = StyleSheet.create({
     borderWidth: 0.2,
     marginTop: HP(3),
     borderRadius: HP(2),
-    // paddingBottom: HP(1),
     backgroundColor: colors.w1,
-    // shadowColor: colors.b1,
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 1,
-    // },
-    // shadowOpacity: 0.22,
-    // shadowRadius: 2.22,
-    // elevation: 3,
   },
 });

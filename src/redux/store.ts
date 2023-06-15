@@ -18,7 +18,7 @@ import rootReducer from './features';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  timeout: 5000,
+  timeout: null,
   whitelist: ['authSlice'],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
