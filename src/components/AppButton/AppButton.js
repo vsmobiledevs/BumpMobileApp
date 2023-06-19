@@ -5,6 +5,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { colors, family, size, WP } from '../../shared/exporter';
+import { Icons } from '../../assets/icons';
 
 function AppButton({
   title,
@@ -14,6 +15,7 @@ function AppButton({
   clr2 = colors.P2,
   buttonContainer,
   touchableOpacity,
+  leftIcon,
   text,
 }) {
   return (
@@ -23,6 +25,7 @@ function AppButton({
       style={[styles.buttonContainer, { ...buttonContainer }]}
     >
       <LinearGradient colors={[clr1, clr2]} style={[styles.buttonStyle, { ...buttonStyle }]}>
+        {leftIcon && Icons.dollar}
         <Text style={[styles.txtStyle, { ...txtStyle }]} {...text}>
           {title}
         </Text>

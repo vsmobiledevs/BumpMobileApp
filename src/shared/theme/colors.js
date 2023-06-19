@@ -60,6 +60,9 @@ export const colors = {
   g27: '#F3F3F3',
   g28: '#A5A5A5',
   g29: "#606060",
+  g30: "#C8C8C890",
+  g31: '#D7D7D7',
+
   // White colors
   white: '#ffffff',
   w1: '#ffffff80',
@@ -75,6 +78,10 @@ export const colors = {
 
   // orange
   orange: '#FF8A00',
+
+  // green
+
+  green: '#02C04E',
 
   // rgba colors
   t1: 'rgba(255, 255, 255, 0.2)',

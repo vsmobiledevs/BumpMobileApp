@@ -3,7 +3,7 @@
 /* eslint-disable new-cap */
 /* eslint-disable global-require */
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { } from 'react';
 import { Icons } from '../../../assets/icons';
 import { AuthHeader, MetaMaskCard } from '../../../components';
 import { HP, MetaMasks, WP, colors, size } from '../../../shared/exporter';
@@ -32,7 +32,6 @@ function CustodialWallets({ navigation }) {
           <MetaMaskCard key={item.id} item={item} onPressItem={() => onPressItem(item)} />
         ))}
       </View>
-
     </SafeAreaView>
   );
 }
@@ -46,7 +45,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     width: WP(90),
-    marginTop: HP(3),
+    marginTop: HP(8),
     alignSelf: 'center',
     borderColor: colors.P1,
     backgroundColor: colors.white,

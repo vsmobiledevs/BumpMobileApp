@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Platform, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { HP, WP, colors, size } from '../../../shared/exporter';
-import { AppButton, AuthHeader, SubscriptionPlanCard } from '../../../components';
 import { Icons } from '../../../assets/icons';
+import { AppButton, AuthHeader, SubscriptionPlanCard } from '../../../components';
 import CustomSwitch from '../../../components/SwitchButton/CustomSwitch';
 
 function SubscriptionPlan({ navigation }) {
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-        marginTop: Platform.OS === "ios" ? HP(2) : 0
+        marginTop: HP(3)
     },
     title: {
         fontSize: size.h6,

@@ -48,12 +48,12 @@ function FaqScreen({ navigation }) {
               start={{ y: 0, x: 0 }}
               end={{ y: 0, x: 0 }}
               style={styles.questions}>
-              <View style={styles.rowStyle}>
+              <TouchableOpacity activeOpacity={0.8} onPress={() => setIsIndex(index)} style={styles.rowStyle}>
                 <Text numberOfLines={1} style={[styles.text]}>{i?.question}</Text>
-                <TouchableOpacity onPress={() => setIsIndex(index)} style={styles.arrowBtn}>
+                <TouchableOpacity activeOpacity={0.8} onPress={() => setIsIndex(index)} style={styles.arrowBtn}>
                   {index === isIndex ? Icons.upArrow : Icons.downArrow}
                 </TouchableOpacity>
-              </View>
+              </TouchableOpacity>
               {isIndex === index && (
                 <Animatable.View animation="flipInX" duration={500} delay={100}>
                   <Text style={[styles.text1]}>{i?.answer}</Text>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   rowStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   arrowBtn: {
     justifyContent: 'center',

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { StyleSheet, SafeAreaView, View } from 'react-native';
 import TaxDocumentTabs from '../../../../navigations/taxDocumentTabs';
-import { colors } from '../../../../shared/exporter';
+import { HP, colors } from '../../../../shared/exporter';
 import { AuthHeader } from '../../../../components';
 import { Icons } from '../../../../assets/icons';
 
@@ -29,5 +29,6 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     flex: 1,
+    marginTop: HP(2)
   },
 });

@@ -106,7 +106,7 @@ const AccountButtons = [
     title: 'Earnings',
     leftIcon: Icons?.earn,
     parentScreen: 'accountTabScreens',
-    screen: 'EditProfile',
+    screen: 'EarningTab',
   },
   {
     id: 1,
@@ -134,6 +134,13 @@ const AccountButtons = [
     leftIcon: Icons?.lock,
     parentScreen: 'accountTabScreens',
     screen: 'ResetPassword',
+  },
+  {
+    id: 421,
+    title: 'Payment Method',
+    leftIcon: Icons?.payment,
+    parentScreen: 'accountTabScreens',
+    screen: 'SelectMethod',
   },
   {
     id: 5,
@@ -217,4 +224,39 @@ const MetaMasks = [
   },
 ];
 
-export { SocialIcons, AccountButtons, DummyImage, Options, MetaMasks, TaxDocumentInfo, History };
+const WithdrawButtons = [
+  {
+    id: 0,
+    bank: Icons.bank,
+    bankName: 'Bank Transfer',
+    rightIcon: Icons.rightGrey
+  },
+  {
+    id: 1,
+    bank: Icons.metaMask,
+    bankName: 'Metamask Account',
+    rightIcon: Icons.rightGrey
+  }
+]
+
+const PayoutsRecord = [
+  {
+    id: 0,
+    date: '4/4/2023',
+    status: 'In Progress',
+    orderNumber: '#mcj84538',
+    amount: '$50.00'
+  }
+]
+
+export {
+  SocialIcons,
+  AccountButtons,
+  DummyImage,
+  Options,
+  MetaMasks,
+  TaxDocumentInfo,
+  History,
+  WithdrawButtons,
+  PayoutsRecord,
+};
