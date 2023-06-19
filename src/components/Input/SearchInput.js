@@ -22,6 +22,8 @@ function SearchInput({ leftIcon, title, textInPutProps, containerStyle, onSelect
             option2="Paid"
             onSelectSwitch={onSelectSwitch}
             selectionColor={colors.orange}
+            color={colors.orange}
+            color2={colors.p7}
           />
         </View>
       </View>

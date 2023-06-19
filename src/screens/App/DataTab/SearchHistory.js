@@ -26,7 +26,7 @@ export default function SearchHistory() {
         <ScrollView>
           {/* market place history  */}
           {History.map((item) => (
-            <HistoryCard info={item} onPressChecked={onPressChecked} />
+            <HistoryCard key={item?.id} info={item} onPressChecked={onPressChecked} />
           ))}
         </ScrollView>
       </View>

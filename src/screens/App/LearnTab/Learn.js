@@ -125,9 +125,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   description: {
-    fontSize: size.small,
+    fontSize: size.xxsmall,
     color: colors.b1,
-    textAlign: 'left',
+    textAlign: 'justify',
     marginTop: HP(1),
     lineHeight: 21,
   },

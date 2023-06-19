@@ -4,9 +4,9 @@ import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { HP, WP, colors, size } from '../../shared/exporter';
 
-function MetaMaskCard({ item }) {
+function MetaMaskCard({ item, onPressItem }) {
   return (
-    <TouchableOpacity activeOpacity={0.8} style={styles.walletView}>
+    <TouchableOpacity onPress={onPressItem} activeOpacity={0.8} style={styles.walletView}>
       <View style={styles.inner}>
         <Text style={styles.wallet}>{item.name}</Text>
         <Image source={item.icon} style={styles.icon} />

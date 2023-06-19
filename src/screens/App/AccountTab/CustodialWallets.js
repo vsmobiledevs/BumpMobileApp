@@ -1,10 +1,26 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable new-cap */
+/* eslint-disable global-require */
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import { HP, MetaMasks, WP, colors, size } from '../../../shared/exporter';
-import { AuthHeader, MetaMaskCard } from '../../../components';
+import React, { } from 'react';
 import { Icons } from '../../../assets/icons';
+import { AuthHeader, MetaMaskCard } from '../../../components';
+import { HP, MetaMasks, WP, colors, size } from '../../../shared/exporter';
 
 function CustodialWallets({ navigation }) {
+
+  const onPressItem = (item) => {
+    switch (item.id) {
+      case 0:
+        console.log("press metamask");
+        break;
+
+      default:
+        break;
+    }
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <AuthHeader left={Icons.leftArrow} onPressLeft={() => navigation.goBack()} />
@@ -13,7 +29,7 @@ function CustodialWallets({ navigation }) {
       <View style={styles.innerContainer}>
         <Text style={styles.title}>Select a Custodial NFT Wallet</Text>
         {MetaMasks.map((item) => (
-          <MetaMaskCard key={item.id} item={item} />
+          <MetaMaskCard key={item.id} item={item} onPressItem={() => onPressItem(item)} />
         ))}
       </View>
     </SafeAreaView>
@@ -29,7 +45,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     width: WP(90),
-    marginTop: HP(3),
+    marginTop: HP(8),
     alignSelf: 'center',
     borderColor: colors.P1,
     backgroundColor: colors.white,

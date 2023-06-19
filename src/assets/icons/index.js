@@ -57,6 +57,17 @@ import Person from './person.svg';
 import Download from './download-fill.svg';
 import Checked from './check.svg';
 import UnChecked from './uncheck.svg';
+import GreenTick from './greenTick.svg';
+import Next from './next.svg';
+import Previous from './previous.svg';
+import Dollar from './dollar.svg';
+import RightGrey from './nextGrey.svg';
+import Bank from './bank.svg';
+import Payment from './payment.svg';
+import BankFill from './bankFill.svg';
+import CardFill from './cardFill.svg';
+import Down from './down.svg';
+import Up from './up.svg';
 
 const Icons = {
   email: <Email alignSelf="center" />,
@@ -116,6 +127,17 @@ const Icons = {
   download: <Download alignSelf="center" />,
   checked: <Checked alignSelf="center" />,
   unchecked: <UnChecked alignSelf="center" />,
+  greenTick: <GreenTick alignSelf="center" />,
+  next: <Next alignSelf="center" />,
+  previous: <Previous alignSelf="center" />,
+  dollar: <Dollar alignSelf="center" />,
+  rightGrey: <RightGrey alignSelf="center" />,
+  bank: <Bank alignSelf="center" />,
+  payment: <Payment alignSelf="center" />,
+  bankFill: <BankFill alignSelf="center" />,
+  cardFill: <CardFill alignSelf="center" />,
+  down: <Down alignSelf="center" />,
+  up: <Up alignSelf="center" />,
 };
 
 export { Icons };

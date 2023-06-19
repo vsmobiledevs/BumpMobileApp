@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
     width: WP(16),
     backgroundColor: colors.b1,
     bottom: 5,
-    left: HP(2),
+    left: HP(2.5),
   },
 });

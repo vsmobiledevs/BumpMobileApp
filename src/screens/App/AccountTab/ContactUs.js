@@ -62,11 +62,13 @@ function ContactUs() {
             <AppInput
               containerStyle={{ height: HP(30) }}
               textInPutProps={{
-                style: { color: colors.b1 },
+                style: styles.inputStyle,
                 value: values.email,
                 placeholder: 'Message',
                 placeholderTextColor: colors.g25,
                 onChangeText: handleChange('email'),
+                multiline: true,
+                textAlignVertical: 'top',
               }}
               errorMessage={errors.email}
               touched={touched.email}
@@ -104,5 +106,12 @@ const styles = StyleSheet.create({
     fontFamily: family.Roboto_Medium,
     fontSize: WP(5),
     marginVertical: HP(5),
+  },
+  inputStyle: {
+    height: HP(28),
+    width: WP(75),
+    alignSelf: 'center',
+    marginStart: HP(1),
+    marginTop: HP(0.5),
   },
 });

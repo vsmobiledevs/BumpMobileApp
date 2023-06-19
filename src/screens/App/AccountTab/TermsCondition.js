@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
   title: {
     marginHorizontal: WP(2),
     textAlign: 'left',
-    marginTop: HP(2),
+    marginTop: HP(1.5),
+    fontSize: HP(1.5)
   },
 });

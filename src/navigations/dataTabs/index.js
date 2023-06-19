@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable import/no-extraneous-dependencies */
 import * as React from 'react';
-import { Text, StyleSheet, Platform } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import { TabView, TabBar } from 'react-native-tab-view';
 import { HP, WP, colors } from '../../shared/exporter';
 import MyData from '../../screens/App/DataTab/MyData';
@@ -55,15 +55,15 @@ const styles = StyleSheet.create({
     elevation: 0,
   },
   tabBar: {
-    width: WP(35),
-    marginTop: Platform.OS === 'android' ? HP(3) : null,
+    width: WP(40),
+    marginTop: HP(5)
   },
   tabBarTitle: {
     margin: HP(0.5),
     right: HP(3),
   },
   indicator: {
-    width: WP(20),
+    width: WP(25),
     backgroundColor: colors.P1,
   },
 });
