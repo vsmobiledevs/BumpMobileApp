@@ -6,4 +6,5 @@ export const endpoints = {
   forgotPassword: 'users/forgot_password',
   updateUser: 'users/update_user',
   termsAndPrivacy: 'static_pages',
+  faqs: 'faqs',
 };

@@ -13,6 +13,6 @@ export default Divider;
 const styles = StyleSheet.create({
   line: {
     borderWidth: 0.5,
-    marginHorizontal: HP(2),
+    marginHorizontal: HP(1),
   },
 });

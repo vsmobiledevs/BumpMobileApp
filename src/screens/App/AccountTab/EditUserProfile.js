@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { HP, colors, WP, family, dummyImage, image_options } from '../../../shared/exporter';
+import { HP, colors, WP, family, DummyImage, Options } from '../../../shared/exporter';
 import { Icons } from '../../../assets/icons';
 import { useAppSelector } from '../../../redux/store';
 import { AppLoader } from '../../../components/AppLoader';
@@ -69,7 +69,7 @@ function EditUserProfile({ navigation }) {
     setShow(false);
     setTimeout(() => {
       try {
-        launchImageLibrary(image_options, (response) => {
+        launchImageLibrary(Options, (response) => {
           if (response.didCancel) {
             /* empty */
           } else if (response.error) {
@@ -91,7 +91,7 @@ function EditUserProfile({ navigation }) {
     setShow(false);
     setTimeout(() => {
       try {
-        launchCamera(image_options, (response) => {
+        launchCamera(Options, (response) => {
           // Use launchImageLibrary to open image gallery
           if (response.didCancel) {
             /* empty */
@@ -123,7 +123,7 @@ function EditUserProfile({ navigation }) {
       <ScrollView>
         <View style={styles.imageContainer}>
           <Image
-            source={{ uri: image != null ? image?.uri || image : dummyImage }}
+            source={{ uri: image != null ? image?.uri || image : DummyImage }}
             style={styles.imageStyle}
           />
           {isEdit && (

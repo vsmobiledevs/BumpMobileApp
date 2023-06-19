@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable camelcase */
 export { appImages } from './theme/assets';
 export { colors } from './theme/colors';
@@ -19,4 +20,4 @@ export {
 } from './utilities/validations';
 
 export { endpoints } from './endpoints/endpoints';
-export { dummyImage, image_options } from './utilities/dummyData';
+export { DummyImage, Options, MetaMasks } from './utilities/staticInfo';

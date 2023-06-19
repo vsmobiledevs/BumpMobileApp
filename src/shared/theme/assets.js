@@ -9,4 +9,17 @@ export const appImages = {
   homeHead: require('../../assets/images/homeHead.png'),
   gallery: require('../../assets/images/gallery.png'),
   themeCamera: require('../../assets/images/themeCamera.png'),
+  // bottomTab icon
+  myData: require('../../assets/images/mydata.png'),
+  mic: require('../../assets/images/mic.png'),
+  search: require('../../assets/images/search.png'),
+  learn: require('../../assets/images/learn.png'),
+  account: require('../../assets/images/account.png'),
+  metaMask: require('../../assets/images/metamask.png'),
+  binance: require('../../assets/images/binance.png'),
+  bitGo: require('../../assets/images/bitgo.png'),
+  bitMax: require('../../assets/images/bitmax.png'),
+  blockchain: require('../../assets/images/blockchain.png'),
+  walletConnect: require('../../assets/images/walletconnect.png'),
+  eWallet: require('../../assets/images/ewallet.png'),
 };

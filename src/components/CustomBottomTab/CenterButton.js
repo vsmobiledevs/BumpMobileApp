@@ -1,11 +1,18 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable import/prefer-default-export */
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { WP, colors } from '../../shared/exporter';
-import { Icons } from '../../assets/icons';
+import { Image, StyleSheet, View } from 'react-native';
+import { WP, appImages, colors } from '../../shared/exporter';
 
-function CenterButton() {
-  return <View style={styles.container}>{Icons.search}</View>;
+function CenterButton({ isFocused }) {
+  return (
+    <View style={styles.container}>
+      <Image
+        source={appImages.search}
+        style={[styles.icon, { tintColor: isFocused ? colors.P1 : colors.g24 }]}
+      />
+    </View>
+  );
 }
 
 export { CenterButton };
@@ -24,5 +31,10 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 40,
     color: 'white',
+  },
+  icon: {
+    width: WP(6),
+    height: WP(6),
+    resizeMode: 'contain',
   },
 });
