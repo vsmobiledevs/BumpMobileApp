@@ -11,6 +11,10 @@ export const signupFormFields = {
   password: '',
 };
 
+export const updateUserFormFields = {
+  name: '',
+  email: '',
+};
 export const forgotPassFormFields = {
   email: '',
 };
@@ -50,6 +54,14 @@ export const SignupVS = yup.object().shape({
     .string()
     .min(6, 'Password must be at least 6 characters')
     .required('Password Required'),
+});
+
+export const UpdateUserVS = yup.object().shape({
+  name: yup.string().required('Name Required'),
+  email: yup
+    .string()
+    .required('Email Required')
+    .email('Please provide a valid email address'),
 });
 
 export const ForgotPassVS = yup.object().shape({

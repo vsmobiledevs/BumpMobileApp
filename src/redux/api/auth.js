@@ -3,24 +3,24 @@ import {BASE_URL, PREFIX} from '@env';
 import {endpoints} from '../../shared/exporter';
 import {setUser} from '../features/authSlice';
 
-// Define your custom headers
-const customHeaders = {
-  Accept: 'application/json',
-  'Content-Type': 'multipart/form-data',
-};
-
 // Create the base query function with global headers
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL, // Set your API base URL here
-  prepareHeaders: (headers, {getState}) => {
-    const {authSlice} = getState();
-    console.log(authSlice);
-    headers.set('Authorization', `Token ${authSlice?.user?.token}`);
+
+  prepareHeaders: async (headers, {getState}) => {
+    const token = getState()?.authSlice?.user?.token;
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`);
+    }
+    headers.set('Content-Type', 'multipart/form-data');
+    headers.set('Accept', 'application/json');
+    return headers;
   },
 });
 
 export const AuthApis = createApi({
   reducerPath: 'authApis',
+  tagTypes: ['User'],
   baseQuery,
   endpoints: builder => ({
     // create user
@@ -28,7 +28,6 @@ export const AuthApis = createApi({
       query: data => ({
         url: `${PREFIX}${endpoints.signUp}`,
         method: 'post',
-        headers: customHeaders,
         body: data,
       }),
     }),
@@ -37,15 +36,11 @@ export const AuthApis = createApi({
       query: data => ({
         url: `${PREFIX}${endpoints.login}`,
         method: 'post',
-        headers: customHeaders,
         body: data,
       }),
-      transformResponse: result => result,
       async onQueryStarted(args, {dispatch, queryFulfilled}) {
-        try {
-          const {data} = await queryFulfilled;
-          dispatch(setUser(data));
-        } catch (error) {}
+        const {data} = await queryFulfilled;
+        dispatch(setUser(data));
       },
     }),
     // change password
@@ -64,13 +59,25 @@ export const AuthApis = createApi({
         body: data,
       }),
     }),
+
+    //updateUser
+    updateUser: builder.mutation({
+      query: data => ({
+        url: `${PREFIX}${endpoints.updateUSer}`,
+        method: 'put',
+        body: data,
+      }),
+      async onQueryStarted(args, {dispatch, queryFulfilled}) {
+        const {data} = await queryFulfilled;
+        dispatch(setUser(data));
+      },
+    }),
     // delete account
     deleteAccount: builder.mutation({
       query: (data, id) => ({
         url: `${PREFIX}${endpoints.signUp}/${id}`,
         method: 'delete',
         body: data,
-        headers: customHeaders,
       }),
     }),
   }),
@@ -81,5 +88,6 @@ export const {
   useCreateUserMutation,
   useDeleteAccountMutation,
   useChangePasswordMutation,
+  useUpdateUserMutation,
   useForgotPasswordMutation,
 } = AuthApis;

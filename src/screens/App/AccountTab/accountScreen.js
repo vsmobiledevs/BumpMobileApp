@@ -35,11 +35,7 @@ const AccountScreen = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
-      <MyStatusBar
-        animated={true}
-        backgroundColor={colors.P1}
-        barStyle={'light-content'}
-      />
+      <MyStatusBar backgroundColor={colors.P1} barStyle={'light-content'} />
 
       <LinearGradient colors={[colors.P1, colors.P2]} style={styles.header}>
         <View style={styles.header2}>
@@ -94,7 +90,7 @@ const styles = StyleSheet.create({
   },
   header: {
     padding: HP(3),
-    height: HP(16),
+    height: HP(13),
     alignItems: 'flex-start',
     justifyContent: 'flex-end',
     borderBottomRightRadius: HP(1.5),

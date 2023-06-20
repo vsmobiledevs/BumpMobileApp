@@ -2,81 +2,145 @@ import {
   StyleSheet,
   Text,
   View,
-  StatusBar,
   Image,
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-import React, {useState} from 'react';
-import {HP, colors, WP, family} from '../../../shared/exporter';
+import {Formik} from 'formik';
+import React, {useState, useRef} from 'react';
+import {
+  HP,
+  colors,
+  WP,
+  family,
+  signupFormFields,
+  SignupVS,
+} from '../../../shared/exporter';
 import {AppButton, AppInput, AuthHeader} from '../../../components';
 import {Icons} from '../../../assets/icons';
 import {AppLoader} from '../../../components/AppLoader';
+import {useUpdateUserMutation} from '../../../redux/api/auth';
+import {handleSelectImage} from '../../../components/Modal/ImagePicker';
+import {
+  UpdateUserVS,
+  updateUserFormFields,
+} from '../../../shared/utilities/validations';
 
 const EditProfileScreen = ({navigation}) => {
-  const [isEdit, setIsEdit] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [updateUser, res] = useUpdateUserMutation();
 
-  const isEditCheck = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsEdit(!isEdit);
-      setIsLoading(false);
-    }, 500);
+  const formikRef = useRef();
+  const [isEdit, setIsEdit] = useState(false);
+  const [isImg, setIsImg] = useState(null);
+
+  //Select gallery Image
+  const SelectImage = async () => {
+    const options = {
+      mediaType: 'photo',
+      allowsEditing: true,
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    let res = await handleSelectImage(options);
+    setIsImg(res?.assets[0]);
   };
 
-  if (isLoading) {
-    return <AppLoader loader_color={colors.g19} loading={isLoading} />;
-  } else {
-    return (
-      <SafeAreaView style={styles.container}>
-        <AuthHeader
-          left={Icons.leftArrow}
-          center={'Edit Priofile'}
-          right={Icons.editPen}
-          onPressRight={isEditCheck}
-          onPressLeft={() => navigation.goBack()}
-        />
+  console.log(res);
+  //Update user API
+  const UserUpdate = async values => {
+    var body = new FormData();
+    body.append('email', values.email);
+    body.append('username', values.password);
+    body.append('avatar', isImg);
+    updateUser(body);
+  };
 
-        <View style={styles.imageContainer}>
-          <Image
-            source={{
-              uri: 'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
-            }}
-            style={styles.imageStyle}
-          />
-          {isEdit && (
-            <TouchableOpacity style={styles.cameraStyle}>
-              {Icons.camera}
-            </TouchableOpacity>
-          )}
-        </View>
-        <Text style={styles.nameStyle}>Alexander Fred</Text>
-        <AppInput
-          textInPutProps={{
-            style: {color: colors.b1},
-            placeholder: 'John Smith',
-            keyboardType: 'email-address',
-            placeholderTextColor: colors.b4,
-          }}
-          leftIcon={Icons.account}
-          title={'User Name'}
-        />
+  // if (res?.isLoading) {
+  //   return <AppLoader loader_color={colors.g19} loading={isLoading} />;
+  // } else {
+  return (
+    <SafeAreaView style={styles.container}>
+      <AuthHeader
+        left={Icons.leftArrow}
+        center={'Edit Priofile'}
+        right={Icons.editPen}
+        onPressRight={() => setIsEdit(!isEdit)}
+        onPressLeft={() => navigation.goBack()}
+      />
 
-        <AppInput
-          textInPutProps={{
-            style: {color: colors.b1},
-            placeholder: 'Enter email',
-            keyboardType: 'email-address',
-            placeholderTextColor: colors.b4,
-          }}
-          leftIcon={Icons.email}
-          title={'E-mail'}
+      <View style={styles.imageContainer}>
+        <Image
+          source={
+            isImg?.uri
+              ? {
+                  uri: isImg?.uri,
+                }
+              : require('../../../assets/images/dummyImage.jpeg')
+          }
+          style={styles.imageStyle}
         />
-        {isEdit && <AppButton title="Update" buttonContainer={styles.btn} />}
-      </SafeAreaView>
-    );
-  }
+        {isEdit && (
+          <TouchableOpacity style={styles.cameraStyle} onPress={SelectImage}>
+            {Icons.camera}
+          </TouchableOpacity>
+        )}
+      </View>
+
+      <Text style={styles.nameStyle}>Alexander Fred</Text>
+
+      <Formik
+        innerRef={formikRef}
+        initialValues={updateUserFormFields}
+        onSubmit={values => {
+          UserUpdate(values);
+        }}
+        validationSchema={UpdateUserVS}>
+        {({values, errors, touched, handleSubmit, handleChange}) => (
+          <>
+            <AppInput
+              textInPutProps={{
+                style: {color: colors.b1},
+                placeholder: 'John Smith',
+                keyboardType: 'email-address',
+                placeholderTextColor: colors.b4,
+                onChangeText: handleChange('name'),
+              }}
+              leftIcon={Icons.account}
+              title={'User Name'}
+              errorMessage={errors.name}
+              touched={touched.name}
+            />
+
+            <AppInput
+              textInPutProps={{
+                style: {color: colors.b1},
+                placeholder: 'Enter email',
+                keyboardType: 'email-address',
+                placeholderTextColor: colors.b4,
+                onChangeText: handleChange('email'),
+              }}
+              leftIcon={Icons.email}
+              title={'E-mail'}
+              errorMessage={errors.email}
+              touched={touched.email}
+            />
+            {isEdit && (
+              <AppButton
+                title="Update"
+                buttonContainer={styles.btn}
+                touchableOpacity={{
+                  onPress: handleSubmit,
+                }}
+              />
+            )}
+          </>
+        )}
+      </Formik>
+    </SafeAreaView>
+  );
+  // }
 };
 
 export default EditProfileScreen;
