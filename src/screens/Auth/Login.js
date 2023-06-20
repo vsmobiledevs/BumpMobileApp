@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import React, { useEffect, useRef } from 'react';
-import { Formik } from 'formik';
-import Toast from 'react-native-simple-toast';
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-simple-toast';
+import { Formik } from 'formik';
 import {
   HP,
   WP,
@@ -11,18 +11,20 @@ import {
   family,
   colors,
   LoginVS,
+  onGoogle,
   appImages,
   loginFormFields,
 } from '../../shared/exporter';
 import { Icons } from '../../assets/icons';
 import { AppButton, AppInput } from '../../components';
 import { AppLoader } from '../../components/AppLoader';
-import { useLoginUserMutation } from '../../redux/api/auth';
 import { SocialIcons } from '../../shared/utilities/staticInfo';
+import { useLoginUserMutation, useSocialLoginMutation } from '../../redux/api/auth';
 
 function Login() {
   const formikRef = useRef();
   const navigation = useNavigation();
+  const [socialLogin, response] = useSocialLoginMutation();
   const [loginUser, res] = useLoginUserMutation();
 
   // handling response
@@ -33,7 +35,7 @@ function Login() {
     if (res?.isError) {
       Toast.showWithGravity(res?.error?.data?.message, Toast.SHORT, Toast.BOTTOM);
     }
-  }, [res.isLoading]);
+  }, [res.isLoading || response.isLoading]);
 
   // login user
   const handleLogin = async (values) => {
@@ -43,12 +45,22 @@ function Login() {
     await loginUser(body);
   };
 
+  // handle social login 
+  const handleSocialLogin = async (provider) => {
+    const token = await onGoogle()
+    const body = new FormData();
+    body.append('provider', provider);
+    body.append('token', token);
+    await socialLogin(body);
+  }
+
   // social login buttons
-  const onPressIcon = (id) => {
-    switch (id) {
+  const onPressIcon = (item) => {
+    switch (item?.id) {
       case 0:
         break;
       case 1:
+        handleSocialLogin(item.name)
         break;
       case 2:
         break;
@@ -137,10 +149,10 @@ function Login() {
               {SocialIcons?.map((item) => (
                 <TouchableOpacity
                   activeOpacity={0.8}
-                  onPress={() => onPressIcon(item?.id)}
+                  onPress={() => onPressIcon(item)}
                   key={item?.id}
                 >
-                  {item?.icon}
+                  <Image source={item.icon} style={styles.socialIcon} />
                 </TouchableOpacity>
               ))}
             </View>
@@ -156,7 +168,7 @@ function Login() {
       </Formik>
 
       {/* app loader */}
-      <AppLoader loader_color={colors.g19} loading={res?.isLoading} />
+      <AppLoader loader_color={colors.g19} loading={res?.isLoading || response.isLoading} />
     </ScrollView>
   );
 }
@@ -234,6 +246,6 @@ const styles = StyleSheet.create({
   socialIcon: {
     width: WP(8),
     height: WP(8),
-    alignSelf: 'center',
+    resizeMode: 'contain'
   },
 });

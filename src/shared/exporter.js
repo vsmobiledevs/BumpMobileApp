@@ -21,3 +21,4 @@ export {
 
 export { endpoints } from './endpoints/endpoints';
 export { DummyImage, Options, MetaMasks } from './utilities/staticInfo';
+export { onGoogle } from './utilities/export';

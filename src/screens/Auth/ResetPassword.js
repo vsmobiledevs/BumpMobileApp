@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
@@ -5,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 import Toast from 'react-native-simple-toast';
 import { useDispatch } from 'react-redux';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { AppButton, AppInput, AuthHeader } from '../../components';
 import { resetPassFormFields, ResetPassVS, family, colors, HP, WP } from '../../shared/exporter';
 import SuccessModal from '../../components/Modal/SuccessModal';
@@ -27,6 +29,7 @@ function ResetPassword() {
       Toast.showWithGravity(response?.data?.message, Toast.SHORT, Toast.BOTTOM);
       setTimeout(() => {
         setShowModal(false);
+        GoogleSignin.signOut();
         dispatch(logout());
       }, 3000);
     }

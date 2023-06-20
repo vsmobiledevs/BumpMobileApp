@@ -164,7 +164,7 @@ function Signup() {
                   onPress={() => onPressIcon(item?.id)}
                   key={item?.id}
                 >
-                  {item?.icon}
+                  <Image source={item.icon} style={styles.socialIcon} />
                 </TouchableOpacity>
               ))}
             </View>

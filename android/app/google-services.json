@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "300651669908",
+    "project_id": "bump-mobile-app",
+    "storage_bucket": "bump-mobile-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300651669908:android:d1975fc2fb08309e120781",
+        "android_client_info": {
+          "package_name": "com.bumpmobileapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300651669908-kav12cgo4fmcp8dt3voo3c801laqq367.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCb8Cq6-CDndHkP8fZHbBl2RAZF0d1NV5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300651669908-d9gloesg8gnmgnbi26bkb4lim7nvdalc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

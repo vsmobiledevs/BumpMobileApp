@@ -80,23 +80,23 @@ const Options = {
 const SocialIcons = [
   {
     id: 0,
-    name: 'Apple',
-    icon: Icons?.apple,
+    name: 'apple',
+    icon: appImages?.apple,
   },
   {
     id: 1,
-    name: 'Google',
-    icon: Icons?.google,
+    name: 'google',
+    icon: appImages?.google,
   },
   {
     id: 2,
-    name: 'Amazon',
-    icon: Icons?.amazon,
+    name: 'amazon',
+    icon: appImages?.aws,
   },
   {
     id: 3,
-    name: 'Facebook',
-    icon: Icons?.facebook,
+    name: 'facebook',
+    icon: appImages?.facebook,
   },
 ];
 

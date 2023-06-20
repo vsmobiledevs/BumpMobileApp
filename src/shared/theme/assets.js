@@ -22,4 +22,10 @@ export const appImages = {
   blockchain: require('../../assets/images/blockchain.png'),
   walletConnect: require('../../assets/images/walletconnect.png'),
   eWallet: require('../../assets/images/ewallet.png'),
+  // social icons
+  apple: require('../../assets/images/apple.png'),
+  google: require('../../assets/images/google.png'),
+  aws: require('../../assets/images/aws.png'),
+  facebook: require('../../assets/images/facebook.png'),
+
 };
