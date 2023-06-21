@@ -23,7 +23,9 @@ function BottomTabs() {
       <Tab.Screen
         name="Search"
         component={SearchStack}
-        options={{ tabBarButton: (props) => <CenterButton props={props} /> }}
+        options={{
+          tabBarButton: (props) => <CenterButton props={props} />
+        }}
       />
       <Tab.Screen name="Learn" component={LearnStack} />
       <Tab.Screen name="Account" component={AccountStack} />

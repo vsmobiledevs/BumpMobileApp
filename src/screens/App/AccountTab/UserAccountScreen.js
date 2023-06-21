@@ -1,9 +1,11 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch } from 'react-redux';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { AccountButtons, DummyImage } from '../../../shared/utilities/staticInfo';
 import { WP, colors, HP, family } from '../../../shared/exporter';
 import AccountButton from '../../../components/AccountButton';
@@ -21,6 +23,7 @@ function UserAccountScreen({ navigation }) {
     if (item?.id === 2) {
       navigation.navigate(item?.screen);
     } else if (item?.id === 10) {
+      GoogleSignin.signOut();
       dispatch(logout());
     } else {
       navigation.navigate(item?.parentScreen, {
@@ -33,27 +36,27 @@ function UserAccountScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <MyStatusBar animated backgroundColor={colors.P1} barStyle="light-content" />
-      <LinearGradient colors={[colors.P1, colors.P2]} style={styles.header}>
-        <View style={styles.header2}>
-          <View style={styles.imageContainer}>
-            <Image source={{ uri: user?.profile_image || DummyImage }} style={styles.imageStyle} />
-          </View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ flexGrow: 1 }}
+        contentInsetAdjustmentBehavior="automatic"
+      >
+        <LinearGradient colors={[colors.P1, colors.P2]} style={styles.header}>
+          <View style={styles.header2}>
+            <View style={styles.imageContainer}>
+              <Image source={{ uri: user?.profile_image || DummyImage }} style={styles.imageStyle} />
+            </View>
 
-          <View style={styles.nameContainer}>
-            <Text style={[styles.nameStyle, { fontWeight: 'bold' }]}>{user?.name}</Text>
-            <Text style={[styles.nameStyle, { fontFamily: family.Roboto_Medium }]}>
-              Earning: $103.00
-            </Text>
+            <View style={styles.nameContainer}>
+              <Text style={[styles.nameStyle, { fontWeight: 'bold' }]}>{user?.name}</Text>
+              <Text style={[styles.nameStyle, { fontFamily: family.Roboto_Medium }]}>
+                Earning: $103.00
+              </Text>
+            </View>
           </View>
-        </View>
-      </LinearGradient>
+        </LinearGradient>
 
-      <View style={styles.miniContainer}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ flexGrow: 1 }}
-          contentInsetAdjustmentBehavior="automatic"
-        >
+        <View style={styles.miniContainer}>
           {AccountButtons?.map((i) => (
             <AccountButton
               key={i?.id}
@@ -63,8 +66,9 @@ function UserAccountScreen({ navigation }) {
               onPress={() => onPressListItem(i)}
             />
           ))}
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
+
     </View>
   );
 }
@@ -105,11 +109,11 @@ const styles = StyleSheet.create({
     fontSize: WP(5),
   },
   miniContainer: {
-    height: HP(70),
     marginTop: HP(1),
     borderRadius: 8,
     borderWidth: 1.5,
     marginHorizontal: WP(5),
     borderColor: `${colors.g24}50`,
+    marginBottom: HP(15)
   },
 });

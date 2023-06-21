@@ -1,8 +1,8 @@
-import {ImageBackground, SafeAreaView, StyleSheet, View} from 'react-native';
+import { ImageBackground, SafeAreaView, StyleSheet, View } from 'react-native';
 import React from 'react';
-import {HP, WP, appImages, colors} from '../../../shared/exporter';
-import {MyStatusBar} from '../../../components';
-import {Icons} from '../../../assets/icons';
+import { HP, WP, appImages, colors } from '../../../shared/exporter';
+import { MyStatusBar } from '../../../components';
+import { Icons } from '../../../assets/icons';
 
 function Mic() {
   return (

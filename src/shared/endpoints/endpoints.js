@@ -7,4 +7,5 @@ export const endpoints = {
   updateUser: 'users/update_user',
   termsAndPrivacy: 'static_pages',
   faqs: 'faqs',
+  socialLogin: 'social/social_login',
 };

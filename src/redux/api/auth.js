@@ -113,6 +113,31 @@ export const AuthApis = createApi({
         headers: customHeaders,
       }),
     }),
+    // social login
+    socialLogin: builder.mutation({
+      query: (data) => ({
+        url: `${PREFIX}${endpoints.socialLogin}`,
+        method: 'post',
+        body: data,
+        headers: customHeaders,
+      }),
+      transformResponse: (result) => result,
+      async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
+        try {
+          const { data } = await queryFulfilled;
+          const { authSlice } = getState();
+          const obj = { ...authSlice?.user };
+          obj.id = data.user.id;
+          obj.name = data.user.username;
+          obj.email = data.user.email;
+          obj.profile_image = data.profile_image;
+          obj.token = data.token;
+          dispatch(setUser(obj));
+        } catch (error) {
+          /* empty */
+        }
+      },
+    }),
   }),
 });
 
@@ -125,4 +150,5 @@ export const {
   useForgotPasswordMutation,
   useChangePasswordMutation,
   useTermsAndPrivacyMutation,
+  useSocialLoginMutation
 } = AuthApis;

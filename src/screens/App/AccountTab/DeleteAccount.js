@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable import/extensions */
@@ -8,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 import Toast from 'react-native-simple-toast';
 import { useDispatch } from 'react-redux';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import {
   AppButton,
   AppInput,
@@ -52,6 +54,7 @@ function DeleteAccount() {
         Toast.showWithGravity(response?.data?.message, Toast.SHORT, Toast.BOTTOM);
         setTimeout(() => {
           setDeleteModal(false);
+          GoogleSignin.signOut();
           dispatch(logout());
         }, 3000);
       }

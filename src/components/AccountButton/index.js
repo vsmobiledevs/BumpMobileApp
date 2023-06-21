@@ -7,7 +7,7 @@ import Divider from '../Divider';
 function AccountButton({ leftIcon, title, rightIcon, onPress }) {
   return (
     <>
-      <TouchableOpacity style={styles.mainView} onPress={onPress}>
+      <TouchableOpacity style={[styles.mainView, {}]} onPress={onPress}>
         <View style={styles.innerView}>
           {leftIcon}
 
