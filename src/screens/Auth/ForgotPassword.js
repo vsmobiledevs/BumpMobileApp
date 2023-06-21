@@ -13,7 +13,7 @@ function ForgotPassword() {
   const formikRef = useRef();
 
   const handleForgotPass = () => {
-    Toast.showWithGravity('This screen is under construction!', Toast.SHORT, Toast.BOTTOM);
+    Toast.showWithGravity('Twillo Account Blocker', Toast.SHORT, Toast.BOTTOM);
     // navigation.navigate('OtpVerification');
   };
 

@@ -59,9 +59,9 @@ const styles = StyleSheet.create({
     marginVertical: HP(1),
   },
   buttonContainer: {
-    width: WP(24),
-    marginStart: HP(1),
-    flexDirection: 'row',
+    // width: WP(24),
+    // marginStart: HP(1),
+    // flexDirection: 'row',
     borderRadius: HP(2),
     backgroundColor: colors.white,
     alignItems: 'center',
