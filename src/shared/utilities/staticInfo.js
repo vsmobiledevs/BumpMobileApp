@@ -209,7 +209,7 @@ const MetaMasks = [
   },
   {
     id: 4,
-    name: 'BitMax',
+    name: 'BitMex',
     icon: appImages.bitMax,
   },
   {

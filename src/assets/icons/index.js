@@ -68,6 +68,7 @@ import BankFill from './bankFill.svg';
 import CardFill from './cardFill.svg';
 import Down from './down.svg';
 import Up from './up.svg';
+import FillPlus from './fillPlus.svg';
 
 const Icons = {
   email: <Email alignSelf="center" />,
@@ -138,6 +139,7 @@ const Icons = {
   cardFill: <CardFill alignSelf="center" />,
   down: <Down alignSelf="center" />,
   up: <Up alignSelf="center" />,
+  fillPlus: <FillPlus alignSelf="center" />
 };
 
 export { Icons };

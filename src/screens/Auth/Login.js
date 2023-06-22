@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef } from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-simple-toast';
 import { Formik } from 'formik';
@@ -70,6 +70,8 @@ function Login() {
     }
   };
 
+  let socialIcons = Platform.OS === 'android' ? SocialIcons.slice(1, 4) : SocialIcons
+
   return (
     <ScrollView style={styles.main}>
       <Image source={appImages.bump} style={styles.imageStyle} />
@@ -82,7 +84,7 @@ function Login() {
         }}
         validationSchema={LoginVS}
       >
-        {({ values, errors, touched, handleSubmit, handleChange }) => (
+        {({ values, errors, touched, handleSubmit, handleChange, handleBlur }) => (
           <>
             <AppInput
               textInPutProps={{
@@ -92,6 +94,7 @@ function Login() {
                 keyboardType: 'email-address',
                 placeholderTextColor: colors.b4,
                 onChangeText: handleChange('email'),
+                onblur: handleBlur('email')
               }}
               leftIcon={Icons.email}
               errorMessage={errors.email}
@@ -125,28 +128,36 @@ function Login() {
             />
 
             {/* privacy policy */}
-            <Text style={styles.descTxtStyle}>
-              {'By continuing you accept our '}
+            <View style={styles.footerLine}>
+              <Text style={styles.descTxtStyle}>
+                {'By continuing you accept our '}
+              </Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate('Terms', { screenId: 7 })}
+                style={{ height: HP(3) }}
                 activeOpacity={0.8}
               >
                 <Text style={styles.descTxtBoldStyle}>{'Privacy Policy '}</Text>
               </TouchableOpacity>
-              {'and '}
+              <Text style={styles.descTxtStyle}>
+                {' and '}
+              </Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate('Terms', { screenId: 6 })}
+                style={{ height: HP(3) }}
                 activeOpacity={0.8}
               >
                 <Text style={styles.descTxtBoldStyle}>Term of Use</Text>
               </TouchableOpacity>
-            </Text>
+            </View>
+
+
 
             <Text style={styles.txtSignInWith}>Sign In with</Text>
 
             {/* social icons */}
             <View style={styles.otherSignInView}>
-              {SocialIcons?.map((item) => (
+              {socialIcons?.map((item) => (
                 <TouchableOpacity
                   activeOpacity={0.8}
                   onPress={() => onPressIcon(item)}
@@ -169,7 +180,7 @@ function Login() {
 
       {/* app loader */}
       <AppLoader loader_color={colors.g19} loading={res?.isLoading || response.isLoading} />
-    </ScrollView>
+    </ScrollView >
   );
 }
 
@@ -191,20 +202,24 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
   },
+  footerLine: {
+    flexDirection: 'row', alignSelf: 'center'
+  },
   descTxtStyle: {
     fontFamily: family.Roboto_Light,
     fontSize: size.xtiny,
     color: colors.g23,
-    alignSelf: 'center',
     textAlign: 'center',
-    lineHeight: HP(2),
-    width: WP(75),
+    justifyContent: 'center',
+
   },
   descTxtBoldStyle: {
     color: colors.g19,
     fontSize: size.xtiny,
     fontFamily: family.Roboto_Regular,
     textDecorationLine: 'underline',
+
+
   },
 
   txtSignInWith: {
