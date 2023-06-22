@@ -23,16 +23,25 @@ const onGoogle = async () => {
 async function onFacebook() {
     // Attempt login with permissions
     const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
-    console.log(result);
+
     if (result.isCancelled) {
-        console.log('User cancelled the login process');
+        Toast.showWithGravity(
+            'User cancelled the signin request ',
+            Toast.SHORT,
+            Toast.BOTTOM,
+        );
     }
 
     // Once signed in, get the users AccesToken
     const data = await AccessToken.getCurrentAccessToken();
 
     if (!data) {
-        console.log('Something went wrong obtaining access token');
+        Toast.showWithGravity(
+            'Something went wrong obtaining access token',
+            Toast.SHORT,
+            Toast.BOTTOM,
+        );
+
     }
 
     // Create a Firebase credential with the AccessToken

@@ -1,5 +1,6 @@
 import { Platform, ScrollView, StyleSheet, View } from 'react-native';
 import React, { useRef, useState } from 'react';
+import Toast from 'react-native-simple-toast';
 import { Formik } from 'formik';
 import { AppButton, MyDataDropdown, MyDataInput } from '../../../components';
 import { Icons } from '../../../assets/icons';
@@ -43,7 +44,12 @@ export default function MyData() {
   };
 
   const handleForm = (values) => {
-    console.log(values);
+    Toast.showWithGravity(
+      values,
+      Toast.SHORT,
+      Toast.BOTTOM,
+    );
+
   };
 
   return (
