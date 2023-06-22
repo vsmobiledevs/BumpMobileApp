@@ -33,6 +33,7 @@ function UserAccountScreen({ navigation }) {
     }
   };
 
+
   return (
     <View style={styles.container}>
       <MyStatusBar animated backgroundColor={colors.P1} barStyle="light-content" />
@@ -62,7 +63,7 @@ function UserAccountScreen({ navigation }) {
               key={i?.id}
               title={i.title}
               leftIcon={i.leftIcon}
-              rightIcon={Icons?.rightArrow}
+              rightIcon={i?.id == 9 || i?.id == 10 ? null : Icons?.rightArrow}
               onPress={() => onPressListItem(i)}
             />
           ))}

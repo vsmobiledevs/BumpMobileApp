@@ -1,12 +1,18 @@
 import { View, StyleSheet, ScrollView } from 'react-native';
 import React from 'react';
+import Toast from 'react-native-simple-toast';
 import { TaxDocumentCard } from '../../../../components';
 import { HP } from '../../../../shared/exporter';
 import { TaxDocumentInfo } from '../../../../shared/utilities/staticInfo';
 
 export default function Received() {
   const taxDetail = () => {
-    console.log('tax details');
+
+    Toast.showWithGravity(
+      'Tax detail',
+      Toast.SHORT,
+      Toast.BOTTOM,
+    );
   };
 
   return (

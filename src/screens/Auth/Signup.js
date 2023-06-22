@@ -131,22 +131,28 @@ function Signup() {
             />
 
             {/* privacy policy */}
-            <Text style={styles.descTxtStyle}>
-              {'By continuing you accept our '}
+            <View style={styles.footerLine}>
+              <Text style={styles.descTxtStyle}>
+                {'By continuing you accept our '}
+              </Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate('Terms', { screenId: 7 })}
+                style={{ height: HP(3) }}
                 activeOpacity={0.8}
               >
                 <Text style={styles.descTxtBoldStyle}>{'Privacy Policy '}</Text>
               </TouchableOpacity>
-              {'and '}
+              <Text style={styles.descTxtStyle}>
+                {' and '}
+              </Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate('Terms', { screenId: 6 })}
+                style={{ height: HP(3) }}
                 activeOpacity={0.8}
               >
                 <Text style={styles.descTxtBoldStyle}>Term of Use</Text>
               </TouchableOpacity>
-            </Text>
+            </View>
 
             <View style={styles.orView}>
               <View style={styles.barView} />
@@ -202,14 +208,14 @@ const styles = StyleSheet.create({
     margin: WP(5),
     marginTop: WP(28),
   },
+  footerLine: {
+    flexDirection: 'row', alignSelf: 'center'
+  },
   descTxtStyle: {
     fontFamily: family.Roboto_Light,
     fontSize: size.xtiny,
     color: colors.g23,
-    alignSelf: 'center',
-    textAlign: 'center',
-    lineHeight: HP(2),
-    width: WP(75),
+
   },
   descTxtBoldStyle: {
     color: colors.g19,
