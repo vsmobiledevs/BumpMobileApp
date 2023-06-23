@@ -6,6 +6,8 @@ import { ImagePickerModal } from '../Modal/ImagePickerModal'
 import { Icons } from '../../assets/icons'
 
 
+
+
 const FileUpload = (props) => {
 
    const { mainStyle, titleStyle, boxStyle, getData, imageStyle } = props
@@ -15,13 +17,13 @@ const FileUpload = (props) => {
 
 
    async function showGallery() {
-      let res = await openGallery(Options, setShow)
+      const res = await openGallery(Options, setShow)
       setImg(res)
       getData(res)
    }
 
    async function showCamera() {
-      let res = await openCamera(Options, setShow)
+      const res = await openCamera(Options, setShow)
       setImg(res)
       getData(res)
    }
@@ -57,6 +59,7 @@ const FileUpload = (props) => {
 }
 
 export default FileUpload
+
 
 const styles = StyleSheet.create({
 

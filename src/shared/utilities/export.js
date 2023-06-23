@@ -40,57 +40,31 @@ async function onFacebook() {
 }
 
 // Handlers
-const openGallery = async (Options, setVisible, setImg) => {
+const openGallery = async (Options, setVisible) => {
     setVisible(false);
-    let res = await launchImageLibrary(Options, (response) => {
-        if (response.didCancel) {
-            /* empty */
-            Toast.showWithGravity('User cancelled the request ', Toast.SHORT, Toast.BOTTOM);
-        } else if (response.error) {
-            /* empty */
-        } else if (response.customButton) {
-            /* empty */
-        } else {
-
-
-            return response.assets[0]
-        }
-    });
-
-    let obj = {
-        type: res?.assets[0]?.type,
-        uri: res?.assets[0]?.uri,
-        name: res?.assets[0]?.fileName,
-    };
-
-    return obj;
+    const res = await launchImageLibrary(Options, (response) => response);
+    if (res?.assets) {
+        const obj = {
+            type: res?.assets[0]?.type,
+            uri: res?.assets[0]?.uri,
+            name: res?.assets[0]?.fileName,
+        };
+        return obj;
+    }
 };
 
 // Open Camera
-const openCamera = async (Options, setVisible, setImg) => {
+const openCamera = async (Options, setVisible,) => {
     setVisible(false);
-
-    let res = await launchCamera(Options, (response) => {
-        // Use launchImageLibrary to open image gallery
-        if (response.didCancel) {
-            /* empty */
-            Toast.showWithGravity('User cancelled the request ', Toast.SHORT, Toast.BOTTOM);
-        } else if (response.error) {
-            /* empty */
-        } else if (response.customButton) {
-            /* empty */
-        } else {
-
-
-            return response.assets[0]
-        }
-    });
-    let obj = {
-        type: res?.assets[0]?.type,
-        uri: res?.assets[0]?.uri,
-        name: res?.assets[0]?.fileName,
-    };
-    return obj;
+    const res = await launchCamera(Options, (response) => response);
+    if (res?.assets) {
+        const obj = {
+            type: res?.assets[0]?.type,
+            uri: res?.assets[0]?.uri,
+            name: res?.assets[0]?.fileName,
+        };
+        return obj;
+    }
 };
 
 export { onGoogle, onFacebook, openCamera, openGallery };

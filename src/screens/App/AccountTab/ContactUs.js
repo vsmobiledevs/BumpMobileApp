@@ -1,26 +1,26 @@
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, View, SafeAreaView } from 'react-native';
+import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { Formik } from 'formik';
+import Toast from 'react-native-simple-toast';
+
 import { AppButton, AppInput, AuthHeader } from '../../../components';
 import { Icons } from '../../../assets/icons';
-import { HP, ResetPassVS, WP, colors, family, resetPassFormFields } from '../../../shared/exporter';
+import { HP, WP, colors, family } from '../../../shared/exporter';
 import FileUpload from '../../../components/FileUpload';
 import { useContactUsMutation } from '../../../redux/api/contact';
-import { ContactUsVS, contact_Us } from '../../../shared/utilities/validations';
+import { ContactUsVS, contactUsV } from '../../../shared/utilities/validations';
 import { AppLoader } from '../../../components/AppLoader';
-import Toast from 'react-native-simple-toast';
+
 
 function ContactUs() {
   const formikRef = useRef();
   const navigation = useNavigation();
 
-  const [contactUs, { isError, isLoading, isSuccess, data }] = useContactUsMutation()
+  const [contactUs, { isLoading, isSuccess }] = useContactUsMutation()
 
 
   const [getImg, setGetImg] = useState(null)
-
-
 
   const handleApiCall = async (v) => {
 
@@ -42,28 +42,28 @@ function ContactUs() {
       Toast.showWithGravity('Request Successfully Submit', Toast.SHORT, Toast.BOTTOM);
       navigation.goBack()
     }
-  }, [isSuccess, isLoading])
+  }, [isSuccess, isLoading, navigation])
 
-  console.log(getImg)
+
 
   if (isLoading) {
     return (
       <AppLoader loader_color={colors.g19} loading={isLoading} />
     )
   }
-  else {
-    return (
-      <SafeAreaView style={styles.main}>
-        <AuthHeader
-          left={Icons.leftArrow}
-          center="Contact US"
-          onPressLeft={() => navigation.goBack()}
-          rightText="a"
-        />
 
+  return (
+    <SafeAreaView style={styles.main}>
+      <AuthHeader
+        left={Icons.leftArrow}
+        center="Contact US"
+        onPressLeft={() => navigation.goBack()}
+        rightText="a"
+      />
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={{ flex: 1 }}>
         <Formik
           innerRef={formikRef}
-          initialValues={contact_Us}
+          initialValues={contactUsV}
           onSubmit={(values) => {
             handleApiCall(values);
           }}
@@ -125,9 +125,10 @@ function ContactUs() {
             </View>
           )}
         </Formik>
-      </SafeAreaView>
-    );
-  }
+      </ScrollView>
+    </SafeAreaView>
+  );
+
 }
 
 export default ContactUs;

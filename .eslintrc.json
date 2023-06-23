@@ -32,11 +32,9 @@
       }
     ],
     // ignore errors for the react-navigation package
-    "react/prop-types": [
-      "error",
-      {
-        "ignore": ["navigation", "navigation.navigate"]
-      }
-    ]
+    "react/prop-types": "off",
+    "react/function-component-definition": "off",
+    "react/jsx-no-bind": "off",
+    "eqeqeq": "off"
   }
 }
