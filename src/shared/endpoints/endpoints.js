@@ -11,4 +11,5 @@ export const endpoints = {
   // google search
   googleSearch: 'search_histories/google_search',
   createShortCut: 'shortcuts',
+  contactUs: 'contacts',
 };

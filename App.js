@@ -29,6 +29,7 @@ function App() {
       <PaperProvider>
         <PersistGate persistor={persistor}>
           <KeyboardAvoidingView
+            enabled={false}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.main}
           >

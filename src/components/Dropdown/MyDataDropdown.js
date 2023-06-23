@@ -1,32 +1,38 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable import/no-extraneous-dependencies */
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { HP, WP, colors } from '../../shared/exporter';
+import { Icons } from '../../assets/icons';
+
 
 function MyDataDropdown({
-  open,
   value,
   items,
-  setOpen,
   setValue,
   setItems,
   placeholder,
   dropDownDirection,
+  zIndex = 1,
 }) {
+
+  const [open, setOpen] = useState(false)
   return (
     <DropDownPicker
       style={styles.main}
       dropDownContainerStyle={[styles.dropDownContainer, {}]}
       containerStyle={styles.container}
       open={open}
+      zIndex={zIndex}
       value={value}
       items={items}
       setOpen={setOpen}
       setValue={setValue}
       setItems={setItems}
       placeholder={placeholder}
+      ArrowUpIconComponent={(props) => Icons.dDUp}
+      ArrowDownIconComponent={(props) => Icons.dD}
       dropDownDirection={dropDownDirection}
     />
   );

@@ -1,19 +1,56 @@
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, View, SafeAreaView } from 'react-native';
-import React, { useRef, useState } from 'react';
+import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
 import { Formik } from 'formik';
+import Toast from 'react-native-simple-toast';
+
 import { AppButton, AppInput, AuthHeader } from '../../../components';
 import { Icons } from '../../../assets/icons';
-import { HP, ResetPassVS, WP, colors, family, resetPassFormFields } from '../../../shared/exporter';
+import { HP, WP, colors, family } from '../../../shared/exporter';
+import FileUpload from '../../../components/FileUpload';
+import { useContactUsMutation } from '../../../redux/api/contact';
+import { ContactUsVS, contactUsV } from '../../../shared/utilities/validations';
+import { AppLoader } from '../../../components/AppLoader';
+
 
 function ContactUs() {
   const formikRef = useRef();
   const navigation = useNavigation();
-  const [setShowModal] = useState(false);
 
-  const handleResetPass = () => {
-    setShowModal(true);
-  };
+  const [contactUs, { isLoading, isSuccess }] = useContactUsMutation()
+
+
+  const [getImg, setGetImg] = useState(null)
+
+  const handleApiCall = async (v) => {
+
+    const body = new FormData();
+    body.append('username', v?.username);
+    body.append('email', v?.email);
+    body.append('body', v?.body);
+    if (getImg) {
+      body.append('contact_images[]', getImg);
+    }
+    await contactUs(body);
+
+
+  }
+
+  useEffect(() => {
+    if (isSuccess) {
+      setGetImg(null);
+      Toast.showWithGravity('Request Successfully Submit', Toast.SHORT, Toast.BOTTOM);
+      navigation.goBack()
+    }
+  }, [isSuccess, isLoading, navigation])
+
+
+
+  if (isLoading) {
+    return (
+      <AppLoader loader_color={colors.g19} loading={isLoading} />
+    )
+  }
 
   return (
     <SafeAreaView style={styles.main}>
@@ -23,69 +60,75 @@ function ContactUs() {
         onPressLeft={() => navigation.goBack()}
         rightText="a"
       />
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={{ flex: 1 }}>
+        <Formik
+          innerRef={formikRef}
+          initialValues={contactUsV}
+          onSubmit={(values) => {
+            handleApiCall(values);
+          }}
+          validationSchema={ContactUsVS}
+        >
+          {({ values, errors, touched, handleSubmit, handleChange }) => (
+            <View style={styles.miniContainer}>
+              <AppInput
+                textInPutProps={{
+                  style: { color: colors.b1 },
+                  value: values.username,
+                  placeholder: 'Username',
+                  placeholderTextColor: colors.g25,
+                  onChangeText: handleChange('username'),
+                }}
+                title="User Name"
+                errorMessage={errors.username}
+                touched={touched.username}
+              />
+              <AppInput
+                textInPutProps={{
+                  style: { color: colors.b1 },
+                  value: values.email,
+                  placeholder: 'example@gmail.com',
+                  placeholderTextColor: colors.g25,
+                  onChangeText: handleChange('email'),
+                }}
+                title="E-mail"
+                errorMessage={errors.email}
+                touched={touched.email}
+              />
 
-      <Formik
-        innerRef={formikRef}
-        initialValues={resetPassFormFields}
-        onSubmit={(values) => {
-          handleResetPass(values);
-        }}
-        validationSchema={ResetPassVS}
-      >
-        {({ values, errors, touched, handleSubmit, handleChange }) => (
-          <View style={styles.miniContainer}>
-            <AppInput
-              textInPutProps={{
-                style: { color: colors.b1 },
-                value: values.username,
-                placeholder: 'Username',
-                placeholderTextColor: colors.g25,
-                onChangeText: handleChange('username'),
-              }}
-              title="User Name"
-              errorMessage={errors.username}
-              touched={touched.username}
-            />
-            <AppInput
-              textInPutProps={{
-                style: { color: colors.b1 },
-                value: values.email,
-                placeholder: 'example@gmail.com',
-                placeholderTextColor: colors.g25,
-                onChangeText: handleChange('email'),
-              }}
-              title="E-mail"
-              errorMessage={errors.email}
-              touched={touched.email}
-            />
+              <AppInput
+                containerStyle={{ height: HP(30) }}
+                textInPutProps={{
+                  style: styles.inputStyle,
+                  value: values.body,
+                  placeholder: 'Message',
+                  placeholderTextColor: colors.g25,
+                  onChangeText: handleChange('body'),
+                  multiline: true,
+                  textAlignVertical: 'top',
+                }}
+                errorMessage={errors.body}
+                touched={touched.body}
+              />
 
-            <AppInput
-              containerStyle={{ height: HP(30) }}
-              textInPutProps={{
-                style: styles.inputStyle,
-                value: values.email,
-                placeholder: 'Message',
-                placeholderTextColor: colors.g25,
-                onChangeText: handleChange('email'),
-                multiline: true,
-                textAlignVertical: 'top',
-              }}
-              errorMessage={errors.email}
-              touched={touched.email}
-            />
+              <FileUpload
+                getData={setGetImg}
+              />
 
-            <AppButton
-              title="Send"
-              buttonContainer={{ marginTop: WP(10) }}
-              touchableOpacity={{
-                onPress: () => handleSubmit(),
-              }}
-            />
-          </View>
-        )}
-      </Formik>
+              <AppButton
+                title="Send"
+                buttonContainer={{ marginTop: WP(10) }}
+                touchableOpacity={{
+                  onPress: () => handleSubmit(),
+                }}
+              />
+            </View>
+          )}
+        </Formik>
+      </ScrollView>
     </SafeAreaView>
   );
+
 }
 
 export default ContactUs;

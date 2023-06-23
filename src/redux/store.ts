@@ -13,6 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import { configureStore } from '@reduxjs/toolkit';
 import { AuthApis } from './api/auth';
+import { ContactApis } from './api/contact';
 import rootReducer from './features';
 import { SearchApi } from './api/search';
 
@@ -32,7 +33,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat([AuthApis.middleware, SearchApi.middleware]),
+    }).concat([AuthApis.middleware, SearchApi.middleware, ContactApis.middleware]),
 });
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors

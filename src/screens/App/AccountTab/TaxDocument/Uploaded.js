@@ -1,5 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import React from 'react';
+import Toast from 'react-native-simple-toast';
 import { TaxDocumentInfo } from '../../../../shared/utilities/staticInfo';
 import { TaxDocumentCard } from '../../../../components';
 import { HP } from '../../../../shared/exporter';
@@ -7,7 +8,12 @@ import { HP } from '../../../../shared/exporter';
 export default function Uploaded() {
 
   const taxDetail = () => {
-    console.log('tax details');
+    Toast.showWithGravity(
+      'Tax details',
+      Toast.SHORT,
+      Toast.BOTTOM,
+    );
+
   };
 
   return (

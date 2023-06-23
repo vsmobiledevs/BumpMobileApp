@@ -16,7 +16,6 @@ import { useAppSelector } from '../../../redux/store';
 
 function UserAccountScreen({ navigation }) {
   const { user } = useAppSelector((state) => state?.authSlice);
-  console.log(user);
   const dispatch = useDispatch(null);
 
   // open new screen
@@ -66,7 +65,7 @@ function UserAccountScreen({ navigation }) {
               key={i?.id}
               title={i.title}
               leftIcon={i.leftIcon}
-              rightIcon={Icons?.rightArrow}
+              rightIcon={i?.id == 10 ? null : Icons?.rightArrow}
               onPress={() => onPressListItem(i)}
             />
           ))}
@@ -114,9 +113,9 @@ const styles = StyleSheet.create({
   miniContainer: {
     marginTop: HP(1),
     borderRadius: 8,
-    borderWidth: 1.5,
+    // borderWidth: 1.5,
     marginHorizontal: WP(5),
-    borderColor: `${colors.g24}50`,
+    // borderColor: `${colors.g24}50`,
     marginBottom: HP(15),
   },
 });

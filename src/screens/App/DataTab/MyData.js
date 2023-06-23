@@ -1,10 +1,16 @@
-import { Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, View, Text, Dimensions } from 'react-native';
 import React, { useRef, useState } from 'react';
+import Toast from 'react-native-simple-toast';
 import { Formik } from 'formik';
 import { AppButton, MyDataDropdown, MyDataInput } from '../../../components';
 import { Icons } from '../../../assets/icons';
-import { HP, WP, colors } from '../../../shared/exporter';
+import { HP, WP, colors, size } from '../../../shared/exporter';
 import { myDataFields, myDataVS } from '../../../shared/utilities/validations';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+
+
+
+
 
 export default function MyData() {
   const formikRef = useRef(null);
@@ -15,27 +21,21 @@ export default function MyData() {
   const [value, setValue] = useState(null);
 
   const [country] = useState('Australia ');
-  const [countryDropDown, setCountryDropDown] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
 
   const [city] = useState('Sydney ');
-  const [cityDropDown, setCityDropDown] = useState(false);
   const [selectedCity, setSelectedCity] = useState(null);
 
   const [degree] = useState('BSCS ');
-  const [degreeDropDown, setDegreeDropDown] = useState(false);
   const [selectedDegree, setSelectedDegree] = useState(null);
 
   const [profession] = useState('Software Engineer ');
-  const [professionDropDown, setProfessionDropDown] = useState(false);
   const [selectedProfession, setSelectedProfession] = useState(null);
 
   const [status] = useState('Married ');
-  const [statusDropDown, setStatusDropDown] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState(null);
 
   const [smoking] = useState('No ');
-  const [smokingDropDown, setSmokingDropDown] = useState(false);
   const [smoker, setSmoker] = useState(null);
 
   const onPresEdit = () => {
@@ -43,7 +43,7 @@ export default function MyData() {
   };
 
   const handleForm = (values) => {
-    console.log(values);
+    Toast.showWithGravity(values, Toast.SHORT, Toast.BOTTOM);
   };
 
   return (
@@ -67,6 +67,21 @@ export default function MyData() {
                 rightIcon={Icons.editPen}
                 onPressIcon={onPresEdit}
               />
+              {!isEdit ? (
+                <MyDataDropdown
+
+                  value={value}
+                  items={values.gender}
+
+                  setValue={setValue}
+                  setItems={handleChange('gender')}
+                  placeholder="Select gender"
+                  dropDownDirection="TOP"
+                  zIndex={1}
+                />
+              ) : (
+                <MyDataInput value={gender} label="Gender" isEdit={isEdit} />
+              )}
 
               <MyDataInput
                 value={values.email}
@@ -91,29 +106,15 @@ export default function MyData() {
 
               {!isEdit ? (
                 <MyDataDropdown
-                  open={open}
-                  value={value}
-                  items={values.gender}
-                  setOpen={setOpen}
-                  setValue={setValue}
-                  setItems={handleChange('gender')}
-                  placeholder="Select gender"
-                  dropDownDirection="TOP"
-                />
-              ) : (
-                <MyDataInput value={gender} label="Gender" isEdit={isEdit} />
-              )}
 
-              {!isEdit ? (
-                <MyDataDropdown
-                  open={countryDropDown}
                   value={selectedCountry}
                   items={values.countries}
-                  setOpen={setCountryDropDown}
+
                   setValue={setSelectedCountry}
                   setItems={handleChange('countries')}
                   placeholder="Select country"
                   dropDownDirection="TOP"
+                  zIndex={0}
                 />
               ) : (
                 <MyDataInput value={country} label="Country" isEdit={isEdit} />
@@ -121,10 +122,10 @@ export default function MyData() {
 
               {!isEdit ? (
                 <MyDataDropdown
-                  open={cityDropDown}
+
                   value={selectedCity}
                   items={values.cities}
-                  setOpen={setCityDropDown}
+
                   setValue={setSelectedCity}
                   setItems={handleChange('cities')}
                   placeholder="Select city"
@@ -136,13 +137,13 @@ export default function MyData() {
 
               {!isEdit ? (
                 <MyDataDropdown
-                  open={degreeDropDown}
+
                   value={selectedDegree}
                   items={values.cities}
-                  setOpen={setDegreeDropDown}
+
                   setValue={setSelectedDegree}
                   setItems={handleChange('degrees')}
-                  placeholder="Select city"
+                  placeholder="Select Degree"
                   dropDownDirection="TOP"
                 />
               ) : (
@@ -151,10 +152,10 @@ export default function MyData() {
 
               {!isEdit ? (
                 <MyDataDropdown
-                  open={professionDropDown}
+
                   value={selectedProfession}
                   items={values.profession}
-                  setOpen={setProfessionDropDown}
+
                   setValue={setSelectedProfession}
                   setItems={handleChange('profession')}
                   placeholder="Select profession"
@@ -163,13 +164,19 @@ export default function MyData() {
               ) : (
                 <MyDataInput value={profession} label="Profession" isEdit={isEdit} />
               )}
+              <MyDataInput
+                value={values.experience}
+                setValue={handleChange('experience')}
+                label="Experience"
+                isEdit={isEdit}
+              />
 
               {!isEdit ? (
                 <MyDataDropdown
-                  open={statusDropDown}
+
                   value={selectedStatus}
                   items={values.status}
-                  setOpen={setStatusDropDown}
+
                   setValue={setSelectedStatus}
                   setItems={handleChange('status')}
                   placeholder="Select status"
@@ -179,22 +186,20 @@ export default function MyData() {
                 <MyDataInput value={status} label="Status" isEdit={isEdit} />
               )}
 
-
               {!isEdit ? (
                 <MyDataDropdown
-                  open={smokingDropDown}
+
                   value={smoker}
                   items={values.smoking}
-                  setOpen={setSmokingDropDown}
+
                   setValue={setSmoker}
                   setItems={handleChange('smoking')}
-                  placeholder="Select status"
+                  placeholder="Smoking"
                   dropDownDirection="TOP"
                 />
               ) : (
                 <MyDataInput value={smoking} label="Smoking" isEdit={isEdit} />
               )}
-
 
               <MyDataInput
                 value={values.kids}
@@ -204,17 +209,27 @@ export default function MyData() {
               />
 
               <MyDataInput
-                value={values.experience}
-                setValue={handleChange('experience')}
-                label="Experience"
-                isEdit={isEdit}
-              />
-
-              <MyDataInput
                 value={values.weight}
                 setValue={handleChange('weight')}
                 label="Weight"
                 isEdit={isEdit}
+              />
+
+              <Text style={styles.intrestStyle}>Interests</Text>
+
+
+              <FlatList
+                data={[1, 2, 3, 4, 5, 6]}
+                keyExtractor={(item, index) => `key${index + item}`}
+                renderItem={(item) => {
+                  return (
+                    <TouchableOpacity style={styles.miniBtnStyle}>
+                      {Icons.add}
+                      <Text style={styles.miniBtnText}>Interests</Text>
+                    </TouchableOpacity>
+                  )
+                }}
+                numColumns={3}
               />
 
               {!isEdit && (
@@ -247,4 +262,37 @@ const styles = StyleSheet.create({
     borderRadius: HP(2),
     backgroundColor: colors.w1,
   },
+  intrestStyle: {
+    color: colors.b1,
+    marginHorizontal: WP(3),
+    fontSize: size.medium,
+    fontWeight: 600,
+  },
+  miniBtnStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    width: WP(25),
+    margin: 8,
+    height: HP(6.5),
+    paddingHorizontal: WP(2),
+    borderRadius: WP(10),
+    backgroundColor: colors.white,
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+      },
+      android: {
+        elevation: 4,
+      },
+    }),
+  },
+  miniBtnText: {
+    color: colors.b1,
+    fontSize: size.medium,
+    alignSelf: 'center',
+  }
 });

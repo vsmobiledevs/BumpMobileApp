@@ -69,6 +69,9 @@ import CardFill from './cardFill.svg';
 import Down from './down.svg';
 import Up from './up.svg';
 import Cross from './cross.svg';
+import FillPlus from './fillPlus.svg';
+import DDUp from './dropDownUp.svg';
+import DD from './dropDown.svg';
 
 const Icons = {
   email: <Email alignSelf="center" />,
@@ -140,6 +143,9 @@ const Icons = {
   down: <Down alignSelf="center" />,
   up: <Up alignSelf="center" />,
   cross: <Cross alignSelf="center" />,
+  fillPlus: <FillPlus alignSelf="center" />,
+  dDUp: <DDUp alignSelf="center" />,
+  dD: <DD alignSelf="center" />,
 };
 
 export { Icons };
