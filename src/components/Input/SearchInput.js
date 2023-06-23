@@ -2,11 +2,20 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { HP, WP, colors, size } from '../../shared/exporter';
 import CustomSwitch from '../SwitchButton/CustomSwitch';
+import { Icons } from '../../assets/icons';
 
-function SearchInput({ leftIcon, title, textInPutProps, containerStyle, onSelectSwitch }) {
+function SearchInput({
+  title,
+  leftIcon,
+  isSearch,
+  textInPutProps,
+  containerStyle,
+  onSelectSwitch,
+  onPressCross,
+}) {
   return (
     <View style={[styles.mainContainer]}>
       {title && <Text style={styles.titleStyle}>{title}</Text>}
@@ -14,18 +23,24 @@ function SearchInput({ leftIcon, title, textInPutProps, containerStyle, onSelect
         {leftIcon}
         <TextInput {...textInPutProps} style={[styles.inputStyle, { ...textInPutProps.style }]} />
 
-        <View style={styles.buttonContainer}>
-          <CustomSwitch
-            selectionMode={1}
-            roundCorner
-            option1="Private"
-            option2="Paid"
-            onSelectSwitch={onSelectSwitch}
-            selectionColor={colors.orange}
-            color={colors.orange}
-            color2={colors.p7}
-          />
-        </View>
+        {isSearch === '' ? (
+          <View style={styles.buttonContainer}>
+            <CustomSwitch
+              selectionMode={1}
+              roundCorner
+              option1="Private"
+              option2="Paid"
+              onSelectSwitch={onSelectSwitch}
+              selectionColor={colors.orange}
+              color={colors.orange}
+              color2={colors.p7}
+            />
+          </View>
+        ) : (
+          <TouchableOpacity onPress={onPressCross} style={styles.cross}>
+            {Icons.cross}
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
@@ -44,8 +59,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderColor: colors.P3,
-    marginHorizontal: WP(6),
-    paddingHorizontal: WP(5),
+    marginHorizontal: WP(8),
+    paddingHorizontal: WP(2),
     backgroundColor: colors.t1,
   },
   inputStyle: {
@@ -55,8 +70,8 @@ const styles = StyleSheet.create({
   titleStyle: {
     color: colors.g19,
     fontSize: size.normal,
-    marginHorizontal: WP(8),
     marginVertical: HP(1),
+    marginHorizontal: WP(8),
   },
   buttonContainer: {
     // width: WP(24),
@@ -93,5 +108,8 @@ const styles = StyleSheet.create({
     fontSize: size.xtiny,
     color: colors.white,
     textAlign: 'center',
+  },
+  cross: {
+    left: HP(8),
   },
 });

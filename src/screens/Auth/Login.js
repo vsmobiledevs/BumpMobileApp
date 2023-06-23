@@ -1,6 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef } from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Platform } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-simple-toast';
 import { Formik } from 'formik';
@@ -45,14 +53,14 @@ function Login() {
     await loginUser(body);
   };
 
-  // handle social login 
+  // handle social login
   const handleSocialLogin = async (provider) => {
-    const token = await onGoogle()
+    const token = await onGoogle();
     const body = new FormData();
     body.append('provider', provider);
     body.append('token', token);
     await socialLogin(body);
-  }
+  };
 
   // social login buttons
   const onPressIcon = (item) => {
@@ -60,7 +68,7 @@ function Login() {
       case 0:
         break;
       case 1:
-        handleSocialLogin(item.name)
+        handleSocialLogin(item.name);
         break;
       case 2:
         break;
@@ -70,7 +78,7 @@ function Login() {
     }
   };
 
-  const socialIcons = Platform.OS === 'android' ? SocialIcons.slice(1, 4) : SocialIcons
+  const socialIcons = Platform.OS === 'android' ? SocialIcons.slice(1, 4) : SocialIcons;
 
   return (
     <ScrollView style={styles.main}>
@@ -94,7 +102,7 @@ function Login() {
                 keyboardType: 'email-address',
                 placeholderTextColor: colors.b4,
                 onChangeText: handleChange('email'),
-                onblur: handleBlur('email')
+                onblur: handleBlur('email'),
               }}
               leftIcon={Icons.email}
               errorMessage={errors.email}
@@ -129,9 +137,7 @@ function Login() {
 
             {/* privacy policy */}
             <View style={styles.footerLine}>
-              <Text style={styles.descTxtStyle}>
-                {'By continuing you accept our '}
-              </Text>
+              <Text style={styles.descTxtStyle}>{'By continuing you accept our '}</Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate('Terms', { screenId: 7 })}
                 style={{ height: HP(3) }}
@@ -139,9 +145,7 @@ function Login() {
               >
                 <Text style={styles.descTxtBoldStyle}>{'Privacy Policy '}</Text>
               </TouchableOpacity>
-              <Text style={styles.descTxtStyle}>
-                {' and '}
-              </Text>
+              <Text style={styles.descTxtStyle}>{' and '}</Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate('Terms', { screenId: 6 })}
                 style={{ height: HP(3) }}
@@ -150,8 +154,6 @@ function Login() {
                 <Text style={styles.descTxtBoldStyle}>Term of Use</Text>
               </TouchableOpacity>
             </View>
-
-
 
             <Text style={styles.txtSignInWith}>Sign In with</Text>
 
@@ -179,8 +181,8 @@ function Login() {
       </Formik>
 
       {/* app loader */}
-      <AppLoader loader_color={colors.g19} loading={res?.isLoading || response.isLoading} />
-    </ScrollView >
+      <AppLoader loader_color={colors.g19} loading={res?.isLoading} />
+    </ScrollView>
   );
 }
 
@@ -203,7 +205,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   footerLine: {
-    flexDirection: 'row', alignSelf: 'center'
+    flexDirection: 'row',
+    alignSelf: 'center',
   },
   descTxtStyle: {
     fontFamily: family.Roboto_Light,
@@ -211,15 +214,12 @@ const styles = StyleSheet.create({
     color: colors.g23,
     textAlign: 'center',
     justifyContent: 'center',
-
   },
   descTxtBoldStyle: {
     color: colors.g19,
     fontSize: size.xtiny,
     fontFamily: family.Roboto_Regular,
     textDecorationLine: 'underline',
-
-
   },
 
   txtSignInWith: {
@@ -261,6 +261,6 @@ const styles = StyleSheet.create({
   socialIcon: {
     width: WP(8),
     height: WP(8),
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   },
 });

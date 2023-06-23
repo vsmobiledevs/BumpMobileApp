@@ -33,7 +33,6 @@ function UserAccountScreen({ navigation }) {
     }
   };
 
-
   return (
     <View style={styles.container}>
       <MyStatusBar animated backgroundColor={colors.P1} barStyle="light-content" />
@@ -45,7 +44,10 @@ function UserAccountScreen({ navigation }) {
         <LinearGradient colors={[colors.P1, colors.P2]} style={styles.header}>
           <View style={styles.header2}>
             <View style={styles.imageContainer}>
-              <Image source={{ uri: user?.profile_image || DummyImage }} style={styles.imageStyle} />
+              <Image
+                source={{ uri: user?.profile_image || DummyImage }}
+                style={styles.imageStyle}
+              />
             </View>
 
             <View style={styles.nameContainer}>
@@ -69,7 +71,6 @@ function UserAccountScreen({ navigation }) {
           ))}
         </View>
       </ScrollView>
-
     </View>
   );
 }
@@ -115,6 +116,6 @@ const styles = StyleSheet.create({
     // borderWidth: 1.5,
     marginHorizontal: WP(5),
     // borderColor: `${colors.g24}50`,
-    marginBottom: HP(15)
+    marginBottom: HP(15),
   },
 });
