@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     marginTop: HP(2),
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 1,
+    zIndex: 0,
   },
   outlineStyle: {
     borderColor: colors.P1,

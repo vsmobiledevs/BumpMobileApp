@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export const loginFormFields = {
   email: '',
@@ -25,7 +26,7 @@ export const resetPassFormFields = {
   confirmPassword: '',
 };
 
-export const contact_Us = {
+export const contactUsV = {
   username: '',
   email: '',
   body: '',

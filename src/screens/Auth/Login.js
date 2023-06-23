@@ -70,7 +70,7 @@ function Login() {
     }
   };
 
-  let socialIcons = Platform.OS === 'android' ? SocialIcons.slice(1, 4) : SocialIcons
+  const socialIcons = Platform.OS === 'android' ? SocialIcons.slice(1, 4) : SocialIcons
 
   return (
     <ScrollView style={styles.main}>
