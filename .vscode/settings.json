@@ -1,25 +1,25 @@
 {
-    "java.compile.nullAnalysis.mode": "automatic",
-    "cSpell.words": [
-        "codegen",
-        "Formik",
-        "middlewares",
-        "mydata",
-        "navigations",
-        "reduxjs",
-        "Roboto",
-        "solana",
-        "svgs",
-        "xxsmall",
-        "xxtiny"
-    ],
-    "java.configuration.updateBuildConfiguration": "interactive",
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-    },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "[javascript]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features"
-    }
+  "java.compile.nullAnalysis.mode": "automatic",
+  "cSpell.words": [
+    "codegen",
+    "Formik",
+    "middlewares",
+    "mydata",
+    "navigations",
+    "reduxjs",
+    "Roboto",
+    "solana",
+    "svgs",
+    "xxsmall",
+    "xxtiny"
+  ],
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

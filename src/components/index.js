@@ -18,6 +18,8 @@ export { BottomTab } from './CustomBottomTab/BottomTab';
 export { CenterButton } from './CustomBottomTab/CenterButton';
 export { TabShape } from './CustomBottomTab/TabShape';
 
+export { AppLoader } from './AppLoader';
+
 // cards
 export { NftsCard } from './Cards/NftsCard';
 export { LearnCard } from './Cards/LearnCard';
@@ -28,6 +30,7 @@ export { SubscriptionPlanCard } from './Cards/SubscriptionPlanCard';
 export { PayoutCard } from './Cards/PayoutCard';
 export { SelectPaymentMethod } from './Cards/SelectPaymentMethod';
 export { BankDetailCard } from './Cards/BankDetailCard';
+export { SearchCard } from './Cards/SearchCard';
 
 // Modal
 export { RNModal } from './Modal/RNModal';

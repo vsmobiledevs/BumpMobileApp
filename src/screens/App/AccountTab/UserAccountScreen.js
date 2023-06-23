@@ -16,6 +16,7 @@ import { useAppSelector } from '../../../redux/store';
 
 function UserAccountScreen({ navigation }) {
   const { user } = useAppSelector((state) => state?.authSlice);
+  console.log(user);
   const dispatch = useDispatch(null);
 
   // open new screen
@@ -44,7 +45,10 @@ function UserAccountScreen({ navigation }) {
         <LinearGradient colors={[colors.P1, colors.P2]} style={styles.header}>
           <View style={styles.header2}>
             <View style={styles.imageContainer}>
-              <Image source={{ uri: user?.profile_image || DummyImage }} style={styles.imageStyle} />
+              <Image
+                source={{ uri: user?.profile_image || DummyImage }}
+                style={styles.imageStyle}
+              />
             </View>
 
             <View style={styles.nameContainer}>
@@ -68,7 +72,6 @@ function UserAccountScreen({ navigation }) {
           ))}
         </View>
       </ScrollView>
-
     </View>
   );
 }
@@ -114,6 +117,6 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     marginHorizontal: WP(5),
     borderColor: `${colors.g24}50`,
-    marginBottom: HP(15)
+    marginBottom: HP(15),
   },
 });

@@ -14,6 +14,7 @@ import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import { configureStore } from '@reduxjs/toolkit';
 import { AuthApis } from './api/auth';
 import rootReducer from './features';
+import { SearchApi } from './api/search';
 
 const persistConfig = {
   key: 'root',
@@ -31,7 +32,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat([AuthApis.middleware]),
+    }).concat([AuthApis.middleware, SearchApi.middleware]),
 });
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors

@@ -8,4 +8,7 @@ export const endpoints = {
   termsAndPrivacy: 'static_pages',
   faqs: 'faqs',
   socialLogin: 'social/social_login',
+  // google search
+  googleSearch: 'search_histories/google_search',
+  createShortCut: 'shortcuts',
 };
