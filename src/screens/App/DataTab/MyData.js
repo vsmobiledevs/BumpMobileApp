@@ -1,4 +1,12 @@
-import { Platform, ScrollView, StyleSheet, View, Text, Dimensions } from 'react-native';
+import {
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
 import React, { useRef, useState } from 'react';
 import Toast from 'react-native-simple-toast';
 import { Formik } from 'formik';
@@ -6,18 +14,12 @@ import { AppButton, MyDataDropdown, MyDataInput } from '../../../components';
 import { Icons } from '../../../assets/icons';
 import { HP, WP, colors, size } from '../../../shared/exporter';
 import { myDataFields, myDataVS } from '../../../shared/utilities/validations';
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
-
-
-
-
 
 export default function MyData() {
   const formikRef = useRef(null);
   const [isEdit, setIsEdit] = useState(true);
 
   const [gender] = useState('Female');
-  const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
 
   const [country] = useState('Australia ');
@@ -69,10 +71,8 @@ export default function MyData() {
               />
               {!isEdit ? (
                 <MyDataDropdown
-
                   value={value}
                   items={values.gender}
-
                   setValue={setValue}
                   setItems={handleChange('gender')}
                   placeholder="Select gender"
@@ -106,10 +106,8 @@ export default function MyData() {
 
               {!isEdit ? (
                 <MyDataDropdown
-
                   value={selectedCountry}
                   items={values.countries}
-
                   setValue={setSelectedCountry}
                   setItems={handleChange('countries')}
                   placeholder="Select country"
@@ -122,10 +120,8 @@ export default function MyData() {
 
               {!isEdit ? (
                 <MyDataDropdown
-
                   value={selectedCity}
                   items={values.cities}
-
                   setValue={setSelectedCity}
                   setItems={handleChange('cities')}
                   placeholder="Select city"
@@ -137,10 +133,8 @@ export default function MyData() {
 
               {!isEdit ? (
                 <MyDataDropdown
-
                   value={selectedDegree}
                   items={values.cities}
-
                   setValue={setSelectedDegree}
                   setItems={handleChange('degrees')}
                   placeholder="Select Degree"
@@ -152,10 +146,8 @@ export default function MyData() {
 
               {!isEdit ? (
                 <MyDataDropdown
-
                   value={selectedProfession}
                   items={values.profession}
-
                   setValue={setSelectedProfession}
                   setItems={handleChange('profession')}
                   placeholder="Select profession"
@@ -173,10 +165,8 @@ export default function MyData() {
 
               {!isEdit ? (
                 <MyDataDropdown
-
                   value={selectedStatus}
                   items={values.status}
-
                   setValue={setSelectedStatus}
                   setItems={handleChange('status')}
                   placeholder="Select status"
@@ -188,10 +178,8 @@ export default function MyData() {
 
               {!isEdit ? (
                 <MyDataDropdown
-
                   value={smoker}
                   items={values.smoking}
-
                   setValue={setSmoker}
                   setItems={handleChange('smoking')}
                   placeholder="Smoking"
@@ -215,22 +203,19 @@ export default function MyData() {
                 isEdit={isEdit}
               />
 
-              <Text style={styles.intrestStyle}>Interests</Text>
-
+              {/* <Text style={styles.intrestStyle}>Interests</Text>
 
               <FlatList
                 data={[1, 2, 3, 4, 5, 6]}
                 keyExtractor={(item, index) => `key${index + item}`}
-                renderItem={(item) => {
-                  return (
-                    <TouchableOpacity style={styles.miniBtnStyle}>
-                      {Icons.add}
-                      <Text style={styles.miniBtnText}>Interests</Text>
-                    </TouchableOpacity>
-                  )
-                }}
+                renderItem={(item) => (
+                  <TouchableOpacity style={styles.miniBtnStyle}>
+                    {Icons.add}
+                    <Text style={styles.miniBtnText}>Interests</Text>
+                  </TouchableOpacity>
+                )}
                 numColumns={3}
-              />
+              /> */}
 
               {!isEdit && (
                 <AppButton
@@ -294,5 +279,5 @@ const styles = StyleSheet.create({
     color: colors.b1,
     fontSize: size.medium,
     alignSelf: 'center',
-  }
+  },
 });

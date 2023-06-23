@@ -330,6 +330,7 @@ const styles = StyleSheet.create({
   },
   add: {
     // width: WP(90),
+    height: HP(12),
     alignItems: 'center',
   },
   iconContainer: {
