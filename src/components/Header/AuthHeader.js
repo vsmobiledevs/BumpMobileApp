@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     marginHorizontal: WP(4),
     justifyContent: 'space-between',
     marginTop: Platform.OS === 'android' ? HP(10) : HP(2),
+    paddingBottom: HP(5),
   },
   backArrowContainer: {
     width: WP(10),

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -34,6 +34,8 @@ function Login() {
   const navigation = useNavigation();
   const [socialLogin, response] = useSocialLoginMutation();
   const [loginUser, res] = useLoginUserMutation();
+  const [checked, setIsChecked] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
 
   // handling response
   useEffect(() => {
@@ -47,10 +49,18 @@ function Login() {
 
   // login user
   const handleLogin = async (values) => {
-    const body = new FormData();
-    body.append('email', values.email);
-    body.append('password', values.password);
-    await loginUser(body);
+    if (checked) {
+      const body = new FormData();
+      body.append('email', values.email);
+      body.append('password', values.password);
+      await loginUser(body);
+    } else {
+      Toast.showWithGravity(
+        'Please accept privacy policy and terms & conditions',
+        Toast.SHORT,
+        Toast.BOTTOM
+      );
+    }
   };
 
   // handle social login
@@ -76,6 +86,14 @@ function Login() {
         break;
       default:
     }
+  };
+
+  const onPressChecked = () => {
+    setIsChecked(!checked);
+  };
+
+  const onPressEye = () => {
+    setShowPassword(!showPassword);
   };
 
   const socialIcons = Platform.OS === 'android' ? SocialIcons.slice(1, 4) : SocialIcons;
@@ -115,9 +133,12 @@ function Login() {
                 placeholder: 'Enter Password',
                 placeholderTextColor: colors.b4,
                 style: { color: colors.b1 },
-                secureTextEntry: true,
+                secureTextEntry: showPassword,
+                enablesReturnKeyAutomatically: true,
               }}
               leftIcon={Icons.password}
+              rightIcon={Icons.eye}
+              onPressEye={onPressEye}
               errorMessage={errors.password}
               touched={touched.password}
             />
@@ -136,23 +157,32 @@ function Login() {
             />
 
             {/* privacy policy */}
-            <View style={styles.footerLine}>
-              <Text style={styles.descTxtStyle}>{'By continuing you accept our '}</Text>
+            <View style={styles.privacyPolicyContainer}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Terms', { screenId: 7 })}
-                style={{ height: HP(3) }}
                 activeOpacity={0.8}
+                onPress={onPressChecked}
+                style={styles.checkBox}
               >
-                <Text style={styles.descTxtBoldStyle}>{'Privacy Policy '}</Text>
+                {checked ? Icons.checked : Icons.greyUnChecked}
               </TouchableOpacity>
-              <Text style={styles.descTxtStyle}>{' and '}</Text>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('Terms', { screenId: 6 })}
-                style={{ height: HP(3) }}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.descTxtBoldStyle}>Term of Use</Text>
-              </TouchableOpacity>
+              <View style={styles.footerLine}>
+                <Text style={styles.descTxtStyle}>{'By continuing you accept our '}</Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Terms', { screenId: 7 })}
+                  style={{ height: HP(3) }}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.descTxtBoldStyle}>{'Privacy Policy '}</Text>
+                </TouchableOpacity>
+                <Text style={styles.descTxtStyle}>{' and '}</Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Terms', { screenId: 6 })}
+                  style={{ height: HP(3) }}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.descTxtBoldStyle}>Term of Use</Text>
+                </TouchableOpacity>
+              </View>
             </View>
 
             <Text style={styles.txtSignInWith}>Sign In with</Text>
@@ -207,6 +237,8 @@ const styles = StyleSheet.create({
   footerLine: {
     flexDirection: 'row',
     alignSelf: 'center',
+    top: HP(0.4),
+    marginStart: HP(0.5),
   },
   descTxtStyle: {
     fontFamily: family.Roboto_Light,
@@ -262,5 +294,17 @@ const styles = StyleSheet.create({
     width: WP(8),
     height: WP(8),
     resizeMode: 'contain',
+  },
+  checkBox: {
+    width: HP(2.5),
+    height: HP(2.5),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: HP(0.5),
+  },
+  privacyPolicyContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

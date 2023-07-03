@@ -4,7 +4,7 @@
 import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { WEB_CLIENT_ID } from '@env'
+import { WEB_CLIENT_ID } from '@env';
 import { MenuProvider } from 'react-native-popup-menu';
 import { PersistGate } from 'redux-persist/integration/react';
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
@@ -14,14 +14,12 @@ import { persistor, store } from './src/redux/store';
 import MainNavigation from './src/navigations';
 
 function App() {
-
   useEffect(() => {
     GoogleSignin.configure({
       webClientId: WEB_CLIENT_ID,
     });
 
-    return () => {
-    };
+    return () => {};
   }, []);
 
   return (
@@ -29,7 +27,7 @@ function App() {
       <PaperProvider>
         <PersistGate persistor={persistor}>
           <KeyboardAvoidingView
-            enabled={false}
+            // enabled={false}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.main}
           >

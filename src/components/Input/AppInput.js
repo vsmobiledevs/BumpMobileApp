@@ -2,16 +2,34 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { HP, WP, colors, size } from '../../shared/exporter';
 
-function AppInput({ leftIcon, title, errorMessage, touched, textInPutProps, containerStyle }) {
+function AppInput({
+  title,
+  touched,
+  leftIcon,
+  rightIcon,
+  onPressEye,
+  titleStyle,
+  eyeIconStyle,
+  errorMessage,
+  textInPutProps,
+  containerStyle,
+}) {
   return (
     <View style={[styles.mainContainer]}>
-      {title && <Text style={styles.titleStyle}>{title}</Text>}
+      {title && <Text style={[styles.titleStyle, titleStyle]}>{title}</Text>}
       <View style={[styles.inputContainer, containerStyle]}>
         {leftIcon}
         <TextInput {...textInPutProps} style={[styles.inputStyle, { ...textInPutProps.style }]} />
+        <TouchableOpacity
+          onPress={onPressEye}
+          activeOpacity={0.8}
+          style={[styles.eyeIcon, { ...eyeIconStyle }]}
+        >
+          {rightIcon}
+        </TouchableOpacity>
       </View>
       {touched && errorMessage && <Text style={styles.error}>{errorMessage || ''}</Text>}
     </View>
@@ -50,5 +68,9 @@ const styles = StyleSheet.create({
     color: colors.red,
     marginStart: HP(4),
     marginTop: HP(0.5),
+  },
+  eyeIcon: {
+    right: HP(1.5),
+    padding: HP(0.6),
   },
 });

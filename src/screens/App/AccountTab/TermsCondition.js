@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
     marginHorizontal: WP(2),
     textAlign: 'left',
     marginTop: HP(1.5),
-    fontSize: HP(1.5)
+    fontSize: HP(1.5),
+    marginBottom: HP(1),
   },
 });

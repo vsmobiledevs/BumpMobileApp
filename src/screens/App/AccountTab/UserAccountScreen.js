@@ -16,6 +16,7 @@ import { useAppSelector } from '../../../redux/store';
 
 function UserAccountScreen({ navigation }) {
   const { user } = useAppSelector((state) => state?.authSlice);
+  console.log(user);
   const dispatch = useDispatch(null);
 
   // open new screen
@@ -116,6 +117,6 @@ const styles = StyleSheet.create({
     // borderWidth: 1.5,
     marginHorizontal: WP(5),
     // borderColor: `${colors.g24}50`,
-    marginBottom: HP(15),
+    marginBottom: HP(16),
   },
 });

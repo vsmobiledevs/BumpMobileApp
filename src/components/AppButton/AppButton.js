@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
   buttonStyle: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: WP(4),
     borderRadius: WP(6),
+    paddingVertical: WP(4),
   },
   txtStyle: {
     color: colors.white,

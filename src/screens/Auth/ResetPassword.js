@@ -4,16 +4,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
-import Toast from 'react-native-simple-toast';
 import { useDispatch } from 'react-redux';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import Toast from 'react-native-simple-toast';
+import { Icons } from '../../assets/icons';
+import SuccessModal from '../../components/Modal/SuccessModal';
+import { AppLoader } from '../../components/AppLoader';
+import { logout } from '../../redux/features/authSlice';
+import { useChangePasswordMutation } from '../../redux/api/auth';
 import { AppButton, AppInput, AuthHeader } from '../../components';
 import { resetPassFormFields, ResetPassVS, family, colors, HP, WP } from '../../shared/exporter';
-import SuccessModal from '../../components/Modal/SuccessModal';
-import { Icons } from '../../assets/icons';
-import { AppLoader } from '../../components/AppLoader';
-import { useChangePasswordMutation } from '../../redux/api/auth';
-import { logout } from '../../redux/features/authSlice';
 
 function ResetPassword() {
   const dispatch = useDispatch(null);
@@ -21,10 +21,14 @@ function ResetPassword() {
   const formikRef = useRef(null);
   const [changePassword, response] = useChangePasswordMutation();
   const [showModal, setShowModal] = useState(false);
+  const [showCurrentPassword, setShowCurrentPassword] = useState(true);
+  const [showNewPassword, setShowNewPassword] = useState(true);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(true);
 
   // handling response
   useEffect(() => {
     if (response?.isSuccess) {
+      console.log(response.data);
       setShowModal(true);
       Toast.showWithGravity(response?.data?.message, Toast.SHORT, Toast.BOTTOM);
       setTimeout(() => {
@@ -34,6 +38,7 @@ function ResetPassword() {
       }, 3000);
     }
     if (response?.isError) {
+      console.log(response.error);
       Toast.showWithGravity(response?.error?.data?.message, Toast.SHORT, Toast.BOTTOM);
     }
   }, [response.isLoading]);
@@ -73,7 +78,12 @@ function ResetPassword() {
                   placeholder: 'Old Password',
                   placeholderTextColor: colors.b4,
                   onChangeText: handleChange('oldPassword'),
+                  secureTextEntry: showCurrentPassword,
+                  enablesReturnKeyAutomatically: true,
                 }}
+                eyeIconStyle={{ right: HP(0) }}
+                rightIcon={Icons.eye}
+                onPressEye={() => setShowCurrentPassword(!showCurrentPassword)}
                 title="Current Password"
                 errorMessage={errors.oldPassword}
                 touched={touched.oldPassword}
@@ -84,8 +94,13 @@ function ResetPassword() {
                   value: values.password,
                   placeholder: 'New Password',
                   placeholderTextColor: colors.b4,
+                  secureTextEntry: showNewPassword,
+                  enablesReturnKeyAutomatically: true,
                   onChangeText: handleChange('password'),
                 }}
+                eyeIconStyle={{ right: HP(0) }}
+                rightIcon={Icons.eye}
+                onPressEye={() => setShowNewPassword(!showNewPassword)}
                 title="New Password"
                 errorMessage={errors.password}
                 touched={touched.password}
@@ -97,7 +112,12 @@ function ResetPassword() {
                   placeholder: 'Confirm New Password',
                   placeholderTextColor: colors.b4,
                   onChangeText: handleChange('confirmPassword'),
+                  secureTextEntry: showConfirmPassword,
+                  enablesReturnKeyAutomatically: true,
                 }}
+                eyeIconStyle={{ right: HP(0) }}
+                rightIcon={Icons.eye}
+                onPressEye={() => setShowConfirmPassword(!showConfirmPassword)}
                 title="Confirm New Password"
                 errorMessage={errors.confirmPassword}
                 touched={touched.confirmPassword}

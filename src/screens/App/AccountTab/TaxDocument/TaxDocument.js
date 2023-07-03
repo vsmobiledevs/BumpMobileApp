@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     flex: 1,
-    marginTop: HP(2)
+    marginTop: HP(2),
   },
 });

@@ -15,6 +15,7 @@ function SearchInput({
   containerStyle,
   onSelectSwitch,
   onPressCross,
+  selectedMode,
 }) {
   return (
     <View style={[styles.mainContainer]}>
@@ -26,7 +27,7 @@ function SearchInput({
         {isSearch === '' ? (
           <View style={styles.buttonContainer}>
             <CustomSwitch
-              selectionMode={1}
+              selectionMode={selectedMode}
               roundCorner
               option1="Private"
               option2="Paid"

@@ -30,6 +30,7 @@ export { SubscriptionPlanCard } from './Cards/SubscriptionPlanCard';
 export { PayoutCard } from './Cards/PayoutCard';
 export { SelectPaymentMethod } from './Cards/SelectPaymentMethod';
 export { BankDetailCard } from './Cards/BankDetailCard';
+export { CardDetail } from './Cards/CardDetail';
 export { SearchCard } from './Cards/SearchCard';
 
 // Modal
