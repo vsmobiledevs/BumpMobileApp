@@ -32,6 +32,10 @@ export const contactUsV = {
   body: '',
 };
 
+export const bankDetaisVS = {
+  holderName: '',
+  accountNumber: '',
+};
 export const deleteAccountFields = {
   password: '',
 };
@@ -93,63 +97,74 @@ export const myDataFields = {
 };
 
 export const LoginVS = Yup.object().shape({
-  email: Yup.string().matches(emailRegex, 'Please provide a valid email address').email('Please provide a valid email address').required("Email is required"),
-  password: Yup
-    .string()
+  email: Yup.string()
+    .matches(emailRegex, 'Please provide a valid email address')
+    .email('Please provide a valid email address')
+    .required('Email is required'),
+  password: Yup.string()
     .min(6, 'Password must be at least 6 characters')
     .required('Password Required'),
 });
 
+export const UpdateProfileVS = Yup.object().shape({
+  name: Yup.string().required('Name Required'),
+  email: Yup.string()
+    .matches(emailRegex, 'Please provide a valid email address')
+    .required('Email Required')
+    .email('Please provide a valid email address'),
+});
+
 export const SignupVS = Yup.object().shape({
   name: Yup.string().required('Name Required'),
-  email: Yup.string().matches(emailRegex, 'Please provide a valid email address').required('Email Required').email('Please provide a valid email address'),
-  password: Yup
-    .string()
+  email: Yup.string()
+    .matches(emailRegex, 'Please provide a valid email address')
+    .required('Email Required')
+    .email('Please provide a valid email address'),
+  password: Yup.string()
     .min(6, 'Password must be at least 6 characters')
     .required('Password Required'),
 });
 
 export const ForgotPassVS = Yup.object().shape({
-  email: Yup.string().matches(emailRegex, 'Please provide a valid email address').required('Email Required').email('Please provide a valid email address'),
+  email: Yup.string()
+    .matches(emailRegex, 'Please provide a valid email address')
+    .required('Email Required')
+    .email('Please provide a valid email address'),
 });
 
 export const NewPassVS = Yup.object().shape({
-  password: Yup
-    .string()
+  password: Yup.string()
     .min(6, 'Password must be at least 6 characters')
     .required('Password Required'),
-  confirmPassword: Yup
-    .string()
+  confirmPassword: Yup.string()
     .min(6, 'Password must be at least 6 characters')
     .required('Confirm Password Required')
     .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 });
 
 export const ContactUsVS = Yup.object().shape({
-  email: Yup.string().matches(emailRegex, 'Please provide a valid email address').required('Email Required').email('Please provide a valid email address'),
+  email: Yup.string()
+    .matches(emailRegex, 'Please provide a valid email address')
+    .required('Email Required')
+    .email('Please provide a valid email address'),
   username: Yup.string().required('Username Required'),
   body: Yup.string().required('Message Required'),
-
 });
 export const ResetPassVS = Yup.object().shape({
-  oldPassword: Yup
-    .string()
+  oldPassword: Yup.string()
     .min(6, 'Password must be at least 6 characters')
     .required('Old Password Required'),
-  password: Yup
-    .string()
+  password: Yup.string()
     .min(6, 'Password must be at least 6 characters')
     .required('New Password Required'),
-  confirmPassword: Yup
-    .string()
+  confirmPassword: Yup.string()
     .min(6, 'Password must be at least 6 characters')
     .required('Confirm Password Required')
     .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 });
 
 export const DeleteAccountVS = Yup.object().shape({
-  password: Yup
-    .string()
+  password: Yup.string()
     .min(6, 'Password must be at least 6 characters')
     .required('Password Required'),
 });
@@ -157,7 +172,10 @@ export const DeleteAccountVS = Yup.object().shape({
 export const myDataVS = Yup.object().shape({
   fullName: Yup.string(),
   gender: Yup.string(),
-  email: Yup.string().matches(emailRegex, 'Please provide a valid email address').email('Please provide a valid email address').required('Email Required'),
+  email: Yup.string()
+    .matches(emailRegex, 'Please provide a valid email address')
+    .email('Please provide a valid email address')
+    .required('Email Required'),
   phone: Yup.string(),
   dob: Yup.string(),
   countries: Yup.string(),

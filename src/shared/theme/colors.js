@@ -63,6 +63,7 @@ export const colors = {
   g29: '#606060',
   g30: '#C8C8C890',
   g31: '#D7D7D7',
+  g32: '#BCBCBC',
 
   // White colors
   white: '#ffffff',

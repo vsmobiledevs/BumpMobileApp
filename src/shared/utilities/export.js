@@ -10,6 +10,7 @@ const onGoogle = async () => {
   try {
     await GoogleSignin.hasPlayServices();
     const { idToken } = await GoogleSignin.signIn();
+    console.log(idToken);
     return idToken;
   } catch (e) {
     GoogleSignin.signOut();

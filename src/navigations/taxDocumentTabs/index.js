@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   tabBar: {
     width: WP(25),
-    marginTop: Platform.OS === 'ios' ? HP(3) : 0,
+    marginTop: Platform.OS === 'android' ? HP(3) : 0,
   },
   tabBarTitle: {
     margin: HP(0.5),

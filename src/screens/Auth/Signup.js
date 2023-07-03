@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   TouchableOpacity,
   ImageBackground,
@@ -8,6 +8,7 @@ import {
   Image,
   Text,
   View,
+  Platform,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation } from '@react-navigation/native';
@@ -27,12 +28,15 @@ import { SocialIcons } from '../../shared/utilities/staticInfo';
 import { useCreateUserMutation } from '../../redux/api/auth';
 import { AppButton, AppInput } from '../../components';
 import { AppLoader } from '../../components/AppLoader';
+import { Icons } from '../../assets/icons';
 
 function Signup() {
   // mutation
   const [createUser, response] = useCreateUserMutation();
+  const [checked, setIsChecked] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
 
-  // references
+  // referencesnu
   const formikRef = useRef();
   const navigation = useNavigation();
 
@@ -49,12 +53,20 @@ function Signup() {
 
   // calling register mutation
   const handleSignup = async (values) => {
-    const body = new FormData();
-    body.append('username', values.name);
-    body.append('email', values.email);
-    body.append('password', values.password);
-    body.append('password_confirmation', values.password);
-    await createUser(body);
+    if (checked) {
+      const body = new FormData();
+      body.append('username', values.name);
+      body.append('email', values.email);
+      body.append('password', values.password);
+      body.append('password_confirmation', values.password);
+      await createUser(body);
+    } else {
+      Toast.showWithGravity(
+        'Please accept privacy policy and terms & conditions',
+        Toast.SHORT,
+        Toast.BOTTOM
+      );
+    }
   };
 
   // social login icons
@@ -71,6 +83,16 @@ function Signup() {
       default:
     }
   };
+
+  const onPressChecked = () => {
+    setIsChecked(!checked);
+  };
+
+  const onPressEye = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const socialIcons = Platform.OS === 'android' ? SocialIcons.slice(1, 4) : SocialIcons;
 
   return (
     <ScrollView style={styles.main}>
@@ -112,14 +134,17 @@ function Signup() {
             />
             <AppInput
               textInPutProps={{
-                style: { color: colors.b1 },
                 value: values.password,
-                placeholder: 'Enter Password',
-                keyboardType: 'email-address',
-                placeholderTextColor: colors.b4,
                 onChangeText: handleChange('password'),
-                secureTextEntry: true,
+                placeholder: 'Enter Password',
+                placeholderTextColor: colors.b4,
+                style: { color: colors.b1 },
+                secureTextEntry: showPassword,
+                enablesReturnKeyAutomatically: true,
               }}
+              eyeIconStyle={{ right: HP(0) }}
+              rightIcon={Icons.eye}
+              onPressEye={onPressEye}
               errorMessage={errors.password}
               touched={touched.password}
             />
@@ -131,27 +156,32 @@ function Signup() {
             />
 
             {/* privacy policy */}
-            <View style={styles.footerLine}>
-              <Text style={styles.descTxtStyle}>
-                {'By continuing you accept our '}
-              </Text>
+            <View style={styles.privacyPolicyContainer}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Terms', { screenId: 7 })}
-                style={{ height: HP(3) }}
                 activeOpacity={0.8}
+                onPress={onPressChecked}
+                style={styles.checkBox}
               >
-                <Text style={styles.descTxtBoldStyle}>{'Privacy Policy '}</Text>
+                {checked ? Icons.checked : Icons.greyUnChecked}
               </TouchableOpacity>
-              <Text style={styles.descTxtStyle}>
-                {' and '}
-              </Text>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('Terms', { screenId: 6 })}
-                style={{ height: HP(3) }}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.descTxtBoldStyle}>Term of Use</Text>
-              </TouchableOpacity>
+              <View style={styles.footerLine}>
+                <Text style={styles.descTxtStyle}>{'By continuing you accept our '}</Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Terms', { screenId: 7 })}
+                  style={{ height: HP(3) }}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.descTxtBoldStyle}>{'Privacy Policy '}</Text>
+                </TouchableOpacity>
+                <Text style={styles.descTxtStyle}>{' and '}</Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Terms', { screenId: 6 })}
+                  style={{ height: HP(3) }}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.descTxtBoldStyle}>Term of Use</Text>
+                </TouchableOpacity>
+              </View>
             </View>
 
             <View style={styles.orView}>
@@ -164,7 +194,7 @@ function Signup() {
 
             {/* social icons */}
             <View style={styles.otherSignInView}>
-              {SocialIcons?.map((item) => (
+              {socialIcons?.map((item) => (
                 <TouchableOpacity
                   activeOpacity={0.8}
                   onPress={() => onPressIcon(item?.id)}
@@ -209,13 +239,15 @@ const styles = StyleSheet.create({
     marginTop: WP(28),
   },
   footerLine: {
-    flexDirection: 'row', alignSelf: 'center'
+    flexDirection: 'row',
+    alignSelf: 'center',
+    top: HP(0.4),
+    marginStart: HP(0.5),
   },
   descTxtStyle: {
     fontFamily: family.Roboto_Light,
     fontSize: size.xtiny,
     color: colors.g23,
-
   },
   descTxtBoldStyle: {
     color: colors.g19,
@@ -273,5 +305,17 @@ const styles = StyleSheet.create({
     width: WP(8),
     height: WP(8),
     alignSelf: 'center',
+  },
+  checkBox: {
+    width: HP(2.5),
+    height: HP(2.5),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: HP(0.5),
+  },
+  privacyPolicyContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

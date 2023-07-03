@@ -41,6 +41,7 @@ function DeleteAccount() {
   const [confirm, setConfirm] = useState(false);
   const [confirmModal, setConfirmModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
 
   const formikRef = useRef();
 
@@ -74,6 +75,10 @@ function DeleteAccount() {
 
   const onPressContinue = () => {
     setConfirmModal(true);
+  };
+
+  const onPressEye = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -129,7 +134,12 @@ function DeleteAccount() {
                     value: values.password,
                     onChangeText: handleChange('password'),
                     placeholder: 'Enter password',
+                    secureTextEntry: showPassword,
+                    enablesReturnKeyAutomatically: true,
                   }}
+                  eyeIconStyle={{ right: HP(2) }}
+                  rightIcon={Icons.eye}
+                  onPressEye={onPressEye}
                   errorMessage={errors.password}
                   touched={touched.password}
                 />
@@ -181,7 +191,7 @@ const styles = StyleSheet.create({
     marginHorizontal: WP(7),
     color: colors.g19,
     fontFamily: family.Roboto_Regular,
-    fontSize: size.large,
+    fontSize: size.medium,
   },
   inputContainer: {
     marginHorizontal: WP(6),

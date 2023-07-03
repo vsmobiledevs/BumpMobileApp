@@ -12,11 +12,11 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
 import { debounce } from 'lodash';
 import Toast from 'react-native-simple-toast';
-import { Icons } from '../../../assets/icons';
+import React, { useEffect, useState } from 'react';
 import { HP, WP, appImages, colors, size } from '../../../shared/exporter';
+import { Icons } from '../../../assets/icons';
 import {
   MyStatusBar,
   NftsCard,
@@ -41,6 +41,7 @@ function Search({ navigation }) {
   const [getShortCuts, getShortCutsResponse] = useGetShortCutsMutation();
 
   const [isPaid, setIsPaid] = useState(false);
+  const [selectedMode, setSelectedMode] = useState(1);
   const [browsing, setBrowsing] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -49,10 +50,20 @@ function Search({ navigation }) {
   const [name, setName] = useState('');
   const [url, setUrl] = useState('');
   const [searchResults, setSearchResults] = useState(null);
-  const [Nfts, setNfts] = useState([]);
+  const [Nfts, setNfts] = useState([
+    {
+      id: 0,
+      name: 'Add Shortcut',
+      url: '',
+      favicon: '',
+    },
+  ]);
 
   useEffect(() => {
     getCreatedShortCuts();
+  }, []);
+
+  useEffect(() => {
     if (response?.isSuccess) {
       setSearchResults(response.data.search_results.items);
     }
@@ -132,6 +143,7 @@ function Search({ navigation }) {
         body.append('name', name);
         body.append('url', url);
         const createShortCutRes = await createShortCut(body);
+        console.log(createShortCutRes);
         if (createShortCutRes.data) {
           setShowModal(false);
           setIsLoading(false);
@@ -146,7 +158,10 @@ function Search({ navigation }) {
   const getCreatedShortCuts = async () => {
     const shortCuts = await getShortCuts();
     if (shortCuts.data) {
-      setNfts(shortCuts.data.shortcuts);
+      const newShortCuts = shortCuts.data.shortcuts.filter(
+        (shortcut) => !Nfts.some((obj) => obj.id === shortcut.id)
+      );
+      setNfts((current) => [...current, ...newShortCuts]);
     }
   };
 
@@ -163,7 +178,7 @@ function Search({ navigation }) {
       <MyStatusBar backgroundColor={colors.white} />
       <ImageBackground
         style={styles.homeBackground}
-        source={!isPaid ? appImages.homeBackgroundBlue : appImages.homeBackgroundOrange}
+        source={isPaid ? appImages.homeBackgroundBlue : appImages.homeBackgroundOrange}
       >
         <ImageBackground source={appImages.homeHead} style={styles.homeHead}>
           <View style={styles.premiumContainer}>
@@ -195,40 +210,42 @@ function Search({ navigation }) {
           }}
           onSelectSwitch={onSelectSwitch}
           isSearch={browsing}
-          onPressCross={() => setBrowsing('')}
+          selectedMode={selectedMode}
+          onPressCross={() => {
+            setBrowsing('');
+            if (isPaid) {
+              setSelectedMode(2);
+            } else {
+              setSelectedMode(1);
+            }
+          }}
         />
 
         {/* NFTs card container and search results */}
         {browsing === '' || searchResults === null ? (
           <View style={styles.innerContainer}>
-            <View style={styles.add}>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={onAddShortCut}
-                style={styles.iconContainer}
-              >
-                {Icons.add}
-              </TouchableOpacity>
-              <Text style={styles.iconText}>Add Shortcut</Text>
-            </View>
             <FlatList
-              data={Nfts}
-              key={Nfts.length > 4 ? 4 : 3}
-              numColumns={Nfts.length > 4 ? 4 : 3}
+              data={Nfts.slice().reverse()}
+              numColumns={4}
+              key={Nfts.length}
+              contentContainerStyle={{}}
               style={[styles.searchCardContainer, { height: HP(35) }]}
               keyExtractor={(item) => item?.id}
-              renderItem={({ item, index }) => (
-                <NftsCard
-                  key={item.id}
-                  item={item}
-                  index={index}
-                  arrayLength={Nfts.length}
-                  onPressIcon={() => onPressIcon(item)}
-                  onAddShortCut={onAddShortCut}
-                  onEditShortCut={() => onEditShortCut(item)}
-                  onRemoveShortCut={() => removeShortCut(item)}
-                />
-              )}
+              renderItem={({ item, index }) => {
+                const reversedIndex = Nfts.length - 1 - index;
+                return (
+                  <NftsCard
+                    key={item.id}
+                    item={item}
+                    index={reversedIndex}
+                    arrayLength={Nfts.length}
+                    onPressIcon={() => onPressIcon(item)}
+                    onAddShortCut={onAddShortCut}
+                    onEditShortCut={() => onEditShortCut(item)}
+                    onRemoveShortCut={() => removeShortCut(item)}
+                  />
+                );
+              }}
             />
           </View>
         ) : (
@@ -294,7 +311,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   inputStyle: {
-    color: colors.g25,
+    color: colors.b1,
     fontSize: HP(2),
   },
   inputContainer: {
@@ -329,7 +346,6 @@ const styles = StyleSheet.create({
     height: HP(30),
   },
   add: {
-    // width: WP(90),
     height: HP(12),
     alignItems: 'center',
   },

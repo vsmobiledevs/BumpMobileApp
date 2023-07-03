@@ -72,6 +72,8 @@ import Cross from './cross.svg';
 import FillPlus from './fillPlus.svg';
 import DDUp from './dropDownUp.svg';
 import DD from './dropDown.svg';
+import GreyUnChecked from './uncheckedGrey.svg';
+import Eye from './eye.svg';
 
 const Icons = {
   email: <Email alignSelf="center" />,
@@ -146,6 +148,8 @@ const Icons = {
   fillPlus: <FillPlus alignSelf="center" />,
   dDUp: <DDUp alignSelf="center" />,
   dD: <DD alignSelf="center" />,
+  greyUnChecked: <GreyUnChecked alignSelf="center" />,
+  eye: <Eye alignSelf="center" />,
 };
 
 export { Icons };

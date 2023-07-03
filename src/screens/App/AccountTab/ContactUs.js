@@ -12,18 +12,13 @@ import { useContactUsMutation } from '../../../redux/api/contact';
 import { ContactUsVS, contactUsV } from '../../../shared/utilities/validations';
 import { AppLoader } from '../../../components/AppLoader';
 
-
 function ContactUs() {
   const formikRef = useRef();
   const navigation = useNavigation();
-
-  const [contactUs, { isLoading, isSuccess }] = useContactUsMutation()
-
-
-  const [getImg, setGetImg] = useState(null)
+  const [getImg, setGetImg] = useState(null);
+  const [contactUs, { isLoading, isSuccess }] = useContactUsMutation();
 
   const handleApiCall = async (v) => {
-
     const body = new FormData();
     body.append('username', v?.username);
     body.append('email', v?.email);
@@ -32,24 +27,18 @@ function ContactUs() {
       body.append('contact_images[]', getImg);
     }
     await contactUs(body);
-
-
-  }
+  };
 
   useEffect(() => {
     if (isSuccess) {
       setGetImg(null);
       Toast.showWithGravity('Request Successfully Submit', Toast.SHORT, Toast.BOTTOM);
-      navigation.goBack()
+      navigation.goBack();
     }
-  }, [isSuccess, isLoading, navigation])
-
-
+  }, [isSuccess, isLoading, navigation]);
 
   if (isLoading) {
-    return (
-      <AppLoader loader_color={colors.g19} loading={isLoading} />
-    )
+    return <AppLoader loader_color={colors.g19} loading={isLoading} />;
   }
 
   return (
@@ -111,9 +100,7 @@ function ContactUs() {
                 touched={touched.body}
               />
 
-              <FileUpload
-                getData={setGetImg}
-              />
+              <FileUpload getData={setGetImg} />
 
               <AppButton
                 title="Send"
@@ -128,7 +115,6 @@ function ContactUs() {
       </ScrollView>
     </SafeAreaView>
   );
-
 }
 
 export default ContactUs;
@@ -140,7 +126,7 @@ const styles = StyleSheet.create({
   },
 
   miniContainer: {
-    marginTop: HP(5),
+    // marginTop: HP(5),
   },
 
   headingStyle: {

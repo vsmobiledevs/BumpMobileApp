@@ -79,6 +79,7 @@ export const AuthApis = createApi({
         url: `${PREFIX}${endpoints.changePassword}`,
         method: 'put',
         body: data,
+        headers: customHeaders,
       }),
     }),
     // forgot password
@@ -150,5 +151,5 @@ export const {
   useForgotPasswordMutation,
   useChangePasswordMutation,
   useTermsAndPrivacyMutation,
-  useSocialLoginMutation
+  useSocialLoginMutation,
 } = AuthApis;
