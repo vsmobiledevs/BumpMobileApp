@@ -128,6 +128,7 @@ function Signup() {
                 keyboardType: 'email-address',
                 placeholderTextColor: colors.b4,
                 onChangeText: handleChange('email'),
+                autoCapitalize: 'none',
               }}
               errorMessage={errors.email}
               touched={touched.email}
@@ -241,8 +242,8 @@ const styles = StyleSheet.create({
   footerLine: {
     flexDirection: 'row',
     alignSelf: 'center',
-    top: HP(0.4),
     marginStart: HP(0.5),
+    top: Platform.OS == 'android' ? HP(0.4) : HP(0.7),
   },
   descTxtStyle: {
     fontFamily: family.Roboto_Light,

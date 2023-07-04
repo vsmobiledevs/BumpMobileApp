@@ -121,6 +121,7 @@ function Login() {
                 placeholderTextColor: colors.b4,
                 onChangeText: handleChange('email'),
                 onblur: handleBlur('email'),
+                autoCapitalize: 'none',
               }}
               leftIcon={Icons.email}
               errorMessage={errors.email}
@@ -237,8 +238,8 @@ const styles = StyleSheet.create({
   footerLine: {
     flexDirection: 'row',
     alignSelf: 'center',
-    top: HP(0.4),
     marginStart: HP(0.5),
+    top: Platform.OS == 'android' ? HP(0.4) : HP(0.7),
   },
   descTxtStyle: {
     fontFamily: family.Roboto_Light,
