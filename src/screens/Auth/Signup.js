@@ -23,9 +23,10 @@ import {
   size,
   WP,
   HP,
+  onGoogle,
 } from '../../shared/exporter';
 import { SocialIcons } from '../../shared/utilities/staticInfo';
-import { useCreateUserMutation } from '../../redux/api/auth';
+import { useCreateUserMutation, useSocialLoginMutation } from '../../redux/api/auth';
 import { AppButton, AppInput } from '../../components';
 import { AppLoader } from '../../components/AppLoader';
 import { Icons } from '../../assets/icons';
@@ -33,6 +34,7 @@ import { Icons } from '../../assets/icons';
 function Signup() {
   // mutation
   const [createUser, response] = useCreateUserMutation();
+  const [socialLogin, res] = useSocialLoginMutation();
   const [checked, setIsChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
 
@@ -49,7 +51,7 @@ function Signup() {
     if (response?.isError) {
       Toast.showWithGravity(response?.error?.data?.message, Toast.SHORT, Toast.BOTTOM);
     }
-  }, [response.isLoading]);
+  }, [response.isLoading || res.isLoading]);
 
   // calling register mutation
   const handleSignup = async (values) => {
@@ -69,12 +71,22 @@ function Signup() {
     }
   };
 
+  // handle social login
+  const handleSocialLogin = async (provider) => {
+    const token = await onGoogle();
+    const body = new FormData();
+    body.append('provider', provider);
+    body.append('token', token);
+    await socialLogin(body);
+  };
+
   // social login icons
-  const onPressIcon = (id) => {
-    switch (id) {
+  const onPressIcon = (item) => {
+    switch (item.id) {
       case 0:
         break;
       case 1:
+        handleSocialLogin(item.name);
         break;
       case 2:
         break;
@@ -198,7 +210,7 @@ function Signup() {
               {socialIcons?.map((item) => (
                 <TouchableOpacity
                   activeOpacity={0.8}
-                  onPress={() => onPressIcon(item?.id)}
+                  onPress={() => onPressIcon(item)}
                   key={item?.id}
                 >
                   <Image source={item.icon} style={styles.socialIcon} />

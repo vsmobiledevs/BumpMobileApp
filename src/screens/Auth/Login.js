@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from 'react';
 import {
@@ -12,6 +13,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-simple-toast';
 import { Formik } from 'formik';
+import { Auth, Hub } from 'aws-amplify';
 import {
   HP,
   WP,
@@ -36,6 +38,8 @@ function Login() {
   const [loginUser, res] = useLoginUserMutation();
   const [checked, setIsChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
+  const [user, setUser] = useState(null);
+  const [customState, setCustomState] = useState(null);
 
   // handling response
   useEffect(() => {
@@ -46,6 +50,29 @@ function Login() {
       Toast.showWithGravity(res?.error?.data?.message, Toast.SHORT, Toast.BOTTOM);
     }
   }, [res.isLoading || response.isLoading]);
+
+  useEffect(() => {
+    const unsubscribe = Hub.listen('auth', ({ payload: { event, data } }) => {
+      switch (event) {
+        case 'signIn':
+          setUser(data);
+          break;
+        case 'signOut':
+          setUser(null);
+          break;
+        case 'customOAuthState':
+          setCustomState(data);
+      }
+    });
+
+    Auth.currentAuthenticatedUser()
+      .then((currentUser) => {
+        console.log('current user--', currentUser);
+      })
+      .catch(() => console.log('Not signed in'));
+
+    return unsubscribe;
+  }, []);
 
   // login user
   const handleLogin = async (values) => {
@@ -81,6 +108,9 @@ function Login() {
         handleSocialLogin(item.name);
         break;
       case 2:
+        Auth.federatedSignIn({
+          provider: 'LoginWithAmazon',
+        });
         break;
       case 3:
         break;
