@@ -9,7 +9,7 @@ import { CardDetail } from './CardDetail';
 function SelectPaymentMethod({ item, onPressCard, addAnotherBank }) {
   return (
     <View>
-      <View activeOpacity={0.8} style={styles.innerContainer}>
+      <TouchableOpacity onPress={onPressCard} activeOpacity={0.8} style={styles.innerContainer}>
         <View style={styles.selectorContainer}>
           <View style={styles.selector}>
             {item?.icon}
@@ -21,7 +21,7 @@ function SelectPaymentMethod({ item, onPressCard, addAnotherBank }) {
         </View>
         {item?.isUp && item?.id === 0 && <BankDetailCard addAnotherBank={addAnotherBank} />}
         {item?.isUp && item?.id === 1 && <CardDetail />}
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }

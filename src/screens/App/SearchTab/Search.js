@@ -12,9 +12,9 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
-import { debounce } from 'lodash';
-import Toast from 'react-native-simple-toast';
 import React, { useEffect, useState } from 'react';
+import Toast from 'react-native-simple-toast';
+import { debounce } from 'lodash';
 import { HP, WP, appImages, colors, size } from '../../../shared/exporter';
 import { Icons } from '../../../assets/icons';
 import {
@@ -34,22 +34,22 @@ import {
 } from '../../../redux/api/search';
 
 function Search({ navigation }) {
+  const [getShortCuts, getShortCutsResponse] = useGetShortCutsMutation();
   const [googleSearch, response] = useGoogleSearchMutation();
+  const [updateShortCuts] = useUpdateShortCutsMutation();
   const [createShortCut] = useCreateShortCutMutation();
   const [deleteShortCut] = useDeleteShortCutMutation();
-  const [updateShortCuts] = useUpdateShortCutsMutation();
-  const [getShortCuts, getShortCutsResponse] = useGetShortCutsMutation();
 
-  const [isPaid, setIsPaid] = useState(false);
+  const [searchResults, setSearchResults] = useState(null);
   const [selectedMode, setSelectedMode] = useState(1);
-  const [browsing, setBrowsing] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [browsing, setBrowsing] = useState('');
+  const [isPaid, setIsPaid] = useState(false);
   const [name, setName] = useState('');
   const [url, setUrl] = useState('');
-  const [searchResults, setSearchResults] = useState(null);
   const [Nfts, setNfts] = useState([
     {
       id: 0,
