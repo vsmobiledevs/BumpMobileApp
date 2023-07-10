@@ -90,6 +90,7 @@
     "@babel/preset-env": "^7.20.0",
     "@babel/preset-react": "^7.22.5",
     "@babel/runtime": "^7.20.0",
+    "@babel/types": "^7.22.5",
     "@tsconfig/react-native": "^2.0.2",
     "@types/jest": "^29.2.1",
     "@types/react": "^18.0.24",
