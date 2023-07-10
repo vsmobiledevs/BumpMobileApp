@@ -16,7 +16,6 @@ import { useAppSelector } from '../../../redux/store';
 
 function UserAccountScreen({ navigation }) {
   const { user } = useAppSelector((state) => state?.authSlice);
-  console.log(user);
   const dispatch = useDispatch(null);
 
   // open new screen

@@ -2,47 +2,62 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable new-cap */
 /* eslint-disable global-require */
-import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Linking, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { ethers } from 'ethers';
+import MetaMaskSDK from '@metamask/sdk';
+import _BackgroundTimer from 'react-native-background-timer';
 import { Icons } from '../../../assets/icons';
 import { AuthHeader, MetaMaskCard } from '../../../components';
 import { HP, MetaMasks, WP, colors, size } from '../../../shared/exporter';
 
-// const sdk = new MetaMaskSDK({
-//   openDeeplink: link => {
-//     Linking.openURL(link);
-//   },
-//   timer: BackgroundTimer,
-//   dappMetadata: {
-//     name: 'React Native Test Dapp',
-//     url: 'example.com',
-//   },
-// });
+const sdk = new MetaMaskSDK({
+  openDeeplink: (link) => {
+    Linking.openURL(link);
+  },
+  timer: _BackgroundTimer,
+  dappMetadata: {
+    name: 'React Native Test Dapp',
+    url: 'example.com',
+  },
+});
 
-// const ethereum = sdk.getProvider();
+const ethereum = sdk.getProvider();
 
-// const provider = new ethers.providers.Web3Provider(ethereum);
+const provider = new ethers.providers.Web3Provider(ethereum);
 
 function CustodialWallets({ navigation }) {
+  useEffect(() => {
+    ethereum.on('chainChanged', (chain) => {
+      console.log(chain);
+    });
+    ethereum.on('accountsChanged', (accounts) => {
+      console.log(accounts);
+    });
+    getBalance();
+  }, []);
 
-  // useEffect(() => {
-  //   ethereum.on('chainChanged', chain => {
-  //     console.log(chain);
-  //   });
-  //   ethereum.on('accountsChanged', accounts => {
-  //     console.log(accounts);
+  const getBalance = async () => {
+    if (!ethereum.selectedAddress) {
+      return;
+    }
+    try {
+      const balance = await provider.getBalance(ethereum.selectedAddress);
+      console.log('Balance:', balance);
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
 
-  //   });
-  // }, []);
-
-  // const connect = async () => {
-  //   try {
-  //     const result = await ethereum.request({ method: 'eth_requestAccounts' });
-  //     console.log('RESULT', result?.[0]);
-  //   } catch (e) {
-  //     console.log('ERROR', e);
-  //   }
-  // };
+  const connect = async () => {
+    try {
+      const result = await ethereum.request({ method: 'eth_requestAccounts' });
+      console.log('RESULT', result);
+      getBalance();
+    } catch (e) {
+      console.log('ERROR', e);
+    }
+  };
 
   // const exampleRequest = async () => {
   //   try {
@@ -169,13 +184,13 @@ function CustodialWallets({ navigation }) {
   const onPressItem = (item) => {
     switch (item.id) {
       case 0:
-        // connect()
+        connect();
         break;
 
       default:
         break;
     }
-  }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
