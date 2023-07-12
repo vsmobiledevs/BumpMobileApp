@@ -16,6 +16,7 @@ import { AuthApis } from './api/auth';
 import { ContactApis } from './api/contact';
 import rootReducer from './features';
 import { SearchApi } from './api/search';
+import { PaymentApis } from './api/payments';
 
 const persistConfig = {
   key: 'root',
@@ -33,7 +34,12 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat([AuthApis.middleware, SearchApi.middleware, ContactApis.middleware]),
+    }).concat([
+      AuthApis.middleware,
+      SearchApi.middleware,
+      ContactApis.middleware,
+      PaymentApis.middleware,
+    ]),
 });
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors

@@ -64,7 +64,7 @@ export const colors = {
   g30: '#C8C8C890',
   g31: '#D7D7D7',
   g32: '#BCBCBC',
-
+  g33: '#D6D6D6',
   // White colors
   white: '#ffffff',
   w1: '#ffffff80',
@@ -84,6 +84,7 @@ export const colors = {
   // green
 
   green: '#02C04E',
+  darkGreen: '#03A60A',
 
   // rgba colors
   t1: 'rgba(255, 255, 255, 0.2)',

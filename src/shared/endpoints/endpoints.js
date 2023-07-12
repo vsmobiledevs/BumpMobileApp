@@ -4,6 +4,8 @@ export const endpoints = {
   login: 'auth/login',
   changePassword: 'users/change_password',
   forgotPassword: 'users/forgot_password',
+  verifyOtp: 'users/verify_otp',
+  resetPassword: 'users/reset_password',
   updateUser: 'users/update_user',
   termsAndPrivacy: 'static_pages',
   faqs: 'faqs',
@@ -12,4 +14,8 @@ export const endpoints = {
   googleSearch: 'search_histories/google_search',
   createShortCut: 'shortcuts',
   contactUs: 'contacts',
+
+  // payment apis
+  addCard: 'user_cards',
+  deleteCard: 'user_cards/delete_a_card',
 };

@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Icons } from '../../assets/icons';
 import { HP, WP, colors, size } from '../../shared/exporter';
 
-function CardDetail({ onPressDelete }) {
-  const [accountNumber] = useState('1234 1234 1234 1234');
-
+function CardDetail({ onPressDelete, item }) {
   return (
     <View style={styles.container}>
       <View style={styles.titleContatiner}>
-        <Text style={styles.accountTitle}>Master Card</Text>
-        <TouchableOpacity activeOpacity={0.8} onPress={onPressDelete}>
+        <Text style={styles.accountTitle}>{item?.brand}</Text>
+        <TouchableOpacity activeOpacity={0.8} onPress={() => onPressDelete(item)}>
           {Icons.delete}
         </TouchableOpacity>
       </View>
-      <Text style={styles.accountNumber}>{accountNumber.replace(/.(?=.{4})/g, 'x')}</Text>
+      <Text style={styles.accountNumber}>{`**** **** **** ${item?.last4}`}</Text>
     </View>
   );
 }

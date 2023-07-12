@@ -17,7 +17,7 @@ const sdk = new MetaMaskSDK({
   },
   timer: _BackgroundTimer,
   dappMetadata: {
-    name: 'React Native Test Dapp',
+    name: 'Bump mobile app',
     url: 'example.com',
   },
 });

@@ -20,6 +20,9 @@ import DataTabs from './dataTabs';
 import SubscriptionPlan from '../screens/App/AccountTab/SubscriptionPlan';
 import EarningTabs from '../screens/App/AccountTab/Earnings/Earnings';
 import { SelectMethod } from '../screens/App/AccountTab/PaymentMethod/SelectMethod';
+import SelectPaymentMethod from '../screens/App/AccountTab/NoTabs/SelectPaymentMethod';
+import { AddCardScreen } from '../screens/App/AccountTab/NoTabs/AddCardScreen';
+import WithdrawAmount from '../screens/App/AccountTab/Earnings/WithdrawAmount';
 
 const AppStack = createStackNavigator();
 
@@ -37,7 +40,10 @@ function MainAppNav() {
         <AppStack.Screen name="ResetPassword" component={ResetPassword} />
         <AppStack.Screen name="TaxDocument" component={TaxDocument} />
         <AppStack.Screen name="SubscriptionPlan" component={SubscriptionPlan} />
+        <AppStack.Screen name="SelectPayment" component={SelectPaymentMethod} />
+        <AppStack.Screen name="AddCard" component={AddCardScreen} />
         <AppStack.Screen name="EarningTab" component={EarningTabs} />
+        <AppStack.Screen name="WithdrawAmount" component={WithdrawAmount} />
         <AppStack.Screen name="SelectMethod" component={SelectMethod} />
       </AppStack.Navigator>
     );

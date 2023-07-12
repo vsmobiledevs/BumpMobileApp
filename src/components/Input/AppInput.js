@@ -16,6 +16,7 @@ function AppInput({
   errorMessage,
   textInPutProps,
   containerStyle,
+  errorStyle,
 }) {
   return (
     <View style={[styles.mainContainer]}>
@@ -31,7 +32,9 @@ function AppInput({
           {rightIcon}
         </TouchableOpacity>
       </View>
-      {touched && errorMessage && <Text style={styles.error}>{errorMessage || ''}</Text>}
+      {touched && errorMessage && (
+        <Text style={[styles.error, errorStyle]}>{errorMessage || ''}</Text>
+      )}
     </View>
   );
 }

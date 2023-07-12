@@ -74,6 +74,11 @@ import DDUp from './dropDownUp.svg';
 import DD from './dropDown.svg';
 import GreyUnChecked from './uncheckedGrey.svg';
 import Eye from './eye.svg';
+import GooglePay from './googlePay.svg';
+import ApplePay from './applePay.svg';
+import CardPay from './cardPay.svg';
+import Radio from './radio.svg';
+import RadioFill from './radioFill.svg';
 
 const Icons = {
   email: <Email alignSelf="center" />,
@@ -150,6 +155,11 @@ const Icons = {
   dD: <DD alignSelf="center" />,
   greyUnChecked: <GreyUnChecked alignSelf="center" />,
   eye: <Eye alignSelf="center" />,
+  googlePay: <GooglePay alignSelf="center" />,
+  applePay: <ApplePay alignSelf="center" />,
+  cardPay: <CardPay alignSelf="center" />,
+  radio: <Radio alignSelf="center" />,
+  radioFill: <RadioFill alignSelf="center" />,
 };
 
 export { Icons };
