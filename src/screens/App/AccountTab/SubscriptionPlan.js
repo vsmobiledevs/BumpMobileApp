@@ -111,11 +111,9 @@ function SubscriptionPlan({ navigation }) {
 
         <AppButton
           title="Ok"
-          touchableOpacity={
-            {
-              // onPress: () => handleSubmit(),
-            }
-          }
+          touchableOpacity={{
+            onPress: () => navigation.navigate('SelectPayment'),
+          }}
         />
       </ScrollView>
     </SafeAreaView>

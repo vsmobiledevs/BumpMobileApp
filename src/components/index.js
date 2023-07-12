@@ -32,6 +32,7 @@ export { SelectPaymentMethod } from './Cards/SelectPaymentMethod';
 export { BankDetailCard } from './Cards/BankDetailCard';
 export { CardDetail } from './Cards/CardDetail';
 export { SearchCard } from './Cards/SearchCard';
+export { PaymentMethod } from './Cards/PaymentMethod';
 
 // Modal
 export { RNModal } from './Modal/RNModal';

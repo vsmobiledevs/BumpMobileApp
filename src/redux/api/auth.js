@@ -90,6 +90,22 @@ export const AuthApis = createApi({
         body: data,
       }),
     }),
+    // verify otp
+    varifyOtp: builder.mutation({
+      query: (data) => ({
+        url: `${PREFIX}${endpoints.verifyOtp}`,
+        method: 'post',
+        body: data,
+      }),
+    }),
+    // reset password
+    resetPassword: builder.mutation({
+      query: (data) => ({
+        url: `${PREFIX}${endpoints.resetPassword}`,
+        method: 'post',
+        body: data,
+      }),
+    }),
     // delete account
     deleteAccount: builder.mutation({
       query: ({ body, id }) => ({
@@ -149,6 +165,8 @@ export const {
   useUpdateUserMutation,
   useDeleteAccountMutation,
   useForgotPasswordMutation,
+  useVarifyOtpMutation,
+  useResetPasswordMutation,
   useChangePasswordMutation,
   useTermsAndPrivacyMutation,
   useSocialLoginMutation,

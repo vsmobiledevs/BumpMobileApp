@@ -96,6 +96,15 @@ export const myDataFields = {
   ],
 };
 
+export const cardDetails = {
+  cardNumber: '',
+  expiryDate: '',
+  cvv: '',
+  nameOnCard: '',
+  address: '',
+  country: '',
+};
+
 export const LoginVS = Yup.object().shape({
   email: Yup.string()
     .matches(emailRegex, 'Please provide a valid email address')
@@ -188,4 +197,13 @@ export const myDataVS = Yup.object().shape({
   smoking: Yup.string(),
   weight: Yup.string(),
   interests: Yup.string(),
+});
+
+export const cardDetailsVS = Yup.object().shape({
+  cardNumber: Yup.string().label('Card number').max(16).required(),
+  expiryDate: Yup.string().required('Expiry Date is Required'),
+  cvv: Yup.string().label('CVC').min(3).max(4).required(),
+  nameOnCard: Yup.string().label('Name on card').required(),
+  address: Yup.string(),
+  country: Yup.string().required('Country is Required'),
 });

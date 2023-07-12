@@ -12,7 +12,7 @@ export default function Earnings({ navigation }) {
     <SafeAreaView style={styles.mainContainer}>
       <AuthHeader left={Icons.leftArrow} onPressLeft={() => navigation.goBack()} />
       <View style={styles.inner}>
-        <EarningTabs />
+        <EarningTabs navigation={navigation} />
       </View>
     </SafeAreaView>
   );

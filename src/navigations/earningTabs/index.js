@@ -7,7 +7,7 @@ import { HP, WP, colors } from '../../shared/exporter';
 import { PayoutTab } from '../../screens/App/AccountTab/Earnings/PayoutsTab';
 import { EarningsTab } from '../../screens/App/AccountTab/Earnings/EarningsTab';
 
-export default function EarningTabs() {
+export default function EarningTabs({ navigation }) {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'earnings', title: 'Earnings' },
@@ -39,7 +39,7 @@ export default function EarningTabs() {
   const renderScene = ({ route }) => {
     switch (route.key) {
       case 'earnings':
-        return <EarningsTab />;
+        return <EarningsTab navigation={navigation} />;
       case 'payouts':
         return <PayoutTab />;
       default:

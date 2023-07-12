@@ -1,15 +1,17 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable no-shadow */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Icons } from '../../assets/icons';
-import { HP, WP, colors } from '../../shared/exporter';
+import { HP, WP, colors, size } from '../../shared/exporter';
 import { BankDetailCard } from './BankDetailCard';
 import { CardDetail } from './CardDetail';
 
-function SelectPaymentMethod({ item, onPressCard, addAnotherBank }) {
+function SelectPaymentMethod({ item, onPressCard, addAnotherBank, userCards, deleteCard }) {
   return (
     <View>
-      <TouchableOpacity onPress={onPressCard} activeOpacity={0.8} style={styles.innerContainer}>
+      <View style={styles.innerContainer}>
         <View style={styles.selectorContainer}>
           <View style={styles.selector}>
             {item?.icon}
@@ -20,8 +22,12 @@ function SelectPaymentMethod({ item, onPressCard, addAnotherBank }) {
           </TouchableOpacity>
         </View>
         {item?.isUp && item?.id === 0 && <BankDetailCard addAnotherBank={addAnotherBank} />}
-        {item?.isUp && item?.id === 1 && <CardDetail />}
-      </TouchableOpacity>
+        {item?.isUp && item?.id === 1 && userCards.length > 0
+          ? userCards.map((item, index) => (
+              <CardDetail key={index} item={item} onPressDelete={deleteCard} />
+            ))
+          : item?.isUp && item?.id === 1 && <Text style={styles.noCards}>No Cards Found!</Text>}
+      </View>
     </View>
   );
 }
@@ -59,6 +65,13 @@ const styles = StyleSheet.create({
   },
   icon: {
     left: HP(1.5),
+    padding: 10,
+  },
+  noCards: {
+    alignSelf: 'center',
+    fontSize: size.tiny,
+    marginTop: HP(2),
+    padding: HP(1),
   },
 });
 

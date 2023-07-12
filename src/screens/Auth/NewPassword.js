@@ -1,21 +1,39 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, View, SafeAreaView } from 'react-native';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Formik } from 'formik';
-import { AppButton, AppInput, AuthHeader } from '../../components';
+import Toast from 'react-native-simple-toast';
+import { AppButton, AppInput, AppLoader, AuthHeader } from '../../components';
 import { Icons } from '../../assets/icons';
 import { HP, WP, colors } from '../../shared/exporter';
 import SuccessModal from '../../components/Modal/SuccessModal';
 import { AuthHeading } from '../../components/authHeading';
 import { NewPassVS, newPassFormFields } from '../../shared/utilities/validations';
+import { useResetPasswordMutation } from '../../redux/api/auth';
 
-function NewPassword() {
+function NewPassword({ route }) {
+  const [resetPassword, response] = useResetPasswordMutation();
   const formikRef = useRef();
   const navigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
 
-  const handleResetPass = () => {
-    setShowModal(true);
+  useEffect(() => {
+    if (response?.isSuccess) {
+      setShowModal(true);
+      Toast.showWithGravity(response.data.message, Toast.SHORT, Toast.BOTTOM);
+    }
+    if (response?.isError) {
+      Toast.showWithGravity(response?.error?.data?.message, Toast.SHORT, Toast.BOTTOM);
+    }
+  }, [response.isLoading]);
+
+  const handleResetPass = async (values) => {
+    const body = new FormData();
+    body.append('email', route.params.email);
+    body.append('password', values.password);
+    body.append('password_confirmation', values.confirmPassword);
+    await resetPassword(body);
   };
 
   return (
@@ -71,9 +89,10 @@ function NewPassword() {
       {/* success modal */}
       <SuccessModal
         show={showModal}
-        onLoginBackPress={() => setShowModal(false)}
-        onTouchCancel={() => setShowModal(false)}
+        onLoginBackPress={() => navigation.replace('auth')}
+        // onTouchCancel={() => setShowModal(false)}
       />
+      <AppLoader loader_color={colors.g19} loading={response?.isLoading} />
     </SafeAreaView>
   );
 }

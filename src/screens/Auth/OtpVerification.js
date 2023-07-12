@@ -3,30 +3,57 @@
 /* eslint-disable react/no-unescaped-entities */
 import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
+import Toast from 'react-native-simple-toast';
 import { useNavigation } from '@react-navigation/native';
 import { CodeField, useClearByFocusCell } from 'react-native-confirmation-code-field';
-import { AuthHeader } from '../../components';
+import { AppLoader, AuthHeader } from '../../components';
 import { HP, colors, size, WP } from '../../shared/exporter';
 import { Icons } from '../../assets/icons';
 import { AuthHeading } from '../../components/authHeading';
+import { useVarifyOtpMutation } from '../../redux/api/auth';
 
-function OtpVerification() {
+function OtpVerification({ route }) {
+  const [varifyOtp, response] = useVarifyOtpMutation();
   const ref = useRef();
   const navigation = useNavigation();
   const [value, setValue] = useState('');
 
   // navigate when user enter OTP
   useEffect(() => {
-    if (value?.length === 4) {
-      navigation.navigate('NewPassword');
-      setValue('');
+    if (value.length > 0) {
+      if (value?.length === 4) {
+        otpVerification();
+      } else {
+        Toast.showWithGravity('Please enter valid OTP', Toast.SHORT, Toast.BOTTOM);
+      }
     }
-  }, [value]);
+  }, [value.length === 4]);
+
+  useEffect(() => {
+    if (response?.isSuccess) {
+      navigation.navigate('NewPassword', {
+        email: route.params.email,
+      });
+      setValue('');
+      Toast.showWithGravity(response.data.message, Toast.SHORT, Toast.BOTTOM);
+    }
+    if (response?.isError) {
+      Toast.showWithGravity(response?.error?.data?.message, Toast.SHORT, Toast.BOTTOM);
+    }
+  }, [response.isLoading]);
 
   const [codeFieldProps, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
+
+  const otpVerification = async () => {
+    const body = new FormData();
+    body.append('email', route.params.email);
+    body.append('otp', value);
+    await varifyOtp(body);
+  };
+
   return (
     <SafeAreaView style={styles.main}>
       <AuthHeader left={Icons.backIcon} onPressLeft={() => navigation.goBack()} />
@@ -69,6 +96,8 @@ function OtpVerification() {
           <Text style={[styles.footer]}> Resend</Text>
         </TouchableOpacity>
       </View>
+
+      <AppLoader loader_color={colors.g19} loading={response?.isLoading} />
     </SafeAreaView>
   );
 }

@@ -1,20 +1,42 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { StyleSheet, View, SafeAreaView } from 'react-native';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Formik } from 'formik';
 import Toast from 'react-native-simple-toast';
 import { useNavigation } from '@react-navigation/native';
 import { forgotPassFormFields, ForgotPassVS, colors, WP, HP } from '../../shared/exporter';
 import { Icons } from '../../assets/icons';
-import { AppButton, AppInput, AuthHeader } from '../../components';
+import { AppButton, AppInput, AppLoader, AuthHeader } from '../../components';
 import { AuthHeading } from '../../components/authHeading';
+import { useForgotPasswordMutation } from '../../redux/api/auth';
 
 function ForgotPassword() {
+  const [forgotPassword, response] = useForgotPasswordMutation();
   const navigation = useNavigation();
   const formikRef = useRef();
+  const [email, setEmail] = useState(null);
 
-  const handleForgotPass = () => {
-    Toast.showWithGravity('Twillo Account Blocker', Toast.SHORT, Toast.BOTTOM);
-    // navigation.navigate('OtpVerification');
+  useEffect(() => {
+    if (response?.isSuccess) {
+      console.log(response.data);
+      navigation.navigate('OtpVerification', {
+        email,
+      });
+      Toast.showWithGravity(response.data.message, Toast.SHORT, Toast.BOTTOM);
+    }
+    if (response?.isError) {
+      Toast.showWithGravity(response?.error?.data?.message, Toast.SHORT, Toast.BOTTOM);
+    }
+  }, [response.isLoading]);
+
+  const handleForgotPass = async (values, resetForm) => {
+    const body = new FormData();
+    body.append('email', values.email);
+    setEmail(values.email);
+    setTimeout(() => {
+      resetForm();
+    }, 3000);
+    await forgotPassword(body);
   };
 
   return (
@@ -27,8 +49,8 @@ function ForgotPassword() {
       <Formik
         innerRef={formikRef}
         initialValues={forgotPassFormFields}
-        onSubmit={(values) => {
-          handleForgotPass(values);
+        onSubmit={(values, { resetForm }) => {
+          handleForgotPass(values, resetForm);
         }}
         validationSchema={ForgotPassVS}
       >
@@ -60,6 +82,8 @@ function ForgotPassword() {
           </>
         )}
       </Formik>
+
+      <AppLoader loader_color={colors.g19} loading={response?.isLoading} />
     </SafeAreaView>
   );
 }
